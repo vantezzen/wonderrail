@@ -16,3 +16,10 @@ export function getDurationFromGeoJson(length: string) {
   const [hours, minutes] = length.split(" ");
   return parseInt(hours) * 60 + parseInt(minutes);
 }
+
+export function getDurationFromInterrail(duration: {
+  hours: number;
+  minutes: number;
+}) {
+  return (duration.hours * 60 + duration.minutes) * 60 * 1000;
+}

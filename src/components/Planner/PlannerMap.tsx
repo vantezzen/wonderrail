@@ -5,16 +5,16 @@ import Map from "react-map-gl";
 import maplibregl from "maplibre-gl";
 import {
   GeoCity,
+  InterrailLocation,
   InvalidRide,
   Journey,
-  JourneyLocation,
   JourneyRide,
+  JourneyStay,
 } from "@/lib/types";
 import DeckGL from "@deck.gl/react/typed";
 import { ArcLayer, PathLayer } from "@deck.gl/layers/typed";
 import { HexagonLayer } from "@deck.gl/aggregation-layers/typed";
 import Planner from "@/lib/Journey/Planner";
-import { journeyLocationToGeoCity } from "@/lib/utils/planner";
 import { getDistanceFromLatLonInKm } from "@/lib/utils/coordinates";
 
 function PlannerMap({ planner }: { planner: Planner }) {
@@ -38,28 +38,28 @@ function PlannerMap({ planner }: { planner: Planner }) {
     });
   }
 
-  const startingLocation = (planner.journey.steps[0] as JourneyLocation)
-    ?.location ||
-    (planner.journey.steps[0] as JourneyRide)?.start || { lat: 48, lng: 2 };
-
-  const lastLocation = planner.journey.steps[
+  const firstStay = (planner.journey.steps[0] as JourneyStay)?.location || {
+    lat: 48,
+    lng: 2,
+  };
+  const lastStay = planner.journey.steps[
     planner.journey.steps.length - 1
-  ] as JourneyLocation;
+  ] as JourneyStay;
 
   const [selectedLocation, setSelectedLocation] =
-    React.useState<GeoCity | null>(null);
+    React.useState<InterrailLocation | null>(null);
   useEffect(() => {
-    if (!lastLocation) return;
-    setSelectedLocation(journeyLocationToGeoCity(lastLocation));
-  }, [lastLocation]);
+    if (!lastStay) return;
+    setSelectedLocation(lastStay.location);
+  }, [lastStay]);
   const [isHoveringCity, setIsHoveringCity] = React.useState(false);
 
   return (
     <div className="min-h-screen w-full relative">
       <DeckGL
         initialViewState={{
-          latitude: startingLocation.lat || 48,
-          longitude: startingLocation.lng || 2,
+          latitude: firstStay?.coordinates?.lat || 48,
+          longitude: firstStay?.coordinates?.lng || 2,
           zoom: 4,
           pitch: 30,
         }}
@@ -88,14 +88,8 @@ function PlannerMap({ planner }: { planner: Planner }) {
             pickable: false,
             getWidth: 2,
             getHeight: 0.1,
-            getSourcePosition: (d) => [
-              d.coordinates[0].lng,
-              d.coordinates[0].lat,
-            ],
-            getTargetPosition: (d) => [
-              d.coordinates[1].lng,
-              d.coordinates[1].lat,
-            ],
+            getSourcePosition: (d) => [d.from.lng, d.from.lat],
+            getTargetPosition: (d) => [d.to.lng, d.to.lat],
             getSourceColor: (d) => [100, 100, 100],
             getTargetColor: (d) => [100, 100, 100],
           }),
@@ -103,24 +97,26 @@ function PlannerMap({ planner }: { planner: Planner }) {
           // Locations
           new HexagonLayer({
             id: "journey-locations",
-            data: planner.getLocations(),
+            data: planner.getCities(),
             pickable: true,
             extruded: true,
             radius: 20000,
             elevationScale: 1,
-            getPosition: (d) => [d.location.lng, d.location.lat],
+            getPosition: (d) => [d.coordinates.lng, d.coordinates.lat],
             getColorWeight: (d) => {
               if (
-                selectedLocation?.location &&
+                selectedLocation?.coordinates &&
                 getDistanceFromLatLonInKm(
                   d.location,
-                  selectedLocation.location
+                  selectedLocation.coordinates
                 ) < 50
               )
                 return 1;
               if (
-                getDistanceFromLatLonInKm(d.location, lastLocation.location) <
-                50
+                getDistanceFromLatLonInKm(
+                  d.location,
+                  lastStay.location.coordinates
+                ) < 50
               )
                 return 2;
               return 0;
@@ -166,12 +162,12 @@ function PlannerMap({ planner }: { planner: Planner }) {
             if (
               selectedLocation &&
               getDistanceFromLatLonInKm(
-                selectedLocation.location,
-                lastLocation.location
+                selectedLocation.coordinates,
+                lastStay.location.coordinates
               ) < 50
             ) {
               try {
-                planner.addCity(location);
+                planner.addLocation(location);
               } catch (e) {
                 console.log(e);
               }

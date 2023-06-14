@@ -2,7 +2,7 @@ import Planner from "@/lib/Journey/Planner";
 import { JourneyStep } from "@/lib/types";
 import React, { forwardRef } from "react";
 import JourneyRide from "./JourneyRide";
-import JourneyLocation from "./JourneyLocation";
+import JourneyStayDisplay from "./JourneyStayDisplay";
 import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
 import InvalidJourneyStep from "./InvalidJourneyStep";
 
@@ -20,11 +20,11 @@ function JourneyStep({
   if (step.type === "ride") {
     if (isDragging) return null;
     return <JourneyRide key={step.id} ride={step} />;
-  } else if (step.type === "location") {
+  } else if (step.type === "stay") {
     return (
-      <JourneyLocation
+      <JourneyStayDisplay
         key={step.id}
-        step={step}
+        stay={step}
         planner={planner}
         dragHandleProps={dragHandleProps}
       />

@@ -11,12 +11,25 @@ export const JourneyTimerangeSchema = z.object({
   end: z.date(),
 });
 
-export const JourneyLocationSchema = z.object({
-  type: z.literal("location"),
+export const InterrailLocationSchema = z.object({
   id: z.string(),
   name: z.string(),
-  location: CoordinateSchema,
+  coordinates: CoordinateSchema,
+  interrailId: z.string(),
+});
+
+export const JourneyStaySchema = z.object({
+  type: z.literal("stay"),
+  id: z.string(),
+  location: InterrailLocationSchema,
   timerange: JourneyTimerangeSchema,
+});
+
+export const InterrailLineSchema = z.object({
+  id: z.string(),
+  from: CoordinateSchema,
+  to: CoordinateSchema,
+  duration: z.string(),
 });
 
 export const JourneyRideSchema = z.object({
@@ -37,7 +50,7 @@ export const InvalidRideSchema = z.object({
 });
 
 export const JourneyStepSchema = z.union([
-  JourneyLocationSchema,
+  JourneyStaySchema,
   JourneyRideSchema,
   InvalidRideSchema,
 ]);
@@ -72,7 +85,9 @@ export const EXAMPLE_JOURNEY: Journey = {
 
 export type Coordinate = z.infer<typeof CoordinateSchema>;
 export type JourneyTimerange = z.infer<typeof JourneyTimerangeSchema>;
-export type JourneyLocation = z.infer<typeof JourneyLocationSchema>;
+export type InterrailLocation = z.infer<typeof InterrailLocationSchema>;
+export type JourneyStay = z.infer<typeof JourneyStaySchema>;
+export type InterrailLine = z.infer<typeof InterrailLineSchema>;
 export type JourneyRide = z.infer<typeof JourneyRideSchema>;
 export type JourneyStep = z.infer<typeof JourneyStepSchema>;
 export type Journey = z.infer<typeof JourneySchema>;

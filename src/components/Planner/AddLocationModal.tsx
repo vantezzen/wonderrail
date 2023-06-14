@@ -11,18 +11,20 @@ import {
 } from "../ui/command";
 import { Button } from "../ui/button";
 import { Loader2, Plus } from "lucide-react";
-import { InterrailStation } from "@/lib/Journey/Interrail";
+import { InterrailLocation } from "@/lib/types";
+import { useDebounce } from "use-debounce";
 
 function AddLocationModal({ planner }: { planner: Planner }) {
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const [isLoadingStations, setIsLoadingStations] = React.useState(false);
-  const [interrailStations, setInterrailStations] = React.useState<
-    InterrailStation[]
+  const [isLoadingLocations, setIsLoadingLocations] = React.useState(false);
+  const [interrailLocations, setInterrailLocations] = React.useState<
+    InterrailLocation[]
   >([]);
-  const [search, setSearch] = React.useState("");
+  const [searchRaw, setSearch] = React.useState("");
+  const [search] = useDebounce(searchRaw, 1000);
 
-  const locations = planner.getLocations();
+  const locations = planner.getCities();
 
   useEffect(() => {
     if (planner.journey.steps.length === 0) {
@@ -32,14 +34,14 @@ function AddLocationModal({ planner }: { planner: Planner }) {
 
   useEffect(() => {
     if (search.length < 3) return;
-    setIsLoadingStations(true);
+    setIsLoadingLocations(true);
     planner.interrail
       .searchStations(search)
       .then((stations) => {
-        setInterrailStations(stations);
+        setInterrailLocations(stations);
       })
       .finally(() => {
-        setIsLoadingStations(false);
+        setIsLoadingLocations(false);
       });
   }, [search]);
 
@@ -65,46 +67,46 @@ function AddLocationModal({ planner }: { planner: Planner }) {
 
         <CommandInput
           placeholder="Search..."
-          value={search}
+          value={searchRaw}
           onValueChange={setSearch}
         />
 
-        {isLoadingStations && (
+        {isLoadingLocations && (
           <Loader2 className="animate-spin my-6 mx-auto" size={32} />
         )}
 
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
 
-          {interrailStations.length > 0 && (
+          {interrailLocations.length > 0 && (
             <CommandGroup heading="Search results">
-              {interrailStations.map((station) => (
+              {interrailLocations.map((station) => (
                 <CommandItem
                   key={station.id}
                   onSelect={() => {
-                    planner.addCity(station);
+                    // planner.addCity(station);
                     setIsOpen(false);
                   }}
                 >
-                  {station.station}
+                  {station.name}
                 </CommandItem>
               ))}
             </CommandGroup>
           )}
 
-          <CommandGroup heading="Most popular">
+          {/* <CommandGroup heading="Most popular">
             {locations.map((location) => (
               <CommandItem
                 key={location.id}
                 onSelect={() => {
-                  planner.addCity(location);
+                  // planner.addLocation(location);
                   setIsOpen(false);
                 }}
               >
                 {location.name}
               </CommandItem>
             ))}
-          </CommandGroup>
+          </CommandGroup> */}
         </CommandList>
       </CommandDialog>
     </>

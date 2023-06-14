@@ -1,6 +1,6 @@
 import { Journey } from "@/lib/types";
 import React from "react";
-import JourneyLocation from "./JourneyLocation";
+import JourneyStayDisplay from "./JourneyStayDisplay";
 import JourneyRide from "./JourneyRide";
 import Planner from "@/lib/Journey/Planner";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
@@ -15,10 +15,7 @@ function JourneySteps({ planner }: { planner: Planner }) {
       onDragEnd={(result) => {
         setIsDragging(false);
         if (!result.destination) return;
-        planner.moveLocationPosition(
-          result.source.index,
-          result.destination.index
-        );
+        planner.moveStayPosition(result.source.index, result.destination.index);
       }}
     >
       <Droppable type="COLUMN" droppableId="journey-steps">
@@ -33,7 +30,7 @@ function JourneySteps({ planner }: { planner: Planner }) {
                 key={step.id}
                 draggableId={step.type + step.id}
                 index={index}
-                isDragDisabled={step.type !== "location"}
+                isDragDisabled={step.type !== "stay"}
               >
                 {(provided) => (
                   <div

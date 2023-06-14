@@ -1,4 +1,3 @@
-import { JourneyLocation as JourneyLocationType } from "@/lib/types";
 import React from "react";
 import {
   Card,
@@ -12,29 +11,30 @@ import Planner from "@/lib/Journey/Planner";
 import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
 import { ChevronsUpDown, MoreVertical, Trash } from "lucide-react";
 import { Button } from "../ui/button";
+import { JourneyStay } from "@/lib/types";
 
-function JourneyLocation({
-  step,
+function JourneyStayDisplay({
+  stay,
   planner,
   dragHandleProps,
 }: {
-  step: JourneyLocationType;
+  stay: JourneyStay;
   planner: Planner;
   dragHandleProps?: DraggableProvidedDragHandleProps;
 }) {
-  const days = daysBetween(step.timerange.start, step.timerange.end);
+  const days = daysBetween(stay.timerange.start, stay.timerange.end);
   return (
     <Card>
       <div className="flex items-center text-slate-600">
         <CardHeader className="w-full">
-          <CardTitle className="text-slate-400">{step.name}</CardTitle>
+          <CardTitle className="text-slate-400">{stay.location.name}</CardTitle>
           <CardDescription className="flex justify-between text-slate-600">
             <span>
               {days} {days > 1 ? "days" : "day"}
             </span>
             <span className="font-medium" suppressHydrationWarning>
-              {step.timerange.start.toLocaleDateString()} -{" "}
-              {step.timerange.end.toLocaleDateString()}
+              {stay.timerange.start.toLocaleDateString()} -{" "}
+              {stay.timerange.end.toLocaleDateString()}
             </span>
           </CardDescription>
         </CardHeader>
@@ -45,7 +45,7 @@ function JourneyLocation({
             </Button>
           </div>
           <Button
-            onClick={() => planner.removeStep(step)}
+            onClick={() => planner.removeStep(stay)}
             variant="ghost"
             size="sm"
           >
@@ -59,4 +59,4 @@ function JourneyLocation({
   );
 }
 
-export default JourneyLocation;
+export default JourneyStayDisplay;
