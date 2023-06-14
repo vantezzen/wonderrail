@@ -1,10 +1,10 @@
-import Planner from "@/components/Planner";
+import PlannerComponent from "@/components/Planner";
 import React from "react";
 
 function PlannerPage() {
   return (
     <div>
-      <Planner />
+      <PlannerComponent />
     </div>
   );
 }

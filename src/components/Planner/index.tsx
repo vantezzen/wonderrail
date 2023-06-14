@@ -1,18 +1,35 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import PlannerMap from "./PlannerMap";
 import Heading from "../Various/Heading";
+import JourneySteps from "./JourneySteps";
+import { EXAMPLE_JOURNEY } from "@/lib/types";
+import Planner from "@/lib/Journey/Planner";
 
-function Planner() {
+function PlannerComponent() {
+  const [planner, setPlanner] = React.useState(
+    () => new Planner(EXAMPLE_JOURNEY)
+  );
+  const [, forceUpdate] = React.useState({});
+  useEffect(() => {
+    const update = () => forceUpdate({});
+    planner.on("change", update);
+    return () => {
+      planner.off("change", update);
+    };
+  }, [planner]);
+
   return (
     <div className="grid grid-cols-3">
       <div className="col-span-2">
-        <PlannerMap />
+        <PlannerMap planner={planner} />
       </div>
-      <div className="p-6">
+      <div className="p-6 overflow-y-auto h-screen" suppressHydrationWarning>
         <Heading>Your trip</Heading>
+        <JourneySteps planner={planner} />
       </div>
     </div>
   );
 }
 
-export default Planner;
+export default PlannerComponent;

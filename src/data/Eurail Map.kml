@@ -1,0 +1,2321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Eurail Map</name>
+    <description/>
+    <Style id="icon-1569-1A237E-nodesc-normal">
+      <IconStyle>
+        <color>ff7e231a</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="icon-1569-1A237E-nodesc-highlight">
+      <IconStyle>
+        <color>ff7e231a</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="icon-1569-1A237E-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1569-1A237E-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1569-1A237E-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1716-FBC02D-nodesc-normal">
+      <IconStyle>
+        <color>ff2dc0fb</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="icon-1716-FBC02D-nodesc-highlight">
+      <IconStyle>
+        <color>ff2dc0fb</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="icon-1716-FBC02D-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1716-FBC02D-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1716-FBC02D-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-1A237E-3325-normal">
+      <LineStyle>
+        <color>ff7e231a</color>
+        <width>3.325</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-1A237E-3325-highlight">
+      <LineStyle>
+        <color>ff7e231a</color>
+        <width>4.9875</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-1A237E-3325">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-1A237E-3325-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-1A237E-3325-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FBC02D-3713-normal">
+      <LineStyle>
+        <color>ff2dc0fb</color>
+        <width>3.713</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-FBC02D-3713-highlight">
+      <LineStyle>
+        <color>ff2dc0fb</color>
+        <width>5.5695</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-FBC02D-3713">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FBC02D-3713-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FBC02D-3713-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FBC02D-3713-nodesc-normal">
+      <LineStyle>
+        <color>ff2dc0fb</color>
+        <width>3.713</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="line-FBC02D-3713-nodesc-highlight">
+      <LineStyle>
+        <color>ff2dc0fb</color>
+        <width>5.5695</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="line-FBC02D-3713-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FBC02D-3713-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FBC02D-3713-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Folder>
+      <name>Station</name>
+      <Placemark>
+        <name>Westport</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -9.50998,53.795725,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cork</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -8.45756,51.901005,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Belfast</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -5.917271,54.594629,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Dublin</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -6.24715,53.352548,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Faro</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -7.940672,37.019389,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Porto</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -8.609558,41.145249,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lisbon</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -9.141473,38.714152,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Santiago de Compostela</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -8.544694,42.870519,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Santander</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -3.811224,43.458229,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Pamplona</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.661531,42.824738,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Seville</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -5.975356,37.391648,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Málaga</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -4.43229,36.711427,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Valencia</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -0.381325,39.458883,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Madrid</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -3.690719,40.405679,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Barcelona</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            2.140469,41.378603,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Montpellier</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            3.880453,43.604241,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Marseille</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            5.381999,43.303276,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Nice</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            7.26187,43.704166,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Catania</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            15.106632,37.515359,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Bari</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            16.869183,41.117164,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Naples</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            14.27293,40.852658,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Rome</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            12.50197,41.899798,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Florence</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            11.247401,43.776565,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Bologna</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            11.341174,44.506272,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Venice</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            12.320251,45.440948,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Milan</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            9.204492,45.485641,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Bern</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            7.437358,46.948635,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lyon</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            4.859966,45.760029,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Bordeaux</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -0.556307,44.824373,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Rennes</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.672044,48.103351,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Istanbul</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            28.979608,41.015402,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Stockholm</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            18.057932,59.330669,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Amsterdam</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            4.900506,52.378769,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Brussels</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            4.357016,50.845487,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cologne</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            6.95842,50.943124,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Berlin</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            13.369402,52.525084,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Hamburg</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            10.006979,53.552812,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Copenhagen</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            12.564869,55.672689,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Oslo</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            10.752457,59.911096,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Östersund</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            14.637091,63.170289,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Trondheim</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            10.398796,63.436671,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Kiruna</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            20.200241,67.8673,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Bergen</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            5.332923,60.39046,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Frankfurt</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            8.662162,50.106529,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Munich</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            11.557766,48.140458,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Prague</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            14.436055,50.082891,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Warsaw</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            21.003275,52.228841,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Vienna</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            16.376485,48.185223,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Budapest</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            19.083991,47.500173,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Ljubljana</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            14.512516,46.058753,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Zagreb</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            15.97848,45.804218,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Split</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            16.455219,43.52207,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Belgrade</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            20.455271,44.808865,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Bucharest</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            26.073654,44.446557,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Sofia</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            23.321444,42.711976,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Skopje</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            21.446154,41.991121,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Thessaloniki</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            22.929825,40.644522,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Athens</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            23.720809,37.992411,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Patras</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            21.734772,38.249375,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Helsinki</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            24.941492,60.17096,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Turku</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            22.253525,60.453301,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Rovaniemi</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            25.70505,66.498039,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Paris</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            2.355006,48.87993,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>London</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -0.126133,51.531427,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Penzance</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -5.532589,50.121316,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Bristol</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -2.580706,51.449065,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Birmingham</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.898574,52.477492,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Holyhead</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -4.630768,53.307618,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Edinburgh</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -3.188345,55.952064,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Glasgow</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -4.25806,55.860302,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Aberdeen</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -2.098714,57.143437,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Vilnius</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            25.2796514,54.6871555,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Bialystok</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            23.1613874,53.1322455,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Klaipėda</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            21.1442795,55.7032948,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Riga</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            24.1051864999999,56.9496487,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Tallinn</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            24.7538634,59.441099,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Ankara</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            32.8615239,39.9019795,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Gdańsk</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            18.6466384,54.3520252,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Poznań</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            16.9251681,52.406374,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Wrocław</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            17.0385376,51.1078852,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Krakau</name>
+        <styleUrl>#icon-1716-FBC02D-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            19.9449799,50.0646501,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Ports</name>
+      <Placemark>
+        <name>Rhodes</name>
+        <styleUrl>#icon-1569-1A237E-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            28.236749,36.442047,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Igoumenitsa</name>
+        <styleUrl>#icon-1569-1A237E-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            20.26261,39.499549,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Ancona</name>
+        <styleUrl>#icon-1569-1A237E-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            13.505289,43.617828,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Heraklion</name>
+        <styleUrl>#icon-1569-1A237E-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            25.143183,35.342636,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Routes (train)</name>
+      <Placemark>
+        <name>Berlin - Hamburg</name>
+        <description>1hr 35min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            13.369402,52.525084,0
+            10.006979,53.552812,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Bialystok - Vilnius</name>
+        <description>7hr 30 min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            23.1613874,53.1322455,0
+            25.2796514,54.6871555,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Munich - Prague</name>
+        <description>6hr 05min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            11.557766,48.140458,0
+            14.436055,50.082891,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Berlin - Munich</name>
+        <description>5hr 45min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            13.369402,52.525084,0
+            11.557766,48.140458,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Frankfurt - Munich</name>
+        <description>3hr 10min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.662162,50.106529,0
+            11.557766,48.140458,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Berlin - Prague</name>
+        <description>4hr 35min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            13.369402,52.525084,0
+            14.436055,50.082891,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Amsterdam - Brussels</name>
+        <description>1hr 53min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            4.900506,52.378769,0
+            4.357016,50.845487,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Brussels - Cologne</name>
+        <description>1hr 47min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            4.357016,50.845487,0
+            6.95842,50.943124,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Amsterdam - Cologne</name>
+        <description>2hr 38min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            4.900506,52.378769,0
+            6.95842,50.943124,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Amsterdam - Berlin</name>
+        <description>6hr 10min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            4.900506,52.378769,0
+            13.369402,52.525084,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Cologne - Berlin</name>
+        <description>4hr 20min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.95842,50.943124,0
+            13.369402,52.525084,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Hamburg - Copenhagen</name>
+        <description>4hr 30min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.006979,53.552812,0
+            12.564869,55.672689,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Copenhagen - Stockholm</name>
+        <description>5hr 15min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            12.564869,55.672689,0
+            18.057932,59.330669,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Copenhagen - Oslo</name>
+        <description>8hr 40min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            12.709021,55.858608,0
+            10.752457,59.911096,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Stockholm - Oslo</name>
+        <description>6hr 20min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            18.057932,59.330669,0
+            10.752457,59.911096,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Oslo - Bergen</name>
+        <description>6hr 45min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.752457,59.911096,0
+            5.332923,60.39046,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Stockholm - Östersund</name>
+        <description>7hr 00min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            18.057932,59.330669,0
+            14.637091,63.170289,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Östersund - Trontheim</name>
+        <description>3hr 50min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            14.637091,63.170289,0
+            10.398796,63.436671,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Stockholm - Kiruna</name>
+        <description>16hr 00min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            18.150325,59.494418,0
+            20.200241,67.8673,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Cologne - Frankfurt</name>
+        <description>1hr 22min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.95842,50.943124,0
+            8.662162,50.106529,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Frankfurt - Hamburg</name>
+        <description>3hr 40min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.662162,50.106529,0
+            10.006979,53.552812,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Hamburg - Munich</name>
+        <description>5hr 50min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.006979,53.552812,0
+            11.557766,48.140458,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Berlin - Warsaw</name>
+        <description>6hr 05min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            13.369402,52.525084,0
+            16.9251681,52.406374,0
+            21.003275,52.228841,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Prague - Warsaw</name>
+        <description>8hr 40min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            14.436055,50.082891,0
+            17.0385376,51.1078852,0
+            21.003275,52.228841,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Vienna - Warsaw</name>
+        <description>7hr 30 min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            16.376485,48.185223,0
+            21.003275,52.228841,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Prague - Vienna</name>
+        <description>4hr 30min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            14.436055,50.082891,0
+            16.376485,48.185223,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Munich - Vienna</name>
+        <description>4hr 10min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            11.557766,48.140458,0
+            16.376485,48.185223,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Vienna - Budapest</name>
+        <description>2hr 45min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            16.376485,48.185223,0
+            19.083991,47.500173,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Vienna - Venice</name>
+        <description>7hr 20min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            16.376485,48.185223,0
+            12.320251,45.440948,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Budapest - Ljubljana</name>
+        <description>9hr 00min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            19.083991,47.500173,0
+            14.512516,46.058753,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Budapest - Zagreb</name>
+        <description>6hr 05min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            19.083991,47.500173,0
+            15.97848,45.804218,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Venice - Ljubljana</name>
+        <description>9hr 00min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            12.320251,45.440948,0
+            14.512516,46.058753,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Ljubljana - Zagreb</name>
+        <description>2hr 20min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            14.512516,46.058753,0
+            15.97848,45.804218,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Zagreb - Split</name>
+        <description>5hr 35min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            15.97848,45.804218,0
+            16.455219,43.52207,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Zagreb - Belgrade</name>
+        <description>6hr 05min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            15.97848,45.804218,0
+            20.455271,44.808865,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Budapest - Belgrade</name>
+        <description>7hr 30min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            19.083991,47.500173,0
+            20.455271,44.808865,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Belgrade - Bucharest</name>
+        <description>12hr 10min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            20.455271,44.808865,0
+            26.073654,44.446557,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Budapest - Bucharest</name>
+        <description>13hr 50min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            19.083991,47.500173,0
+            26.073654,44.446557,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Belgrade - Skopje</name>
+        <description>8hr 45min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            20.455271,44.808865,0
+            21.446154,41.991121,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Belgrade - Sofia</name>
+        <description>8hr 05min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            20.455271,44.808865,0
+            23.321444,42.711976,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Bucharest - Sofia</name>
+        <description>9hr 00min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            26.073654,44.446557,0
+            23.321444,42.711976,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Sofia - Skopje</name>
+        <description>9hr 00min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            23.321444,42.711976,0
+            21.446154,41.991121,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Skopje - Thessaloniki</name>
+        <description>4hr 00min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            21.446154,41.991121,0
+            22.929825,40.644522,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Sofia - Thessaloniki</name>
+        <description>6hr 40min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            23.321444,42.711976,0
+            22.929825,40.644522,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Sofia - Istanbul</name>
+        <description>12hr 55min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            23.321444,42.711976,0
+            28.979608,41.015402,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Thessaloniki - Athens</name>
+        <description>4hr 25min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            22.929825,40.644522,0
+            23.720809,37.992411,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Athens - Patras</name>
+        <description>3hr 35min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            23.720809,37.992411,0
+            21.734772,38.249375,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Hilsinki - Turku</name>
+        <description>1hr 50min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            24.941492,60.17096,0
+            22.253525,60.453301,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Helsinki - Rovaniemi</name>
+        <description>9hr 30min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            24.941492,60.17096,0
+            25.70505,66.498039,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Brussels - Paris</name>
+        <description>1hr 25min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            4.357016,50.845487,0
+            2.355006,48.87993,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Paris - Frankfurt</name>
+        <description>3hr 55min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            2.355006,48.87993,0
+            8.662162,50.106529,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Brussels - London</name>
+        <description>2hr 20min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            4.357016,50.845487,0
+            -0.126133,51.531427,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Paris - London</name>
+        <description>2hr 15min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            2.355006,48.87993,0
+            -0.126133,51.531427,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Paris - Rennes</name>
+        <description>2hr 00min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            2.355006,48.87993,0
+            -1.672044,48.103351,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Paris - Lyon</name>
+        <description>1hr 55min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            2.355006,48.87993,0
+            4.859966,45.760029,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Paris - Bordeaux</name>
+        <description>3hr 00min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            2.355006,48.87993,0
+            -0.556307,44.824373,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Frankfurt - Bern</name>
+        <description>3hr 55min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.662162,50.106529,0
+            7.437358,46.948635,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Lyon - Bern</name>
+        <description>3hr 50min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            4.859966,45.760029,0
+            7.437358,46.948635,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Lyon - Bordeaux</name>
+        <description>6hr 15min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            4.859966,45.760029,0
+            -0.556307,44.824373,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Lyon - Marseille</name>
+        <description>1hr 40min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            4.859966,45.760029,0
+            5.381999,43.303276,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Marseille - Nice</name>
+        <description>2hr 35min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            5.381999,43.303276,0
+            7.26187,43.704166,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Nice - Milan</name>
+        <description>5hr 10min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.26187,43.704166,0
+            9.204492,45.485641,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Milan - Bern</name>
+        <description>4hr 00min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.204492,45.485641,0
+            7.437358,46.948635,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Milan - Munich</name>
+        <description>7hr 45min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.204492,45.485641,0
+            11.557766,48.140458,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Milan - Venice</name>
+        <description>2hr 35min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.204492,45.485641,0
+            12.320251,45.440948,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Milan - Bologna</name>
+        <description>1hr 00min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.204492,45.485641,0
+            11.341174,44.506272,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Bologna - Florence</name>
+        <description>0hr 37min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            11.341174,44.506272,0
+            11.247401,43.776565,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Florence - Rome</name>
+        <description>1hr 35min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            11.247401,43.776565,0
+            12.50197,41.899798,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Venice - Florence</name>
+        <description>2hr 03min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            12.320251,45.440948,0
+            11.247401,43.776565,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Rome - Naples</name>
+        <description>1hr 10min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            12.50197,41.899798,0
+            14.27293,40.852658,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Rome - Bari</name>
+        <description>4hr 00min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            12.50197,41.899798,0
+            16.869183,41.117164,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Naples - Carania</name>
+        <description>7hr 30min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            14.27293,40.852658,0
+            15.106632,37.515359,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Marseille - Montpellier</name>
+        <description>2hr 20min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            5.381999,43.303276,0
+            3.880453,43.604241,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Montpellier - Barcelona</name>
+        <description>4hr 40min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            3.880453,43.604241,0
+            2.140469,41.378603,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Bordeaux - Madrid</name>
+        <description>11hr 00min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -0.556307,44.824373,0
+            -3.690719,40.405679,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Madrid - Barcelona</name>
+        <description>2hr 50min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            2.140469,41.378603,0
+            -3.690719,40.405679,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Madrid - Valencia</name>
+        <description>1hr 45min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -3.690719,40.405679,0
+            -0.381325,39.458883,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Madrid - Málaga</name>
+        <description>2hr 45min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -3.690719,40.405679,0
+            -4.43229,36.711427,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Madrid - Lisbon</name>
+        <description>10hr 10min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -3.690719,40.405679,0
+            -9.141473,38.714152,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Madrid - Santiago de Compostela</name>
+        <description>7hr 05min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -3.690719,40.405679,0
+            -8.544694,42.870519,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Madrid - Santander</name>
+        <description>4hr 30min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -3.690719,40.405679,0
+            -3.811224,43.458229,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Madrid - Pamplona</name>
+        <description>3hr 00min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -3.690719,40.405679,0
+            -1.661531,42.824738,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Barcelona - Valencia</name>
+        <description>2hr 55min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            2.140469,41.378603,0
+            -0.381325,39.458883,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Barcelona - Seville</name>
+        <description>5hr 30min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            2.140469,41.378603,0
+            -5.975356,37.391648,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Madrid - Sevilla</name>
+        <description>2hr 35min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -3.690719,40.405679,0
+            -5.975356,37.391648,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Lisbon - Porto</name>
+        <description>2hr 45min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -9.141473,38.714152,0
+            -8.609558,41.145249,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Lisbon - Faro</name>
+        <description>3hr 50min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -9.141473,38.714152,0
+            -7.940672,37.019389,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Dublin - Belfast</name>
+        <description>4hr 00min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -6.24715,53.352548,0
+            -5.917274,54.594674,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Dublin - Cork</name>
+        <description>2hr 45min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -6.24715,53.352548,0
+            -8.457456,51.90139,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Dublin - Westport</name>
+        <description>3hr 30min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -6.24715,53.352548,0
+            -9.50998,53.795725,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>London - Penzance</name>
+        <description>5hr 05min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -0.126133,51.531427,0
+            -5.532589,50.121316,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>London - Bristol</name>
+        <description>1hr 45min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -0.126133,51.531427,0
+            -2.580706,51.449065,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>London - Birmingham</name>
+        <description>1hr 45min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -0.126133,51.531427,0
+            -1.898574,52.477492,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Birmingham - Holyhead</name>
+        <description>4hr 05min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -1.898574,52.477492,0
+            -4.630768,53.307618,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Birmingham - Edinburgh</name>
+        <description>4hr 25min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -1.898574,52.477492,0
+            -3.188345,55.952064,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Edinburgh - Glasgow</name>
+        <description>0hr 50min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -3.188345,55.952064,0
+            -4.25806,55.860302,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Edinburgh - Aberdeen</name>
+        <description>2hr 20min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -3.188345,55.952064,0
+            -2.098714,57.143437,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Warzaw - Budapest</name>
+        <description>11hr 20min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            21.003275,52.228841,0
+            19.9449799,50.0646501,0
+            19.083991,47.500173,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Brussels - Frankfurt</name>
+        <description>3hr 10min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            4.357016,50.845487,0
+            8.662162,50.106529,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Warsaw - Bialystok</name>
+        <description>2hr 17min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            21.003275,52.228841,0
+            23.1613874,53.1322455,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Riga - Tartu</name>
+        <description>4hr 32min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            24.1051865,56.9496487,0
+            26.7365284,58.3835606,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Vilnius - Daugavpils</name>
+        <description>2hr 43min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            25.2796514,54.6871555,0
+            26.5442677,55.8743716,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Daugavpils - Riga</name>
+        <description>3hr 24min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            26.5442677,55.8743716,0
+            24.1051865,56.9496487,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Vilnius - Klaipèda</name>
+        <description>4hr 18min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            25.2796514,54.6871555,0
+            21.1442795,55.7032948,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Tartu - Tallinn</name>
+        <description>1hr 58min</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            26.7365284,58.3835606,0
+            24.7535747,59.4369608,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Istanbul - Ankara</name>
+        <description>4hr</description>
+        <styleUrl>#line-FBC02D-3713</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            28.979608,41.015402,0
+            32.8615239,39.9019795,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Warsaw - Gdansk</name>
+        <styleUrl>#line-FBC02D-3713-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            21.003275,52.228841,0
+            18.6466384,54.3520252,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Router (ferry)</name>
+      <Placemark>
+        <name>Ancona - Igoumenitsa</name>
+        <description>15hr 00min</description>
+        <styleUrl>#line-1A237E-3325</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            13.505289,43.617828,0
+            20.26261,39.499549,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Bari - Igoumenitsa</name>
+        <description>9hr 30min</description>
+        <styleUrl>#line-1A237E-3325</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            16.869183,41.117164,0
+            20.26261,39.499549,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Igoumenitsa - Patras</name>
+        <description>6hr 00min</description>
+        <styleUrl>#line-1A237E-3325</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            20.26261,39.499549,0
+            21.734772,38.249375,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Athens - Heraklion</name>
+        <description>6hr 30min</description>
+        <styleUrl>#line-1A237E-3325</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            23.720809,37.992411,0
+            25.143183,35.342636,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Athens - Rhodes</name>
+        <description>11hr 50min</description>
+        <styleUrl>#line-1A237E-3325</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            23.720809,37.992411,0
+            28.236749,36.442047,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Holyhead - Dublin</name>
+        <description>3hr 15min</description>
+        <styleUrl>#line-1A237E-3325</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -4.630768,53.307618,0
+            -6.24715,53.352548,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Stockholm - Tallinn</name>
+        <description>16hr 55min</description>
+        <styleUrl>#line-1A237E-3325</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            18.057932,59.330669,0
+            24.7538634,59.441099,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Helsinki - Tallinn</name>
+        <description>2hr</description>
+        <styleUrl>#line-1A237E-3325</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            24.941492,60.17096,0
+            24.7535747,59.4369608,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Untitled layer</name>
+    </Folder>
+  </Document>
+</kml>

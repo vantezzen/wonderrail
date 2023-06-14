@@ -6,9 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "convert-map": "node src/data/convert.js"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.0.2",
+    "@types/geojson": "^7946.0.10",
     "@types/node": "20.3.1",
     "@types/react": "18.2.12",
     "@types/react-dom": "18.2.5",
@@ -19,12 +22,14 @@
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.5",
     "firebase": "^9.22.2",
+    "gtran-kml": "^1.4.5",
     "lucide-react": "^0.244.0",
     "mapbox-gl": "npm:empty-npm-package@^1.0.0",
     "maplibre-gl": "^3.0.1",
     "next": "13.4.5",
     "postcss": "8.4.24",
     "react": "18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "18.2.0",
     "react-firebase-hooks": "^5.1.1",
     "react-firebaseui": "^6.0.0",
@@ -33,7 +38,12 @@
     "tailwindcss": "3.3.2",
     "tailwindcss-animate": "^1.0.6",
     "typescript": "5.1.3",
+    "uuid": "^9.0.0",
     "zod": "^3.21.4",
     "zustand": "^4.3.8"
+  },
+  "devDependencies": {
+    "@types/react-beautiful-dnd": "^13.1.4",
+    "@types/uuid": "^9.0.2"
   }
 }

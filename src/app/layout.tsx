@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={cn(inter.className, "dark bg-zinc-900")}>
+      <body className={cn(inter.className, "dark bg-background")}>
         {children}
       </body>
     </html>
