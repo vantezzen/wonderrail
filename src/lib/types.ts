@@ -31,6 +31,9 @@ export const JourneyRideSchema = z.object({
 export const InvalidRideSchema = z.object({
   type: z.literal("invalid"),
   id: z.string(),
+  name: z.string(),
+  start: CoordinateSchema,
+  end: CoordinateSchema,
 });
 
 export const JourneyStepSchema = z.union([
@@ -54,44 +57,14 @@ export const EXAMPLE_JOURNEY: Journey = {
     {
       type: "location",
       id: uuidv4(),
-      name: "Berlin",
+      name: "Paris",
       location: {
-        lat: 52.520008,
-        lng: 13.404954,
+        lat: 2.355006,
+        lng: 48.87993,
       },
       timerange: {
         start: new Date("2021-01-01T00:00:00.000Z"),
         end: new Date("2021-01-02T00:00:00.000Z"),
-      },
-    },
-    {
-      type: "ride",
-      id: uuidv4(),
-      name: "Berlin -> Paris",
-      start: {
-        lat: 52.520008,
-        lng: 13.404954,
-      },
-      end: {
-        lat: 48.864716,
-        lng: 2.349014,
-      },
-      timerange: {
-        start: new Date("2021-01-02T00:00:00.000Z"),
-        end: new Date("2021-01-02T07:00:00.000Z"),
-      },
-    },
-    {
-      type: "location",
-      id: uuidv4(),
-      name: "Paris",
-      location: {
-        lat: 48.864716,
-        lng: 2.349014,
-      },
-      timerange: {
-        start: new Date("2021-01-02T00:00:00.000Z"),
-        end: new Date("2021-01-06T00:00:00.000Z"),
       },
     },
   ],
@@ -103,3 +76,4 @@ export type JourneyLocation = z.infer<typeof JourneyLocationSchema>;
 export type JourneyRide = z.infer<typeof JourneyRideSchema>;
 export type JourneyStep = z.infer<typeof JourneyStepSchema>;
 export type Journey = z.infer<typeof JourneySchema>;
+export type InvalidRide = z.infer<typeof InvalidRideSchema>;

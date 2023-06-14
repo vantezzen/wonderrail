@@ -21,3 +21,12 @@ export function getDistanceFromLatLonInKm(
 
   return R * c; // Distance in km
 }
+
+export function arrayCoordinateToJourneyCoordinate(
+  coordinates: [number, number]
+): Coordinate {
+  return {
+    lat: coordinates[1],
+    lng: coordinates[0],
+  };
+}

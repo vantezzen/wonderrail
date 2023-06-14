@@ -30,7 +30,7 @@ function JourneySteps({ planner }: { planner: Planner }) {
                 key={step.id}
                 draggableId={step.type + step.id}
                 index={index}
-                isDragDisabled={step.type === "ride"}
+                isDragDisabled={step.type !== "location"}
               >
                 {(provided) => (
                   <div

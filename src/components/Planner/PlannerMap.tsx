@@ -3,7 +3,12 @@ import React from "react";
 import "maplibre-gl/dist/maplibre-gl.css";
 import Map from "react-map-gl";
 import maplibregl from "maplibre-gl";
-import { Journey, JourneyLocation, JourneyRide } from "@/lib/types";
+import {
+  InvalidRide,
+  Journey,
+  JourneyLocation,
+  JourneyRide,
+} from "@/lib/types";
 import DeckGL from "@deck.gl/react/typed";
 import { ArcLayer, PathLayer } from "@deck.gl/layers/typed";
 import { HexagonLayer } from "@deck.gl/aggregation-layers/typed";
@@ -15,8 +20,8 @@ function PlannerMap({ planner }: { planner: Planner }) {
   // Lines should be drawn between each step
   const lines = [];
   const rides = planner.journey.steps.filter(
-    (step) => step.type === "ride"
-  ) as JourneyRide[];
+    (step) => step.type === "ride" || step.type === "invalid"
+  ) as (JourneyRide | InvalidRide)[];
 
   for (const ride of rides) {
     lines.push({
@@ -28,6 +33,7 @@ function PlannerMap({ planner }: { planner: Planner }) {
         name: ride.name,
         coordinates: [ride.end.lng, ride.end.lat],
       },
+      isInvalid: ride.type === "invalid",
     });
   }
 
@@ -66,8 +72,10 @@ function PlannerMap({ planner }: { planner: Planner }) {
             getHeight: 0.5,
             getSourcePosition: (d) => d.from.coordinates,
             getTargetPosition: (d) => d.to.coordinates,
-            getSourceColor: (d) => [230, 230, 230],
-            getTargetColor: (d) => [230, 230, 230],
+            getSourceColor: (d) =>
+              d.isInvalid ? [230, 100, 100] : [230, 230, 230],
+            getTargetColor: (d) =>
+              d.isInvalid ? [230, 100, 100] : [230, 230, 230],
           }),
 
           // All rides

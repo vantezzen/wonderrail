@@ -9,7 +9,10 @@ import {
 import EventEmitter from "events";
 import eurailData from "@/data/eurail.json";
 import { getDurationFromGeoJson } from "../utils/date";
-import { getDistanceFromLatLonInKm } from "../utils/coordinates";
+import {
+  arrayCoordinateToJourneyCoordinate,
+  getDistanceFromLatLonInKm,
+} from "../utils/coordinates";
 
 export type GeoPoint = {
   geometry: {
@@ -61,7 +64,9 @@ export default class Planner extends EventEmitter {
       (step) => step.type === "ride"
     ) as JourneyRide[];
 
-    const firstLocation = this.journey.steps[0] as JourneyLocation;
+    const firstLocation = this.journey.steps.filter(
+      (step) => step.type === "location"
+    )[0] as JourneyLocation;
     let startDate = firstLocation.timerange.start;
 
     locations = locations.map((location, index) => {
@@ -142,6 +147,9 @@ export default class Planner extends EventEmitter {
           newJourneyWithRides.push({
             type: "invalid",
             id: uuidv4(),
+            name: `${currentLocation.name} -> ${nextLocation.name}`,
+            start: currentLocation.location,
+            end: nextLocation.location,
           });
         }
       }
@@ -175,18 +183,13 @@ export default class Planner extends EventEmitter {
     );
 
     if (fromLocation) {
-      const fromLocationCoordinates = [
-        fromLocation.location.lng,
-        fromLocation.location.lat,
-      ];
       lines = lines.filter((feature) => {
         const distances = (feature.geometry.coordinates as number[][]).map(
-          (coordinate) => {
-            return Math.sqrt(
-              Math.pow(coordinate[0] - fromLocationCoordinates[0], 2) +
-                Math.pow(coordinate[1] - fromLocationCoordinates[1], 2)
-            );
-          }
+          (coordinate) =>
+            getDistanceFromLatLonInKm(
+              fromLocation.location,
+              arrayCoordinateToJourneyCoordinate(coordinate as [number, number])
+            )
         );
 
         // There is sometimes a distance between the location (city center) and
@@ -279,10 +282,7 @@ export default class Planner extends EventEmitter {
 
     const rides = ridesFromStart.filter((rideFromStart) => {
       return ridesToEnd.some((rideToEnd) => {
-        return (
-          rideFromStart.id === rideToEnd.id &&
-          rideFromStart.name === rideToEnd.name
-        );
+        return rideFromStart.id === rideToEnd.id;
       });
     });
 
