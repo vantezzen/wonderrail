@@ -7,7 +7,7 @@ function InvalidJourneyStep() {
       <AlertTriangle className="" size={16} />
 
       <div>
-        <div className=" font-medium">Unknown connection</div>
+        <div className="text-slate-400 font-medium">Unknown connection</div>
       </div>
     </div>
   );

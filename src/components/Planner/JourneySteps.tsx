@@ -15,7 +15,10 @@ function JourneySteps({ planner }: { planner: Planner }) {
       onDragEnd={(result) => {
         setIsDragging(false);
         if (!result.destination) return;
-        planner.moveStep(result.source.index, result.destination.index);
+        planner.moveLocationPosition(
+          result.source.index,
+          result.destination.index
+        );
       }}
     >
       <Droppable type="COLUMN" droppableId="journey-steps">

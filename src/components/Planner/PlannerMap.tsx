@@ -1,9 +1,10 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import "maplibre-gl/dist/maplibre-gl.css";
 import Map from "react-map-gl";
 import maplibregl from "maplibre-gl";
 import {
+  GeoCity,
   InvalidRide,
   Journey,
   JourneyLocation,
@@ -12,7 +13,7 @@ import {
 import DeckGL from "@deck.gl/react/typed";
 import { ArcLayer, PathLayer } from "@deck.gl/layers/typed";
 import { HexagonLayer } from "@deck.gl/aggregation-layers/typed";
-import Planner, { GeoCity } from "@/lib/Journey/Planner";
+import Planner from "@/lib/Journey/Planner";
 import { journeyLocationToGeoCity } from "@/lib/utils/planner";
 import { getDistanceFromLatLonInKm } from "@/lib/utils/coordinates";
 
@@ -37,18 +38,20 @@ function PlannerMap({ planner }: { planner: Planner }) {
     });
   }
 
-  const startingLocation =
-    (planner.journey.steps[0] as JourneyLocation).location ||
-    (planner.journey.steps[0] as JourneyRide).start;
+  const startingLocation = (planner.journey.steps[0] as JourneyLocation)
+    ?.location ||
+    (planner.journey.steps[0] as JourneyRide)?.start || { lat: 48, lng: 2 };
 
   const lastLocation = planner.journey.steps[
     planner.journey.steps.length - 1
   ] as JourneyLocation;
 
   const [selectedLocation, setSelectedLocation] =
-    React.useState<GeoCity | null>(
-      lastLocation ? journeyLocationToGeoCity(lastLocation) : null
-    );
+    React.useState<GeoCity | null>(null);
+  useEffect(() => {
+    if (!lastLocation) return;
+    setSelectedLocation(journeyLocationToGeoCity(lastLocation));
+  }, [lastLocation]);
   const [isHoveringCity, setIsHoveringCity] = React.useState(false);
 
   return (
@@ -168,7 +171,7 @@ function PlannerMap({ planner }: { planner: Planner }) {
               ) < 50
             ) {
               try {
-                planner.addLocation(location);
+                planner.addCity(location);
               } catch (e) {
                 console.log(e);
               }

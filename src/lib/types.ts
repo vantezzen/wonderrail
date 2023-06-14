@@ -54,19 +54,19 @@ export const EXAMPLE_JOURNEY: Journey = {
   name: "My Journey",
   description: "This is my journey",
   steps: [
-    {
-      type: "location",
-      id: uuidv4(),
-      name: "Paris",
-      location: {
-        lat: 2.355006,
-        lng: 48.87993,
-      },
-      timerange: {
-        start: new Date("2021-01-01T00:00:00.000Z"),
-        end: new Date("2021-01-02T00:00:00.000Z"),
-      },
-    },
+    // {
+    //   type: "location",
+    //   id: uuidv4(),
+    //   name: "Paris",
+    //   location: {
+    //     lat: 2.355006,
+    //     lng: 48.87993,
+    //   },
+    //   timerange: {
+    //     start: new Date("2021-01-01T00:00:00.000Z"),
+    //     end: new Date("2021-01-02T00:00:00.000Z"),
+    //   },
+    // },
   ],
 };
 
@@ -77,3 +77,28 @@ export type JourneyRide = z.infer<typeof JourneyRideSchema>;
 export type JourneyStep = z.infer<typeof JourneyStepSchema>;
 export type Journey = z.infer<typeof JourneySchema>;
 export type InvalidRide = z.infer<typeof InvalidRideSchema>;
+
+export type GeoPoint = {
+  geometry: {
+    coordinates: [number, number];
+  };
+  properties: {
+    name: string;
+  };
+};
+
+export type GeoCity = {
+  id: string;
+  name: string;
+  location: {
+    lat: number;
+    lng: number;
+  };
+};
+
+export type GeoConnection = {
+  id: string;
+  name: string;
+  duration: string;
+  coordinates: [[number, number], [number, number]];
+};

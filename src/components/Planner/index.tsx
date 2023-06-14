@@ -5,6 +5,7 @@ import Heading from "../Various/Heading";
 import JourneySteps from "./JourneySteps";
 import { EXAMPLE_JOURNEY } from "@/lib/types";
 import Planner from "@/lib/Journey/Planner";
+import AddLocationModal from "./AddLocationModal";
 
 function PlannerComponent() {
   const [planner, setPlanner] = React.useState(
@@ -27,6 +28,7 @@ function PlannerComponent() {
       <div className="p-6 overflow-y-auto h-screen" suppressHydrationWarning>
         <Heading>Your trip</Heading>
         <JourneySteps planner={planner} />
+        <AddLocationModal planner={planner} />
       </div>
     </div>
   );

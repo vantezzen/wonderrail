@@ -11,7 +11,7 @@ function JourneyRide({ ride }: { ride: JourneyRide }) {
       <Train className="" size={16} />
 
       <div>
-        <div className=" font-medium">{ride.name}</div>
+        <div className=" font-medium text-slate-400">{ride.name}</div>
         <div className=" text-sm">{duration}h</div>
       </div>
     </div>

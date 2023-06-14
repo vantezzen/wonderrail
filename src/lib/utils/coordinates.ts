@@ -30,3 +30,13 @@ export function arrayCoordinateToJourneyCoordinate(
     lng: coordinates[0],
   };
 }
+
+export function areCoordinatesEqual(
+  coordinates1: Coordinate,
+  coordinates2: Coordinate
+) {
+  return (
+    coordinates1.lat === coordinates2.lat &&
+    coordinates1.lng === coordinates2.lng
+  );
+}

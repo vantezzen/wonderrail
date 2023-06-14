@@ -32,7 +32,7 @@ function JourneyLocation({
             <span>
               {days} {days > 1 ? "days" : "day"}
             </span>
-            <span className="" suppressHydrationWarning>
+            <span className="font-medium" suppressHydrationWarning>
               {step.timerange.start.toLocaleDateString()} -{" "}
               {step.timerange.end.toLocaleDateString()}
             </span>

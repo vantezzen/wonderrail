@@ -1,6 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
 import {
   Coordinate,
+  GeoCity,
+  GeoPoint,
   Journey,
   JourneyLocation,
   JourneyRide,
@@ -10,45 +12,29 @@ import EventEmitter from "events";
 import eurailData from "@/data/eurail.json";
 import { getDurationFromGeoJson } from "../utils/date";
 import {
+  areCoordinatesEqual,
   arrayCoordinateToJourneyCoordinate,
   getDistanceFromLatLonInKm,
 } from "../utils/coordinates";
-
-export type GeoPoint = {
-  geometry: {
-    coordinates: [number, number];
-  };
-  properties: {
-    name: string;
-  };
-};
-
-export type GeoCity = {
-  id: string;
-  name: string;
-  location: {
-    lat: number;
-    lng: number;
-  };
-};
-
-export type GeoConnection = {
-  id: string;
-  name: string;
-  duration: string;
-  coordinates: [[number, number], [number, number]];
-};
+import Interrail from "./Interrail";
 
 export default class Planner extends EventEmitter {
+  public interrail = new Interrail();
+
   constructor(public journey: Journey) {
     super();
   }
 
-  moveStep(fromIndex: number, toIndex: number) {
-    const step = this.journey.steps.splice(fromIndex, 1)[0];
+  moveLocationPosition(fromIndex: number, toIndex: number) {
+    const location = this.journey.steps.splice(fromIndex, 1)[0];
+
+    if (location.type !== "location") {
+      throw new Error("Can only move locations");
+    }
+
     let newJourney = [
       ...this.journey.steps.slice(0, toIndex),
-      step,
+      location,
       ...this.journey.steps.slice(toIndex),
     ];
 
@@ -56,6 +42,19 @@ export default class Planner extends EventEmitter {
     this.emit("change");
   }
 
+  /**
+   * Recalculate journey steps based on locations given.
+   * This will take an arbitrary list of journey steps that may be in an invalid
+   * state and recalculate the journey steps based on the locations given.
+   *
+   * If existing rides are found between locations, they will be kept, otherwise
+   * a new ride will be created.
+   * For this to work, the current "this.journey" object will be used and thus
+   * shouldn't have been updated beforehand.
+   *
+   * @param newJourney Modified journey steps
+   * @returns New journey steps with valid order
+   */
   private recalculateJourneySteps(newJourney: JourneyStep[]): JourneyStep[] {
     let locations = newJourney.filter(
       (step) => step.type === "location"
@@ -63,13 +62,125 @@ export default class Planner extends EventEmitter {
     const rides = newJourney.filter(
       (step) => step.type === "ride"
     ) as JourneyRide[];
-
-    const firstLocation = this.journey.steps.filter(
+    const currentFirstLocation = this.journey.steps.filter(
       (step) => step.type === "location"
-    )[0] as JourneyLocation;
-    let startDate = firstLocation.timerange.start;
+    )[0] as JourneyLocation | undefined;
 
-    locations = locations.map((location, index) => {
+    let startDate = currentFirstLocation?.timerange.start || new Date();
+
+    locations = this.recalculateJourneyDates(locations, startDate);
+
+    return this.addRidesToJourney(locations, rides);
+  }
+
+  /**
+   * Insert rides back into the journey based off the new locations array
+   * If the start and end locations and times are the same, then the ride is
+   * kept as it was, otherwise a new ride is created with the new start and
+   * end locations and times
+   * A ride is always inserted between two locations.
+   */
+  private addRidesToJourney(
+    locations: JourneyLocation[],
+    rides: JourneyRide[]
+  ) {
+    let newJourneyWithRides: JourneyStep[] = [];
+    for (let i = 0; i < locations.length; i++) {
+      const currentLocation = locations[i] as JourneyLocation;
+      newJourneyWithRides.push(currentLocation);
+
+      const nextLocation = locations[i + 1] as JourneyLocation;
+      if (!nextLocation) {
+        // Rides can only be inserted between locations
+        continue;
+      }
+
+      // Check if a ride already exists at this time for these locations
+      const existingRide = rides.find((ride) => {
+        return (
+          areCoordinatesEqual(ride.start, currentLocation.location) &&
+          areCoordinatesEqual(ride.end, nextLocation.location) &&
+          ride.timerange.start.getTime() ===
+            currentLocation.timerange.end.getTime() &&
+          ride.timerange.end.getTime() ===
+            nextLocation.timerange.start.getTime()
+        );
+      });
+
+      if (existingRide) {
+        newJourneyWithRides.push(existingRide);
+      } else {
+        newJourneyWithRides.push(
+          this.getAvailableRideBetweenLocations(currentLocation, nextLocation)
+        );
+      }
+    }
+    return newJourneyWithRides;
+  }
+
+  /**
+   * Get the known ride between two locations, otherwise return an invalid ride
+   */
+  private getAvailableRideBetweenLocations(
+    currentLocation: JourneyLocation,
+    nextLocation: JourneyLocation
+  ): JourneyStep {
+    try {
+      return this.getKnownRideBetweenLocations(currentLocation, nextLocation);
+    } catch (error) {
+      console.log(
+        `Could not find ride between ${currentLocation.name} and ${nextLocation.name}`
+      );
+
+      return {
+        type: "invalid",
+        id: uuidv4(),
+        name: `${currentLocation.name} -> ${nextLocation.name}`,
+        start: currentLocation.location,
+        end: nextLocation.location,
+      };
+    }
+  }
+
+  /**
+   * Get the known ride between two locations - throws an error if no ride is
+   * found
+   */
+  private getKnownRideBetweenLocations(
+    currentLocation: JourneyLocation,
+    nextLocation: JourneyLocation
+  ): JourneyRide {
+    const ride = this.getAppropriateRide(
+      currentLocation.location,
+      nextLocation.location
+    );
+    const rideDuration = getDurationFromGeoJson(ride.duration) * 1000 * 60;
+    const rideEnd = new Date(
+      currentLocation.timerange.end.getTime() + rideDuration
+    );
+
+    return {
+      type: "ride",
+      id: uuidv4(),
+      name: `${currentLocation.name} -> ${nextLocation.name}`,
+      start: currentLocation.location,
+      end: nextLocation.location,
+      timerange: {
+        start: currentLocation.timerange.end,
+        end: rideEnd,
+      },
+    };
+  }
+
+  /**
+   * Recalculate the journey dates based on the start date given
+   * This will take an arbitrary list of locations and recalculate the dates.
+   */
+  private recalculateJourneyDates(
+    locations: JourneyLocation[],
+    startDate: Date
+  ) {
+    locations = locations.map((location) => {
       const locationDuration =
         location.timerange.end.getTime() - location.timerange.start.getTime();
       const newEndDate = new Date(startDate.getTime() + locationDuration);
@@ -84,80 +195,12 @@ export default class Planner extends EventEmitter {
 
       return newLocation;
     }) as JourneyLocation[];
-
-    // Insert rides back into the journey based off the new locations array
-    // If the start and end locations and times are the same, then the ride is
-    // kept as it was, otherwise a new ride is created with the new start and
-    // end locations and times
-    // A ride is always inserted between two locations.
-    let newJourneyWithRides: JourneyStep[] = [];
-    for (let i = 0; i < locations.length; i++) {
-      const currentLocation = locations[i] as JourneyLocation;
-      newJourneyWithRides.push(currentLocation);
-
-      const nextLocation = locations[i + 1] as JourneyLocation;
-      if (!nextLocation) {
-        continue;
-      }
-
-      const existingRide = rides.find((ride) => {
-        return (
-          ride.start.lat === currentLocation.location.lat &&
-          ride.start.lng === currentLocation.location.lng &&
-          ride.end.lat === nextLocation.location.lat &&
-          ride.end.lng === nextLocation.location.lng &&
-          ride.timerange.start.getTime() ===
-            currentLocation.timerange.end.getTime() &&
-          ride.timerange.end.getTime() ===
-            nextLocation.timerange.start.getTime()
-        );
-      });
-
-      if (existingRide) {
-        newJourneyWithRides.push(existingRide);
-      } else {
-        try {
-          const ride = this.getAppropriateRide(
-            currentLocation.location,
-            nextLocation.location
-          );
-          const rideDuration =
-            getDurationFromGeoJson(ride.duration) * 1000 * 60;
-          const rideEnd = new Date(
-            currentLocation.timerange.end.getTime() + rideDuration
-          );
-          newJourneyWithRides.push({
-            type: "ride",
-            id: uuidv4(),
-            name: `${currentLocation.name} -> ${nextLocation.name}`,
-            start: currentLocation.location,
-            end: nextLocation.location,
-            timerange: {
-              start: currentLocation.timerange.end,
-              end: rideEnd,
-            },
-          });
-
-          startDate = rideEnd;
-        } catch (error) {
-          console.log(
-            `Could not find ride between ${currentLocation.name} and ${nextLocation.name}`
-          );
-
-          newJourneyWithRides.push({
-            type: "invalid",
-            id: uuidv4(),
-            name: `${currentLocation.name} -> ${nextLocation.name}`,
-            start: currentLocation.location,
-            end: nextLocation.location,
-          });
-        }
-      }
-    }
-
-    return newJourneyWithRides;
+    return locations;
   }
 
+  /**
+   * Get a list of popular locations from the Eurail maps
+   */
   getLocations() {
     const locations = eurailData.features.filter(
       (feature) => feature.geometry.type === "Point"
@@ -175,6 +218,11 @@ export default class Planner extends EventEmitter {
     }));
   }
 
+  /**
+   * Get a list of popular rides from the Eurail maps
+   *
+   * @param fromLocation If given, only return rides that start or end at this location
+   */
   getRides(fromLocation?: GeoCity | null) {
     let lines = eurailData.features.filter(
       (feature) =>
@@ -194,7 +242,7 @@ export default class Planner extends EventEmitter {
 
         // There is sometimes a distance between the location (city center) and
         // the train station.
-        return Math.min(...distances) < 0.5;
+        return Math.min(...distances) < 20;
       });
     }
 
@@ -213,46 +261,62 @@ export default class Planner extends EventEmitter {
     return connections;
   }
 
-  addLocation(city: GeoCity) {
-    // Dont add if last step is this location
+  /**
+   * Add a new city to the journey, adding necessary rides in between
+   */
+  addCity(city: GeoCity) {
+    // Dont add if last step is this location to avoid duplicates
     const previousStep = this.journey.steps[
       this.journey.steps.length - 1
     ] as JourneyLocation;
 
-    const distanceToPreviousStep = getDistanceFromLatLonInKm(
-      previousStep.location,
-      city.location
-    );
+    let travelEndTime = new Date();
+    if (previousStep) {
+      const distanceToPreviousStep = getDistanceFromLatLonInKm(
+        previousStep.location,
+        city.location
+      );
 
-    if (previousStep && distanceToPreviousStep < 50) {
-      return;
+      if (distanceToPreviousStep < 50) {
+        return;
+      }
+      let ride = null;
+      try {
+        ride = this.getAppropriateRide(previousStep.location, city.location);
+      } catch (error) {
+        console.log("Could not find ride");
+      }
+
+      const duration = ride?.duration
+        ? getDurationFromGeoJson(ride.duration) * 1000 * 60
+        : 1000 * 60 * 60 * 5;
+      const previousStepEndTime = previousStep.timerange?.end
+        ? new Date(previousStep.timerange.end.getTime())
+        : new Date();
+      travelEndTime = new Date(previousStepEndTime.getTime() + duration);
+
+      if (ride) {
+        this.journey.steps.push({
+          type: "ride",
+          id: uuidv4(),
+          name: ride.name,
+          start: ride.coordinates[0],
+          end: ride.coordinates[1],
+          timerange: {
+            start: previousStepEndTime,
+            end: travelEndTime,
+          },
+        });
+      } else {
+        this.journey.steps.push({
+          type: "invalid",
+          id: uuidv4(),
+          name: "Invalid ride",
+          start: previousStep?.location || city.location,
+          end: city.location,
+        });
+      }
     }
-
-    const ride = this.getAppropriateRide(
-      (this.journey.steps[this.journey.steps.length - 1] as JourneyLocation)
-        .location,
-      city.location
-    );
-
-    const duration = getDurationFromGeoJson(ride.duration) * 1000 * 60;
-    const previousStepEndTime = new Date(
-      (
-        this.journey.steps[this.journey.steps.length - 1] as JourneyLocation
-      ).timerange.end.getTime()
-    );
-    const travelEndTime = new Date(previousStepEndTime.getTime() + duration);
-
-    this.journey.steps.push({
-      type: "ride",
-      id: uuidv4(),
-      name: ride.name,
-      start: ride.coordinates[0],
-      end: ride.coordinates[1],
-      timerange: {
-        start: previousStepEndTime,
-        end: travelEndTime,
-      },
-    });
 
     this.journey.steps.push({
       type: "location",
@@ -268,6 +332,9 @@ export default class Planner extends EventEmitter {
     this.emit("change");
   }
 
+  /**
+   * Get an appropriate ride between two locations
+   */
   private getAppropriateRide(fromLocation: Coordinate, toLocation: Coordinate) {
     const ridesFromStart = this.getRides({
       id: "",
@@ -293,6 +360,10 @@ export default class Planner extends EventEmitter {
     return rides[0];
   }
 
+  /**
+   * Remove a step from the journey, removing any rides that are no longer
+   * needed and recalculating the journey steps
+   */
   removeStep(step: JourneyLocation) {
     const newJourney = this.journey.steps.filter(
       (journeyStep) => "id" in journeyStep && journeyStep.id !== step.id
