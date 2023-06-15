@@ -1,7 +1,16 @@
 import { JourneyRide } from "@/lib/types";
-import { durationBetween } from "@/lib/utils/date";
-import { MoreVertical, Train } from "lucide-react";
+import { durationBetween, formatDateTime } from "@/lib/utils/date";
+import {
+  AlertTriangle,
+  Info,
+  MoreVertical,
+  Receipt,
+  ReplaceAll,
+  Train,
+} from "lucide-react";
 import React from "react";
+import { Badge } from "../badge/badge";
+import JourneyRideBadge from "./JourneyRideBadge";
 
 function JourneyRide({ ride }: { ride: JourneyRide }) {
   const duration = durationBetween(ride.timerange.start, ride.timerange.end);
@@ -12,7 +21,32 @@ function JourneyRide({ ride }: { ride: JourneyRide }) {
 
       <div>
         <div className=" font-medium text-slate-400">{ride.name}</div>
-        <div className=" text-sm">{duration}h</div>
+        <div className=" text-sm">
+          {duration}h (
+          <span suppressHydrationWarning>
+            {formatDateTime(ride.timerange.start)} -{" "}
+            {formatDateTime(ride.timerange.end)}
+          </span>
+          )
+        </div>
+
+        <div className="flex gap-1 mt-2">
+          {ride.needsReservation && (
+            <JourneyRideBadge icon={<Info className="" size={16} />}>
+              Needs reservation
+            </JourneyRideBadge>
+          )}
+          {ride.price > 0 && (
+            <JourneyRideBadge icon={<Receipt className="" size={16} />}>
+              {ride.price}€
+            </JourneyRideBadge>
+          )}
+          {ride.changes > 0 && (
+            <JourneyRideBadge icon={<ReplaceAll className="" size={16} />}>
+              {ride.changes} {ride.changes > 1 ? "changes" : "change"}
+            </JourneyRideBadge>
+          )}
+        </div>
       </div>
     </div>
   );

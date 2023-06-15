@@ -23,3 +23,15 @@ export function getDurationFromInterrail(duration: {
 }) {
   return (duration.hours * 60 + duration.minutes) * 60 * 1000;
 }
+
+export function formatDateTime(date: Date) {
+  return new Intl.DateTimeFormat(undefined, {
+    dateStyle: "short",
+    timeStyle: "short",
+  }).format(date);
+}
+
+export function getTravellableDate(date: Date) {
+  // Return the day at 10am to make sure we are at a nice time for travelling
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 10);
+}

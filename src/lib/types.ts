@@ -39,6 +39,9 @@ export const JourneyRideSchema = z.object({
   start: CoordinateSchema,
   end: CoordinateSchema,
   timerange: JourneyTimerangeSchema,
+  needsReservation: z.boolean(),
+  price: z.number(),
+  changes: z.number(),
 });
 
 export const InvalidRideSchema = z.object({

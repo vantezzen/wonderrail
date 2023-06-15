@@ -14,6 +14,7 @@ import eurailData from "@/data/eurail.json";
 import {
   getDurationFromGeoJson,
   getDurationFromInterrail,
+  getTravellableDate,
 } from "../utils/date";
 import {
   areCoordinatesEqual,
@@ -24,6 +25,9 @@ import Interrail from "./Interrail";
 
 export default class Planner extends EventEmitter {
   public interrail = new Interrail();
+
+  public isLoading = false;
+  public loadingSemaphore = 0;
 
   constructor(public journey: Journey) {
     super();
@@ -46,6 +50,12 @@ export default class Planner extends EventEmitter {
     this.emit("change");
   }
 
+  private updateLoadingState(loadingStateChange: number) {
+    this.loadingSemaphore += loadingStateChange;
+    this.isLoading = this.loadingSemaphore > 0;
+    this.emit("change");
+  }
+
   /**
    * Recalculate journey steps based on stays given.
    * This will take an arbitrary list of journey steps that may be in an invalid
@@ -62,6 +72,7 @@ export default class Planner extends EventEmitter {
   private async recalculateJourneySteps(
     newJourney: JourneyStep[]
   ): Promise<JourneyStep[]> {
+    this.updateLoadingState(1);
     let stays = newJourney.filter(
       (step) => step.type === "stay"
     ) as JourneyStay[];
@@ -76,7 +87,9 @@ export default class Planner extends EventEmitter {
 
     stays = await this.recalculateJourneyDates(stays, startDate);
 
-    return await this.addRidesToJourney(stays, rides);
+    const finishedJourney = await this.addRidesToJourney(stays, rides);
+    this.updateLoadingState(-1);
+    return finishedJourney;
   }
 
   /**
@@ -112,16 +125,34 @@ export default class Planner extends EventEmitter {
       if (existingRide) {
         newJourneyWithRides.push(existingRide);
       } else {
-        newJourneyWithRides.push(
-          await this.getAvailableRideBetweenLocations(
-            currentStay,
-            nextStay,
-            currentStay.timerange.end
-          )
+        const ride = await this.getAvailableRideBetweenLocations(
+          currentStay,
+          nextStay
         );
+        newJourneyWithRides.push(ride);
+
+        if (ride.type === "ride") {
+          this.updateStaysWithRideTimes(currentStay, ride, nextStay);
+        }
       }
     }
     return newJourneyWithRides;
+  }
+
+  private updateStaysWithRideTimes(
+    currentStay: JourneyStay,
+    ride: JourneyRide,
+    nextStay: JourneyStay
+  ) {
+    currentStay.timerange.end = new Date(ride.timerange.start);
+
+    const nextStayLength = Math.ceil(
+      nextStay.timerange.end.getTime() - nextStay.timerange.start.getTime()
+    );
+    nextStay.timerange.start = new Date(ride.timerange.end.getTime());
+    nextStay.timerange.end = new Date(
+      nextStay.timerange.start.getTime() + nextStayLength
+    );
   }
 
   /**
@@ -129,14 +160,12 @@ export default class Planner extends EventEmitter {
    */
   private async getAvailableRideBetweenLocations(
     currentLocation: JourneyStay,
-    nextLocation: JourneyStay,
-    date: Date
+    nextLocation: JourneyStay
   ): Promise<JourneyStep> {
     try {
       return await this.getKnownRideBetweenLocations(
         currentLocation,
-        nextLocation,
-        date
+        nextLocation
       );
     } catch (error) {
       console.log(
@@ -159,35 +188,40 @@ export default class Planner extends EventEmitter {
    */
   private async getKnownRideBetweenLocations(
     currentStay: JourneyStay,
-    nextStay: JourneyStay,
-    date: Date
+    nextStay: JourneyStay
   ): Promise<JourneyRide> {
     const ride = await this.getAppropriateRide(
       currentStay.location.interrailId,
       nextStay.location.interrailId,
-      date
+      getTravellableDate(currentStay.timerange.end)
     );
-    const rideDuration = getDurationFromInterrail(ride.duration);
-    const rideEnd = new Date(
-      currentStay.timerange.end.getTime() + rideDuration
-    );
+
+    const firstStop = ride.legs[0].start;
+    const lastStop = ride.legs[ride.legs.length - 1].end;
+    const changes = ride.legs.length - 1;
 
     return {
       type: "ride",
       id: uuidv4(),
-      name: `${currentStay.location.name} -> ${nextStay.location.name}`,
+      name: `${firstStop.station} -> ${lastStop.station}`,
       start: currentStay.location.coordinates,
       end: nextStay.location.coordinates,
       timerange: {
-        start: currentStay.timerange.end,
-        end: rideEnd,
+        start: new Date(ride.departure),
+        end: new Date(ride.arrival),
       },
+      needsReservation: ride.status === "REQUIRED",
+      price: ride.price,
+      changes,
     };
   }
 
   /**
    * Recalculate the journey dates based on the start date given
    * This will take an arbitrary list of locations and recalculate the dates.
+   *
+   * Please note that this is a provisionally solution and will be updated
+   * with the correct times once the rides are calculated
    */
   private recalculateJourneyDates(locations: JourneyStay[], startDate: Date) {
     locations = locations.map((location) => {
@@ -310,6 +344,15 @@ export default class Planner extends EventEmitter {
       (journeyStep) => "id" in journeyStep && journeyStep.id !== step.id
     );
     this.journey.steps = await this.recalculateJourneySteps(newJourney);
+    this.emit("change");
+  }
+
+  async changeStayDuration(stay: JourneyStay, changedDays: number) {
+    stay.timerange.end = new Date(
+      stay.timerange.end.getTime() + changedDays * 1000 * 60 * 60 * 24
+    );
+
+    this.journey.steps = await this.recalculateJourneySteps(this.journey.steps);
     this.emit("change");
   }
 }

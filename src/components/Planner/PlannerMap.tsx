@@ -102,19 +102,23 @@ function PlannerMap({ planner }: { planner: Planner }) {
             extruded: true,
             radius: 20000,
             elevationScale: 1,
-            getPosition: (d) => [d.coordinates.lng, d.coordinates.lat],
-            getColorWeight: (d) => {
+            getPosition: (d: InterrailLocation) => [
+              d.coordinates.lng,
+              d.coordinates.lat,
+            ],
+            getColorWeight: (d: InterrailLocation) => {
               if (
                 selectedLocation?.coordinates &&
                 getDistanceFromLatLonInKm(
-                  d.location,
+                  d.coordinates,
                   selectedLocation.coordinates
                 ) < 50
               )
                 return 1;
               if (
+                lastStay &&
                 getDistanceFromLatLonInKm(
-                  d.location,
+                  d.coordinates,
                   lastStay.location.coordinates
                 ) < 50
               )
@@ -152,27 +156,33 @@ function PlannerMap({ planner }: { planner: Planner }) {
           if (isHoveringCity) return "pointer";
           return "grab";
         }}
-        onClick={({ object }) => {
+        onClick={async ({ object }) => {
           if (!object) {
             setSelectedLocation(null);
             return;
           }
           if (object.points) {
-            const location = object.points[0].source;
+            const location = object.points[0].source as InterrailLocation;
+            setSelectedLocation(location);
             if (
               selectedLocation &&
-              getDistanceFromLatLonInKm(
-                selectedLocation.coordinates,
-                lastStay.location.coordinates
-              ) < 50
+              (!lastStay ||
+                getDistanceFromLatLonInKm(
+                  selectedLocation.coordinates,
+                  lastStay.location.coordinates
+                ) < 50)
             ) {
               try {
-                planner.addLocation(location);
+                if (!lastStay) {
+                  // Add first location to allow starting the journey
+                  await planner.addLocation(selectedLocation);
+                }
+
+                await planner.addLocation(location);
               } catch (e) {
                 console.log(e);
               }
             }
-            setSelectedLocation(location);
           }
         }}
       >

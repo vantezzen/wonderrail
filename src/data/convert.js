@@ -12,7 +12,7 @@ kml.toGeoJson(inputPath).then(async (object) => {
       .map((feature) => ({
         id: `${feature.properties.name}-${feature.geometry.coordinates[0]}-${feature.geometry.coordinates[1]}`,
         name: feature.properties.name,
-        location: {
+        coordinates: {
           lat: feature.geometry.coordinates[1],
           lng: feature.geometry.coordinates[0],
         },
