@@ -1,4 +1,4 @@
-import { AlertTriangle, Train } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 import React from "react";
 
 function InvalidJourneyStep() {

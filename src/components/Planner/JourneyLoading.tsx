@@ -1,4 +1,4 @@
-import { Loader2, Train } from "lucide-react";
+import { Train } from "lucide-react";
 import React from "react";
 
 function JourneyLoading() {

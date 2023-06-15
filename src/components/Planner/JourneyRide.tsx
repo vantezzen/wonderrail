@@ -1,15 +1,12 @@
 import { JourneyRide } from "@/lib/types";
 import { durationBetween, formatDateTime } from "@/lib/utils/date";
 import {
-  AlertTriangle,
   Info,
-  MoreVertical,
   Receipt,
   ReplaceAll,
   Train,
 } from "lucide-react";
 import React from "react";
-import { Badge } from "../badge/badge";
 import JourneyRideBadge from "./JourneyRideBadge";
 
 function JourneyRide({ ride }: { ride: JourneyRide }) {

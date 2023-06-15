@@ -1,7 +1,4 @@
-import { Journey } from "@/lib/types";
 import React from "react";
-import JourneyStayDisplay from "./JourneyStayDisplay";
-import JourneyRide from "./JourneyRide";
 import Planner from "@/lib/Journey/Planner";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import JourneyStep from "./JourneyStep";

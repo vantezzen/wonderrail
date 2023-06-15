@@ -4,15 +4,13 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import Map from "react-map-gl";
 import maplibregl from "maplibre-gl";
 import {
-  GeoCity,
   InterrailLocation,
   InvalidRide,
-  Journey,
   JourneyRide,
   JourneyStay,
 } from "@/lib/types";
 import DeckGL from "@deck.gl/react/typed";
-import { ArcLayer, PathLayer } from "@deck.gl/layers/typed";
+import { ArcLayer } from "@deck.gl/layers/typed";
 import { HexagonLayer } from "@deck.gl/aggregation-layers/typed";
 import Planner from "@/lib/Journey/Planner";
 import { getDistanceFromLatLonInKm } from "@/lib/utils/coordinates";

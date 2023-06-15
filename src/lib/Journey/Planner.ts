@@ -1,8 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
 import {
-  Coordinate,
-  GeoCity,
-  GeoPoint,
   InterrailLocation,
   Journey,
   JourneyRide,
@@ -12,13 +9,10 @@ import {
 import EventEmitter from "events";
 import eurailData from "@/data/eurail.json";
 import {
-  getDurationFromGeoJson,
-  getDurationFromInterrail,
   getTravellableDate,
 } from "../utils/date";
 import {
   areCoordinatesEqual,
-  arrayCoordinateToJourneyCoordinate,
   getDistanceFromLatLonInKm,
 } from "../utils/coordinates";
 import Interrail from "./Interrail";

@@ -9,7 +9,7 @@ import {
 import { daysBetween } from "@/lib/utils/date";
 import Planner from "@/lib/Journey/Planner";
 import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
-import { Calendar, ChevronsUpDown, MoreVertical, Trash } from "lucide-react";
+import { Calendar, ChevronsUpDown, Trash } from "lucide-react";
 import { Button } from "../ui/button";
 import { JourneyStay } from "@/lib/types";
 import { Input } from "../ui/input";

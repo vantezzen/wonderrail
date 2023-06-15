@@ -1,6 +1,6 @@
 import Planner from "@/lib/Journey/Planner";
 import { JourneyStep } from "@/lib/types";
-import React, { forwardRef } from "react";
+import React from "react";
 import JourneyRide from "./JourneyRide";
 import JourneyStayDisplay from "./JourneyStayDisplay";
 import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd";

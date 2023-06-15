@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "fix": "next lint --fix",
     "convert-map": "node src/data/convert.js"
   },
   "dependencies": {
@@ -24,6 +25,7 @@
     "encoding": "^0.1.13",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.5",
+    "eslint-plugin-unused-imports": "^2.0.0",
     "firebase": "^9.22.2",
     "gtran-kml": "^1.4.5",
     "lucide-react": "^0.244.0",
