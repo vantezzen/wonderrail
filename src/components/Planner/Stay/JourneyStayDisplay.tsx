@@ -1,19 +1,9 @@
 import React from "react";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../../ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "../../ui/card";
 import { getTimerangeLengthToDays } from "@/lib/utils/date";
 import Planner from "@/lib/Journey/Planner";
 import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
-import {
-  Calendar,
-  GripVertical,
-  MapPin,
-  Trash,
-} from "lucide-react";
+import { Calendar, GripVertical, MapPin, Trash } from "lucide-react";
 import { Button } from "../../ui/button";
 import { JourneyStay } from "@/lib/types";
 import { Input } from "../../ui/input";
@@ -36,12 +26,6 @@ function JourneyStayDisplay({
 
   return (
     <div className="relative">
-      {/* <img
-        src={`/api/splash/${encodeURIComponent(stay.location.name)}`}
-        className="absolute inset-0 object-cover w-full h-full z-0 opacity-30"
-        style={{ filter: "blur(20px)" }}
-        alt="Background image"
-      /> */}
       <div className="absolute inset-0 w-full h-full z-0 opacity-20 bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] blur-lg filter" />
       <Card className="relative z-10">
         <div className="flex">

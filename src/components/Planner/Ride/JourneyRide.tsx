@@ -46,7 +46,7 @@ function JourneyRide({ ride }: { ride: JourneyRide }) {
               Needs reservation
             </JourneyRideBadge>
           )}
-          {ride.price > 0 && (
+          {ride.price && ride.price > 0 && (
             <JourneyRideBadge
               icon={<Receipt className="" size={16} />}
               className={lookup(ride.price, {

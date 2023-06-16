@@ -32,7 +32,7 @@ function JourneyRideLeg({ leg }: { leg: InterrailTimetableLeg }) {
     (price) => price.type === "SECOND_CLASS"
   )?.amount;
   const status =
-    leg.status in statusTexts
+    leg.status && leg.status in statusTexts
       ? statusTexts[leg.status as keyof typeof statusTexts]
       : leg.status;
 

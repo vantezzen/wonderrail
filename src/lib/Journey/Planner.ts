@@ -355,7 +355,7 @@ export default class Planner extends EventEmitter {
         }
 
         // Prefer rides that are cheaper
-        rank += 100 - entry.price;
+        rank += 100 - (entry.price ?? 0);
 
         // Prefer rides that are close to the preferred departure time
         const departureTime = new Date(entry.departure).getHours();

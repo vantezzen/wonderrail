@@ -75,8 +75,6 @@ function AddLocationModal({ planner }: { planner: Planner }) {
         )}
 
         <CommandList>
-          {/* <CommandEmpty>No results found.</CommandEmpty> */}
-
           {interrailLocations.length > 0 && (
             <CommandGroup heading="Search results">
               {interrailLocations.map((station) => (
