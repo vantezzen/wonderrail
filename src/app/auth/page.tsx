@@ -1,7 +1,10 @@
+"use client";
 import React from "react";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { firebaseAuth } from "@/lib/firebase/clientApp";
 import Link from "next/link";
+import logoImage from "@/assets/logo.png";
+import Image from "next/image";
 
 const uiConfig: firebaseui.auth.Config = {
   signInSuccessUrl: "/app",
@@ -25,11 +28,13 @@ const uiConfig: firebaseui.auth.Config = {
 
 function SignInScreen() {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col justify-center items-center gap-4 bg-black">
+      <Image src={logoImage} width={150} height={150} alt="WonderRail logo" />
+
       <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebaseAuth} />
 
       <p className="mt-6 font-medium text-zinc-500 text-center">
-        By continuing, you agree to neonFin&apos;s{" "}
+        By continuing, you agree to WonderRail&apos;s{" "}
         <Link href="/legal/terms" className="underline">
           Terms of Service
         </Link>{" "}

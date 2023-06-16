@@ -3,16 +3,18 @@ import React, { useEffect } from "react";
 import PlannerMap from "./PlannerMap";
 import Heading from "../Various/Heading";
 import JourneySteps from "./JourneySteps";
-import { EXAMPLE_JOURNEY } from "@/lib/types";
+import { EMPTY_JOURNEY, Journey } from "@/lib/types";
 import Planner from "@/lib/Journey/Planner";
 import AddLocationModal from "./AddLocationModal";
 import JourneyLoading from "./JourneyLoading";
 import GeneralJourneySettings from "./GeneralJourneySettings";
 import Image from "next/image";
 import logoImage from "@/assets/logo.png";
+import SaveAction from "./SaveAction";
+import LogoBar from "./LogoBar";
 
-function PlannerComponent() {
-  const [planner] = React.useState(() => new Planner(EXAMPLE_JOURNEY));
+function PlannerComponent({ journey }: { journey: Journey }) {
+  const [planner] = React.useState(() => new Planner(journey));
   const [, forceUpdate] = React.useState({});
   useEffect(() => {
     const update = () => forceUpdate({});
@@ -34,17 +36,23 @@ function PlannerComponent() {
           className="p-12 overflow-y-auto h-screen bg-black"
           suppressHydrationWarning
         >
-          <Image
-            src={logoImage}
-            alt="logo"
-            width={100}
-            height={100}
-            className="mb-6"
-          />
+          <LogoBar />
+          <SaveAction planner={planner} />
           <GeneralJourneySettings planner={planner} />
 
           <Heading className="mt-6">Itinerary</Heading>
           <JourneySteps planner={planner} />
+
+          {planner.journey.steps.length === 0 && (
+            <div className="mt-6 text-center">
+              <h3 className="font-medium text-zinc-400">No stops yet</h3>
+              <p className="text-zinc-500 font-medium text-sm">
+                Add your first stop by clicking the button below or choosing a
+                city on the map.
+              </p>
+            </div>
+          )}
+
           <AddLocationModal planner={planner} />
         </div>
       </div>

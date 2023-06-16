@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import { FirebaseConnectionStoreProvider } from "@/lib/firebase/FirebaseConnectionStore";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(inter.className, "dark bg-background")}>
-        {children}
+        <FirebaseConnectionStoreProvider>
+          {children}
+        </FirebaseConnectionStoreProvider>
       </body>
     </html>
   );

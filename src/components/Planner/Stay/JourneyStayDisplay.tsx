@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../../ui/card";
-import { daysBetween } from "@/lib/utils/date";
+import { daysBetween, getTimerangeLengthToDays } from "@/lib/utils/date";
 import Planner from "@/lib/Journey/Planner";
 import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
 import {
@@ -32,7 +32,7 @@ function JourneyStayDisplay({
   planner: Planner;
   dragHandleProps?: DraggableProvidedDragHandleProps;
 }) {
-  const days = daysBetween(stay.timerange.start, stay.timerange.end);
+  const days = getTimerangeLengthToDays(stay.timerange) / 1000 / 60 / 60 / 24;
   const [changedDays, setChangedDays] = React.useState(days);
 
   const isStartEndDateEqual =

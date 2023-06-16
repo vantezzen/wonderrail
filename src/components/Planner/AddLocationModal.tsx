@@ -49,7 +49,7 @@ function AddLocationModal({ planner }: { planner: Planner }) {
     <>
       <Button
         onClick={() => setIsOpen(true)}
-        variant="ghost"
+        variant="secondary"
         className="w-full mt-6"
       >
         <Plus size={16} className="mr-2" />
@@ -58,10 +58,11 @@ function AddLocationModal({ planner }: { planner: Planner }) {
 
       <CommandDialog open={isOpen} onOpenChange={setIsOpen}>
         {planner.journey.steps.length === 0 && (
-          <div className=" p-5">
-            Welcome to WonderRail!
-            <br />
-            Start by adding the location you want to start from
+          <div className="p-5 text-center">
+            <h3 className="text-xl font-medium">Welcome to WonderRail!</h3>
+            <p className="text-zinc-500 font-medium">
+              Start by adding the location you want to start from
+            </p>
           </div>
         )}
 

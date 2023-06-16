@@ -1,33 +1,26 @@
-import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+"use client";
 import { useAuthState } from "@/lib/firebase/FirebaseConnectionStore";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
+import LoadingScreen from "../Various/LoadingScreen";
 
 /**
  * Authenticated Route: Only let logged in users see this page.
  */
-function AuthenticatedRoute({
-  children,
-  withoutOnboarding,
-}: {
-  children: React.ReactNode;
-  withoutOnboarding?: boolean;
-}) {
+function AuthenticatedRoute({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [user, loading, error] = useAuthState();
 
   useEffect(() => {
     if (user === null && !loading) {
-      router.push({
-        pathname: "/auth/login",
-        query: { returnUrl: router.asPath },
-      });
+      router.push("/auth");
     }
   }, [user, loading, router]);
 
   if (user !== null && !loading) {
     return <>{children}</>;
   }
-  return <>Loading</>;
+  return <LoadingScreen text="Preparing" />;
 }
 
 export default AuthenticatedRoute;

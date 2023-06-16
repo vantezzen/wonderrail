@@ -27,7 +27,7 @@ const InterrailBookingInformationSchema = z.object({
   linkToBook1: z.string(),
   linkToBook2: z.string(),
   linkToCarrierTimetable: z.string(),
-  warningLabels: z.array(z.string()),
+  warningLabels: z.array(z.any()),
   websiteBookingAvailable: z.boolean(),
 });
 
@@ -39,17 +39,19 @@ const InterrailDurationSchema = z.object({
 const InterrailTimetableLegSchema = z.object({
   start: InterrailStationInfoSchema,
   end: InterrailStationInfoSchema,
-  transport: InterrailTransportInfoSchema,
-  facilities: z.array(z.string()),
-  prices: z.array(InterrailPricesInfoSchema),
+  transport: InterrailTransportInfoSchema.optional(),
+  facilities: z.array(z.string()).optional(),
+  prices: z.array(InterrailPricesInfoSchema).optional(),
   id: z.string(),
-  bookingInformation: InterrailBookingInformationSchema,
+  bookingInformation: InterrailBookingInformationSchema.optional(),
   type: z.enum(["TRAIN_TRAVEL", "PLATFORM_CHANGE"]),
-  status: z.enum(["REQUIRED", "NOT_REQUIRED", "OUTDATED", "INVALID"]),
+  status: z
+    .enum(["REQUIRED", "NOT_REQUIRED", "OUTDATED", "INVALID", "OPTIONAL"])
+    .optional(),
   duration: InterrailDurationSchema,
-  trainType: z.string(),
-  reservationAttributes: z.array(z.string()),
-  supplementRequired: z.boolean(),
+  trainType: z.string().optional(),
+  reservationAttributes: z.array(z.string()).optional(),
+  supplementRequired: z.boolean().optional(),
 });
 
 const InterrailTimetableEntrySchema = z.object({
@@ -68,8 +70,8 @@ export const CoordinateSchema = z.object({
 });
 
 export const JourneyTimerangeSchema = z.object({
-  start: z.date(),
-  end: z.date(),
+  start: z.coerce.date(),
+  end: z.coerce.date(),
 });
 
 export const InterrailLocationSchema = z.object({
@@ -125,14 +127,14 @@ export const JourneySchema = z.object({
   name: z.string(),
   description: z.string().optional(),
   steps: z.array(JourneyStepSchema),
-  startDate: z.date(),
+  startDate: z.coerce.date(),
   preferredDepartureTime: z.number(), // 0-24
 });
 
-export const EXAMPLE_JOURNEY: Journey = {
+export const EMPTY_JOURNEY: Journey = {
   id: uuidv4(),
   name: "My Journey",
-  description: "This is my journey",
+  description: "",
   // Today in 1 month
   startDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 30),
   preferredDepartureTime: 10,

@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import { padLeft } from "@/lib/utils/number";
+import { Input } from "../ui/input";
 
 function GeneralJourneySettings({ planner }: { planner: Planner }) {
   return (
@@ -21,6 +22,26 @@ function GeneralJourneySettings({ planner }: { planner: Planner }) {
         <CardTitle>General</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
+        <VerticalInputContainer>
+          <Label>Journey name</Label>
+          <Input
+            value={planner.journey.name}
+            onChange={(e) => {
+              planner.journey.name = e.target.value;
+              planner.emit("change");
+            }}
+          />
+        </VerticalInputContainer>
+        <VerticalInputContainer>
+          <Label>Journey description</Label>
+          <Input
+            value={planner.journey.description}
+            onChange={(e) => {
+              planner.journey.description = e.target.value;
+              planner.emit("change");
+            }}
+          />
+        </VerticalInputContainer>
         <VerticalInputContainer>
           <Label>Start date</Label>
           <DatePicker

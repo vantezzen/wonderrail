@@ -1,3 +1,4 @@
+"use client";
 import { firebaseAuth } from "@/lib/firebase/clientApp";
 import { User } from "firebase/auth";
 import { useEffect } from "react";
