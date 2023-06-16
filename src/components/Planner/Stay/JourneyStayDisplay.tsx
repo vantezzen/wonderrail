@@ -5,7 +5,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../ui/card";
+} from "../../ui/card";
 import { daysBetween } from "@/lib/utils/date";
 import Planner from "@/lib/Journey/Planner";
 import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
@@ -18,9 +18,9 @@ import {
   MapPin,
   Trash,
 } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { JourneyStay } from "@/lib/types";
-import { Input } from "../ui/input";
+import { Input } from "../../ui/input";
 import Image from "next/image";
 
 function JourneyStayDisplay({

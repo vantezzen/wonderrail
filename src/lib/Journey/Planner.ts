@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import {
   InterrailLocation,
+  InterrailTimetableEntry,
   Journey,
   JourneyRide,
   JourneyStay,
@@ -209,6 +210,7 @@ export default class Planner extends EventEmitter {
         start: new Date(ride.departure),
         end: new Date(ride.arrival),
       },
+      details: ride,
       needsReservation: ride.status === "REQUIRED",
       price: ride.price,
       changes,
@@ -323,7 +325,7 @@ export default class Planner extends EventEmitter {
       origin: fromStationId,
       destination: toStationId,
       timestamp: getIsoDateWithoutTimezoneDifference(date),
-      tripsNumber: 1,
+      tripsNumber: 5,
       arrival: false,
       currency: "EUR",
       travellers: 1,
@@ -333,7 +335,41 @@ export default class Planner extends EventEmitter {
       throw new Error("No rides found");
     }
 
-    return timetable[0];
+    return this.getBestInterrailRide(timetable);
+  }
+
+  private getBestInterrailRide(timetable: InterrailTimetableEntry[]) {
+    // Rank entries and return the best one
+    const rankedEntries = timetable
+      .map((entry) => {
+        let rank = 0;
+
+        // Prefer rides with less changes
+        rank += 100 - entry.legs.length * 10;
+
+        // Prefer rides that don't require a reservation
+        if (entry.status === "NOT_REQUIRED") {
+          rank += 10;
+        }
+
+        // Prefer rides that are cheaper
+        rank += 100 - entry.price;
+
+        // Prefer rides that are close to the preferred departure time
+        const departureTime = new Date(entry.departure).getHours();
+        const hoursDifference = Math.abs(
+          departureTime - this.journey.preferredDepartureTime
+        );
+        rank += 100 - hoursDifference * 10;
+
+        return {
+          entry,
+          rank,
+        };
+      })
+      .sort((a, b) => b.rank - a.rank);
+
+    return rankedEntries[0].entry;
   }
 
   /**

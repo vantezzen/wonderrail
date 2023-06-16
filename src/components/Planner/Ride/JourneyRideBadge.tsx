@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge } from "../badge/badge";
+import { Badge } from "../../badge/badge";
 
 function JourneyRideBadge({
   icon,

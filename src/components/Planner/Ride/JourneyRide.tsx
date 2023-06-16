@@ -3,6 +3,7 @@ import { durationBetween, formatDateTime, formatTime } from "@/lib/utils/date";
 import { Info, Receipt, ReplaceAll, Train } from "lucide-react";
 import React from "react";
 import JourneyRideBadge from "./JourneyRideBadge";
+import JourneyRideDetailsModal from "./JourneyRideDetailsModal";
 
 function JourneyRide({ ride }: { ride: JourneyRide }) {
   const duration = durationBetween(ride.timerange.start, ride.timerange.end);
@@ -53,6 +54,8 @@ function JourneyRide({ ride }: { ride: JourneyRide }) {
           )}
         </div>
       </div>
+
+      <JourneyRideDetailsModal ride={ride} />
     </div>
   );
 }
