@@ -186,7 +186,7 @@ function PlannerMap({ planner }: { planner: Planner }) {
       >
         <Map
           mapLib={maplibregl}
-          mapStyle="https://api.maptiler.com/maps/dataviz-dark/style.json?key=eIgS48TpQ70m77qKYrsx"
+          mapStyle={`https://api.maptiler.com/maps/dataviz-dark/style.json?key=${process.env.NEXT_PUBLIC_MAPTILER_KEY}`}
         />
       </DeckGL>
     </div>
