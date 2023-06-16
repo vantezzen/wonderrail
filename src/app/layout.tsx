@@ -6,8 +6,8 @@ import { FirebaseConnectionStoreProvider } from "@/lib/firebase/FirebaseConnecti
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "WonderRail",
-  description: "Plan your Interrail trip with ease",
+  title: "WonderRail - Discover the smartest way to Interrail",
+  description: "Discover the smartest way to Interrail",
 };
 
 export default function RootLayout({

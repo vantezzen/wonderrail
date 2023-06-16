@@ -14,6 +14,7 @@ import {
 } from "../ui/select";
 import { padLeft } from "@/lib/utils/number";
 import { Input } from "../ui/input";
+import { Checkbox } from "../ui/checkbox";
 
 function GeneralJourneySettings({ planner }: { planner: Planner }) {
   return (
@@ -69,6 +70,17 @@ function GeneralJourneySettings({ planner }: { planner: Planner }) {
             </SelectContent>
           </Select>
         </VerticalInputContainer>
+        <div className="flex gap-3 items-center">
+          <Checkbox
+            id="public"
+            checked={planner.journey.isPublic}
+            onCheckedChange={(checked) => {
+              planner.journey.isPublic = Boolean(checked);
+              planner.emit("change");
+            }}
+          />
+          <Label htmlFor="public">Make publicly available</Label>
+        </div>
       </CardContent>
     </Card>
   );

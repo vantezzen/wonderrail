@@ -15,6 +15,7 @@ export default class Storage {
     );
     await setDoc(journeyDocRef, {
       journey: JSON.stringify(journey),
+      isPublic: journey.isPublic, // Needs to be saved separately so Firebase rules can check it easily
     });
 
     return {

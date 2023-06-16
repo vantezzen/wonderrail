@@ -1,10 +1,12 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { firebaseAuth } from "@/lib/firebase/clientApp";
 import Link from "next/link";
 import logoImage from "@/assets/logo.png";
 import Image from "next/image";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useRouter } from "next/navigation";
 
 const uiConfig: firebaseui.auth.Config = {
   signInSuccessUrl: "/app",
@@ -27,6 +29,14 @@ const uiConfig: firebaseui.auth.Config = {
 };
 
 function SignInScreen() {
+  const [user] = useAuthState(firebaseAuth);
+  const router = useRouter();
+  useEffect(() => {
+    if (user) {
+      router.push("/app");
+    }
+  }, [user]);
+
   return (
     <div className="min-h-screen flex flex-col justify-center items-center gap-4 bg-black">
       <Image src={logoImage} width={150} height={150} alt="WonderRail logo" />

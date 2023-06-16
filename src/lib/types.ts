@@ -44,9 +44,16 @@ const InterrailTimetableLegSchema = z.object({
   prices: z.array(InterrailPricesInfoSchema).optional(),
   id: z.string(),
   bookingInformation: InterrailBookingInformationSchema.optional(),
-  type: z.enum(["TRAIN_TRAVEL", "PLATFORM_CHANGE"]),
+  type: z.enum(["TRAIN_TRAVEL", "PLATFORM_CHANGE", "STATION_CHANGE_WALK"]),
   status: z
-    .enum(["REQUIRED", "NOT_REQUIRED", "OUTDATED", "INVALID", "OPTIONAL"])
+    .enum([
+      "REQUIRED",
+      "NOT_REQUIRED",
+      "OUTDATED",
+      "INVALID",
+      "OPTIONAL",
+      "NO_RESERVATION",
+    ])
     .optional(),
   duration: InterrailDurationSchema,
   trainType: z.string().optional(),
@@ -56,7 +63,7 @@ const InterrailTimetableLegSchema = z.object({
 
 const InterrailTimetableEntrySchema = z.object({
   id: z.string(),
-  price: z.number(),
+  price: z.number().optional(),
   status: z.enum(["REQUIRED", "NOT_REQUIRED"]),
   duration: InterrailDurationSchema,
   legs: z.array(InterrailTimetableLegSchema),
@@ -104,7 +111,7 @@ export const JourneyRideSchema = z.object({
   timerange: JourneyTimerangeSchema,
   needsReservation: z.boolean(),
   details: InterrailTimetableEntrySchema.optional(),
-  price: z.number(),
+  price: z.number().optional(),
   changes: z.number(),
 });
 
@@ -129,6 +136,7 @@ export const JourneySchema = z.object({
   steps: z.array(JourneyStepSchema),
   startDate: z.coerce.date(),
   preferredDepartureTime: z.number(), // 0-24
+  isPublic: z.boolean(),
 });
 
 export const EMPTY_JOURNEY: Journey = {
@@ -139,6 +147,7 @@ export const EMPTY_JOURNEY: Journey = {
   startDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 30),
   preferredDepartureTime: 10,
   steps: [],
+  isPublic: false,
 };
 
 export type InterrailTimetableLeg = z.infer<typeof InterrailTimetableLegSchema>;

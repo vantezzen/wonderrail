@@ -35,40 +35,44 @@ function AppPage() {
               </div>
             )}
 
-            {journeys?.docs.map((journeyItem) => {
-              const journey = JSON.parse(journeyItem.data().journey) as Journey;
+            <div className="flex flex-col gap-4">
+              {journeys?.docs.map((journeyItem) => {
+                const journey = JSON.parse(
+                  journeyItem.data().journey
+                ) as Journey;
 
-              return (
-                <Link href={`/journeys/${user?.uid}/${journeyItem.id}`}>
-                  <button className="rounded bg-zinc-800 hover:bg-zinc-900 p-6 w-full text-left duration-100">
-                    <h3 className="text-lg font-bold">{journey.name}</h3>
+                return (
+                  <Link href={`/journeys/${user?.uid}/${journeyItem.id}`}>
+                    <button className="rounded bg-zinc-900 hover:bg-zinc-800 p-4 w-full text-left duration-100">
+                      <h3 className="text-lg font-bold">{journey.name}</h3>
 
-                    <p className="text-zinc-500 font-medium mt-2">
-                      {journey.description}
-                    </p>
+                      <p className="text-zinc-500 font-medium mt-1 text-sm">
+                        {journey.description}
+                      </p>
 
-                    <div className="flex gap-1 items-center text-zinc-500 text-sm mt-2">
-                      <span>
-                        {
-                          journey.steps.filter((step) => step.type === "stay")
-                            .length
-                        }{" "}
-                        stops
-                      </span>
+                      <div className="flex gap-1 items-center text-zinc-500 text-xs mt-2">
+                        <span>
+                          {
+                            journey.steps.filter((step) => step.type === "stay")
+                              .length
+                          }{" "}
+                          stops
+                        </span>
 
-                      <Dot size={12} className="text-zinc-500" />
+                        <Dot size={12} className="text-zinc-500" />
 
-                      <span>
-                        Starting{" "}
-                        {new Date(
-                          journey.startDate as unknown as string
-                        ).toLocaleDateString()}
-                      </span>
-                    </div>
-                  </button>
-                </Link>
-              );
-            })}
+                        <span>
+                          Starting{" "}
+                          {new Date(
+                            journey.startDate as unknown as string
+                          ).toLocaleDateString()}
+                        </span>
+                      </div>
+                    </button>
+                  </Link>
+                );
+              })}
+            </div>
           </CardContent>
         </Card>
 
