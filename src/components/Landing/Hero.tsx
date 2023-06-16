@@ -4,7 +4,6 @@ import React from "react";
 import Image from "next/image";
 import Balancer from "react-wrap-balancer";
 import { Button } from "../ui/button";
-import logoImage from "@/assets/logo.png";
 import interfaceImage from "@/assets/landing/interface.png";
 
 function Hero() {
@@ -14,7 +13,7 @@ function Hero() {
         <div className="flex flex-col gap-y-8">
           <div className="text-center flex items-center flex-col">
             <div className="max-w-sm mx-auto sm:max-w-5xl text-center">
-              <h1 className="text-5xl font-bold leading-tight text-white sm:leading-tight lg:text-6xl lg:leading-tight font-pj bg-clip-text text-transparent bg-gradient-to-b from-emerald-100 to-emerald-300">
+              <h1 className="text-5xl font-bold leading-tight sm:leading-tight lg:text-6xl lg:leading-tight font-pj bg-clip-text text-transparent bg-gradient-to-b from-purple-100 to-purple-300">
                 <Balancer>Discover the smartest way to Interrail</Balancer>
               </h1>
               <p className="mt-5 text-base text-zinc-400 sm:mt-8 sm:text-xl lg:text-lg xl:text-xl">

@@ -2,7 +2,6 @@ import { collection } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import useUserStore from "../firebase/userStore";
 import { firestore } from "../firebase/clientApp";
-import { Journey } from "../types";
 
 export default function useJourneys() {
   const user = useUserStore((store) => store.user);

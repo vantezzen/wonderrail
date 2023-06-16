@@ -1,5 +1,4 @@
 import useJourneyIdStore from "@/components/Planner/journeyIdStore";
-import useUserStore from "../firebase/userStore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { firebaseAuth } from "../firebase/clientApp";
 

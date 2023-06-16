@@ -2,17 +2,15 @@ import Planner from "@/lib/Journey/Planner";
 import React, { useEffect } from "react";
 import {
   CommandDialog,
-  CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
 } from "../ui/command";
 import { Button } from "../ui/button";
-import { Hexagon, Loader2, Plus } from "lucide-react";
+import { Loader2, Plus } from "lucide-react";
 import { InterrailLocation } from "@/lib/types";
 import { useDebounce } from "use-debounce";
-import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 
 function AddLocationModal({ planner }: { planner: Planner }) {
   const [isOpen, setIsOpen] = React.useState(false);

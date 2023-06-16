@@ -2,26 +2,21 @@ import React from "react";
 import {
   Card,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "../../ui/card";
-import { daysBetween, getTimerangeLengthToDays } from "@/lib/utils/date";
+import { getTimerangeLengthToDays } from "@/lib/utils/date";
 import Planner from "@/lib/Journey/Planner";
 import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
 import {
   Calendar,
-  ChevronsUpDown,
-  Dot,
   GripVertical,
-  Hotel,
   MapPin,
   Trash,
 } from "lucide-react";
 import { Button } from "../../ui/button";
 import { JourneyStay } from "@/lib/types";
 import { Input } from "../../ui/input";
-import Image from "next/image";
 
 function JourneyStayDisplay({
   stay,

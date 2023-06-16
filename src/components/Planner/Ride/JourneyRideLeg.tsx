@@ -1,6 +1,6 @@
 import { InterrailTimetableLeg } from "@/lib/types";
 import { lookup } from "@/lib/utils/number";
-import { ArrowRight, Clock, Dot, ReplaceAll, Train } from "lucide-react";
+import { ArrowRight, Dot, ReplaceAll, Train } from "lucide-react";
 import React from "react";
 
 const statusTexts = {

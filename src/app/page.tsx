@@ -3,7 +3,6 @@ import Hero from "@/components/Landing/Hero";
 import Highlights from "@/components/Landing/Highlights";
 import Navbar from "@/components/Landing/Navbar";
 import Footer from "@/components/Layout/Footer/Footer";
-import Image from "next/image";
 
 export default function Home() {
   return (

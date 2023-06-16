@@ -3,13 +3,11 @@ import React, { useEffect } from "react";
 import PlannerMap from "./PlannerMap";
 import Heading from "../Various/Heading";
 import JourneySteps from "./JourneySteps";
-import { EMPTY_JOURNEY, Journey } from "@/lib/types";
+import { Journey } from "@/lib/types";
 import Planner from "@/lib/Journey/Planner";
 import AddLocationModal from "./AddLocationModal";
 import JourneyLoading from "./JourneyLoading";
 import GeneralJourneySettings from "./GeneralJourneySettings";
-import Image from "next/image";
-import logoImage from "@/assets/logo.png";
 import SaveAction from "./SaveAction";
 import LogoBar from "./LogoBar";
 

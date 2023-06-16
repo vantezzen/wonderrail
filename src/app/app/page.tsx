@@ -1,5 +1,4 @@
 "use client";
-import AuthenticatedRoute from "@/components/Layout/AuthenticatedRoute";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuthState } from "@/lib/firebase/FirebaseConnectionStore";
@@ -42,7 +41,10 @@ function AppPage() {
                 ) as Journey;
 
                 return (
-                  <Link href={`/journeys/${user?.uid}/${journeyItem.id}`}>
+                  <Link
+                    href={`/journeys/${user?.uid}/${journeyItem.id}`}
+                    key={journey.id}
+                  >
                     <button className="rounded bg-zinc-900 hover:bg-zinc-800 p-4 w-full text-left duration-100">
                       <h3 className="text-lg font-bold">{journey.name}</h3>
 

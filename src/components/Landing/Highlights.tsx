@@ -1,7 +1,6 @@
 import Image from "next/image";
 import React from "react";
 import Highlight from "./Elements/Highlight";
-import logoImage from "@/assets/logo.png";
 import itineraryImage from "@/assets/landing/itinerary.png";
 import timetableImage from "@/assets/landing/timetable.png";
 import priceTagImage from "@/assets/landing/price-tags.png";
