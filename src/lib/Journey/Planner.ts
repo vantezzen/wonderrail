@@ -8,7 +8,11 @@ import {
 } from "../types";
 import EventEmitter from "events";
 import eurailData from "@/data/eurail.json";
-import { getTimerangeLengthToDays, getTravellableDate } from "../utils/date";
+import {
+  getIsoDateWithoutTimezoneDifference,
+  getTimerangeLengthToDays,
+  getTravellableDate,
+} from "../utils/date";
 import {
   areCoordinatesEqual,
   getDistanceFromLatLonInKm,
@@ -185,7 +189,10 @@ export default class Planner extends EventEmitter {
     const ride = await this.getAppropriateRide(
       currentStay.location.interrailId,
       nextStay.location.interrailId,
-      getTravellableDate(currentStay.timerange.end)
+      getTravellableDate(
+        currentStay.timerange.end,
+        this.journey.preferredDepartureTime
+      )
     );
 
     const firstStop = ride.legs[0].start;
@@ -315,7 +322,7 @@ export default class Planner extends EventEmitter {
     const timetable = await this.interrail.getTimetable({
       origin: fromStationId,
       destination: toStationId,
-      timestamp: date.toISOString(),
+      timestamp: getIsoDateWithoutTimezoneDifference(date),
       tripsNumber: 1,
       arrival: false,
       currency: "EUR",
@@ -367,5 +374,10 @@ export default class Planner extends EventEmitter {
         this.journey.steps
       );
     }
+  }
+
+  async setPreferredDepartureTime(preferredDepartureTime: number) {
+    this.journey.preferredDepartureTime = preferredDepartureTime;
+    this.journey.steps = await this.recalculateJourneySteps(this.journey.steps);
   }
 }

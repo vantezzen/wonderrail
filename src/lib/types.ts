@@ -64,6 +64,7 @@ export const JourneySchema = z.object({
   description: z.string().optional(),
   steps: z.array(JourneyStepSchema),
   startDate: z.date(),
+  preferredDepartureTime: z.number(), // 0-24
 });
 
 export const EXAMPLE_JOURNEY: Journey = {
@@ -71,6 +72,7 @@ export const EXAMPLE_JOURNEY: Journey = {
   name: "My Journey",
   description: "This is my journey",
   startDate: new Date(),
+  preferredDepartureTime: 10,
   steps: [
     // {
     //   type: "location",

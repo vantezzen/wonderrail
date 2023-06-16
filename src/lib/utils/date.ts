@@ -38,13 +38,26 @@ export function formatTime(date: Date) {
   }).format(date);
 }
 
-export function getTravellableDate(date: Date) {
-  // Return the day at 10am to make sure we are at a nice time for travelling
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 10);
+export function getTravellableDate(date: Date, preferredDepartureTime = 10) {
+  const travellableDate = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+    preferredDepartureTime
+  );
+
+  return travellableDate;
 }
 
 export function getTimerangeLengthToDays(timerange: JourneyTimerange) {
   const start = getTravellableDate(timerange.start);
   const end = getTravellableDate(timerange.end);
   return daysBetween(start, end) * 24 * 60 * 60 * 1000;
+}
+
+export function getIsoDateWithoutTimezoneDifference(date: Date) {
+  return `${date.getFullYear()}-${padLeft(date.getMonth() + 1, 2)}-${padLeft(
+    date.getDate(),
+    2
+  )}T${padLeft(date.getHours(), 2)}:${padLeft(date.getMinutes(), 2)}:00.000Z`;
 }

@@ -35,7 +35,7 @@ export type InterrailTimetableLeg = {
     websiteBookingAvailable: boolean;
   };
   type: "TRAIN_TRAVEL";
-  status: "REQUIRED" | "NOT_REQUIRED";
+  status: "REQUIRED" | "NOT_REQUIRED" | "OUTDATED" | "INVALID";
   duration: {
     hours: number;
     minutes: number;
