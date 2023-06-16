@@ -32,6 +32,12 @@ export function formatDateTime(date: Date) {
   }).format(date);
 }
 
+export function formatTime(date: Date) {
+  return new Intl.DateTimeFormat(undefined, {
+    timeStyle: "short",
+  }).format(date);
+}
+
 export function getTravellableDate(date: Date) {
   // Return the day at 10am to make sure we are at a nice time for travelling
   return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 10);

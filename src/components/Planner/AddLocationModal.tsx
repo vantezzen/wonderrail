@@ -55,20 +55,6 @@ function AddLocationModal({ planner }: { planner: Planner }) {
         <Plus size={16} className="mr-2" />
         Add location
       </Button>
-      <Alert className="mt-6 text-zinc-500">
-        <Hexagon className="h-4 w-4" />
-        <AlertTitle className="text-zinc-400">
-          Click on locations on the map to add them to your trip
-        </AlertTitle>
-        <AlertDescription>
-          You can quickly add popular locations by clicking the red dots on the
-          map and WonderRail will automatically find a train ride to get to
-          there.
-          <br />
-          Grey lines show direct train lines between popular locations without
-          needing to change trains.
-        </AlertDescription>
-      </Alert>
 
       <CommandDialog open={isOpen} onOpenChange={setIsOpen}>
         {planner.journey.steps.length === 0 && (

@@ -1,11 +1,15 @@
 import { JourneyRide } from "@/lib/types";
-import { durationBetween, formatDateTime } from "@/lib/utils/date";
+import { durationBetween, formatDateTime, formatTime } from "@/lib/utils/date";
 import { Info, Receipt, ReplaceAll, Train } from "lucide-react";
 import React from "react";
 import JourneyRideBadge from "./JourneyRideBadge";
 
 function JourneyRide({ ride }: { ride: JourneyRide }) {
   const duration = durationBetween(ride.timerange.start, ride.timerange.end);
+
+  const isStartEndDateEqual =
+    ride.timerange.start.toLocaleDateString() ===
+    ride.timerange.end.toLocaleDateString();
 
   return (
     <div className="flex items-center gap-4 text-slate-600">
@@ -16,8 +20,17 @@ function JourneyRide({ ride }: { ride: JourneyRide }) {
         <div className=" text-sm">
           {duration}h (
           <span suppressHydrationWarning>
-            {formatDateTime(ride.timerange.start)} -{" "}
-            {formatDateTime(ride.timerange.end)}
+            {isStartEndDateEqual ? (
+              <>
+                {formatDateTime(ride.timerange.start)} -{" "}
+                {formatTime(ride.timerange.end)}
+              </>
+            ) : (
+              <>
+                {formatDateTime(ride.timerange.start)} -{" "}
+                {formatDateTime(ride.timerange.end)}
+              </>
+            )}
           </span>
           )
         </div>
