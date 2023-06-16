@@ -1,3 +1,4 @@
+import { JourneyTimerange } from "../types";
 import { padLeft } from "./number";
 
 export function daysBetween(start: Date, end: Date) {
@@ -34,4 +35,10 @@ export function formatDateTime(date: Date) {
 export function getTravellableDate(date: Date) {
   // Return the day at 10am to make sure we are at a nice time for travelling
   return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 10);
+}
+
+export function getTimerangeLengthToDays(timerange: JourneyTimerange) {
+  const start = getTravellableDate(timerange.start);
+  const end = getTravellableDate(timerange.end);
+  return daysBetween(start, end) * 24 * 60 * 60 * 1000;
 }

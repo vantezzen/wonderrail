@@ -8,9 +8,7 @@ import {
 } from "../types";
 import EventEmitter from "events";
 import eurailData from "@/data/eurail.json";
-import {
-  getTravellableDate,
-} from "../utils/date";
+import { getTimerangeLengthToDays, getTravellableDate } from "../utils/date";
 import {
   areCoordinatesEqual,
   getDistanceFromLatLonInKm,
@@ -219,8 +217,7 @@ export default class Planner extends EventEmitter {
    */
   private recalculateJourneyDates(locations: JourneyStay[], startDate: Date) {
     locations = locations.map((location) => {
-      const locationDuration =
-        location.timerange.end.getTime() - location.timerange.start.getTime();
+      const locationDuration = getTimerangeLengthToDays(location.timerange);
       const newEndDate = new Date(startDate.getTime() + locationDuration);
       const newLocation = {
         ...location,
@@ -251,8 +248,6 @@ export default class Planner extends EventEmitter {
   getRides(fromLocation?: InterrailLocation | null) {
     let lines = eurailData.lines;
 
-    // TODO: Use Interrail API
-
     if (fromLocation) {
       lines = lines.filter((feature) => {
         const distances = [
@@ -278,7 +273,7 @@ export default class Planner extends EventEmitter {
       this.journey.steps.length - 1
     ] as JourneyStay;
 
-    let travelEndTime = new Date();
+    let travelEndTime = this.journey.startDate;
     if (previousStep) {
       const distanceToPreviousStep = getDistanceFromLatLonInKm(
         previousStep.location.coordinates,
@@ -290,13 +285,18 @@ export default class Planner extends EventEmitter {
       }
     }
 
+    const endDate =
+      this.journey.steps.length > 0
+        ? new Date(travelEndTime.getTime() + 1000 * 60 * 60 * 24 * 2) // Stay is 2 days long by default
+        : travelEndTime; // The first stay should be 0 days long as we expect it to be where the person lives
+
     this.journey.steps.push({
       type: "stay",
       id: uuidv4(),
       location,
       timerange: {
         start: travelEndTime,
-        end: new Date(travelEndTime.getTime() + 1000 * 60 * 60 * 24 * 2),
+        end: endDate,
       },
     });
 
@@ -343,10 +343,29 @@ export default class Planner extends EventEmitter {
 
   async changeStayDuration(stay: JourneyStay, changedDays: number) {
     stay.timerange.end = new Date(
-      stay.timerange.end.getTime() + changedDays * 1000 * 60 * 60 * 24
+      stay.timerange.start.getTime() + changedDays * 1000 * 60 * 60 * 24
     );
 
     this.journey.steps = await this.recalculateJourneySteps(this.journey.steps);
     this.emit("change");
+  }
+
+  async setStartDate(startDate?: Date) {
+    if (!startDate) {
+      return;
+    }
+
+    this.journey.startDate = startDate;
+    if (this.journey.steps.length > 0) {
+      const firstStay = this.journey.steps[0] as JourneyStay;
+      const firstStayDuration = getTimerangeLengthToDays(firstStay.timerange);
+      const newEndDate = new Date(startDate.getTime() + firstStayDuration);
+      firstStay.timerange.start = startDate;
+      firstStay.timerange.end = newEndDate;
+
+      this.journey.steps = await this.recalculateJourneySteps(
+        this.journey.steps
+      );
+    }
   }
 }

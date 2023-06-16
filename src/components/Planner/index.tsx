@@ -7,6 +7,9 @@ import { EXAMPLE_JOURNEY } from "@/lib/types";
 import Planner from "@/lib/Journey/Planner";
 import AddLocationModal from "./AddLocationModal";
 import JourneyLoading from "./JourneyLoading";
+import GeneralJourneySettings from "./GeneralJourneySettings";
+import Image from "next/image";
+import logoImage from "@/assets/logo.png";
 
 function PlannerComponent() {
   const [planner] = React.useState(() => new Planner(EXAMPLE_JOURNEY));
@@ -27,8 +30,20 @@ function PlannerComponent() {
         <div className="col-span-2">
           <PlannerMap planner={planner} />
         </div>
-        <div className="p-6 overflow-y-auto h-screen" suppressHydrationWarning>
-          <Heading>Your trip</Heading>
+        <div
+          className="p-12 overflow-y-auto h-screen bg-black"
+          suppressHydrationWarning
+        >
+          <Image
+            src={logoImage}
+            alt="logo"
+            width={150}
+            height={150}
+            className="mb-6"
+          />
+          <GeneralJourneySettings planner={planner} />
+
+          <Heading className="mt-6">Itinerary</Heading>
           <JourneySteps planner={planner} />
           <AddLocationModal planner={planner} />
         </div>

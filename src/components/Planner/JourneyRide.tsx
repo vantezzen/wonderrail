@@ -1,11 +1,6 @@
 import { JourneyRide } from "@/lib/types";
 import { durationBetween, formatDateTime } from "@/lib/utils/date";
-import {
-  Info,
-  Receipt,
-  ReplaceAll,
-  Train,
-} from "lucide-react";
+import { Info, Receipt, ReplaceAll, Train } from "lucide-react";
 import React from "react";
 import JourneyRideBadge from "./JourneyRideBadge";
 
@@ -17,7 +12,7 @@ function JourneyRide({ ride }: { ride: JourneyRide }) {
       <Train className="" size={16} />
 
       <div>
-        <div className=" font-medium text-slate-400">{ride.name}</div>
+        <div className=" font-medium text-slate-200">{ride.name}</div>
         <div className=" text-sm">
           {duration}h (
           <span suppressHydrationWarning>

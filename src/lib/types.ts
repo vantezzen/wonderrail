@@ -63,12 +63,14 @@ export const JourneySchema = z.object({
   name: z.string(),
   description: z.string().optional(),
   steps: z.array(JourneyStepSchema),
+  startDate: z.date(),
 });
 
 export const EXAMPLE_JOURNEY: Journey = {
   id: uuidv4(),
   name: "My Journey",
   description: "This is my journey",
+  startDate: new Date(),
   steps: [
     // {
     //   type: "location",

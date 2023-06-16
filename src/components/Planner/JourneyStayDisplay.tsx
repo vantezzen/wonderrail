@@ -30,8 +30,8 @@ function JourneyStayDisplay({
     <Card>
       <div className="flex items-center text-slate-600">
         <CardHeader className="w-full">
-          <CardTitle className="text-slate-400">{stay.location.name}</CardTitle>
-          <CardDescription className="flex justify-between text-slate-600">
+          <CardTitle className="text-slate-200">{stay.location.name}</CardTitle>
+          <CardDescription className="flex flex-col xl:flex-row justify-between text-slate-400 xl:items-center gap-2 pt-3">
             <span className="flex items-center gap-2">
               <Input
                 className="w-14"
@@ -43,10 +43,13 @@ function JourneyStayDisplay({
                   setChangedDays(value);
                 }}
               />{" "}
-              {changedDays > 1 ? "days" : "day"}
+              {changedDays !== 1 ? "days" : "day"}
             </span>
 
-            <span className="font-medium" suppressHydrationWarning>
+            <span
+              className="font-medium text-slate-600"
+              suppressHydrationWarning
+            >
               {stay.timerange.start.toLocaleDateString()} -{" "}
               {stay.timerange.end.toLocaleDateString()}
             </span>
@@ -80,8 +83,6 @@ function JourneyStayDisplay({
           </Button>
         </div>
       </div>
-
-      <CardFooter></CardFooter>
     </Card>
   );
 }
