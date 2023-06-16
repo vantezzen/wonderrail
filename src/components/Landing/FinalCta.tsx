@@ -17,7 +17,7 @@ function FinalCta() {
             </p>
           </div>
           <div className="mt-8 sm:flex sm:items-center lg:mt-0 sm:justify-center lg:justify-end sm:space-x-6">
-            <Link href="/auth/login">
+            <Link href="/auth">
               <Button className="mt-12">Get started now</Button>
             </Link>
           </div>
