@@ -198,7 +198,9 @@ export default class Planner extends EventEmitter {
 
     const firstStop = ride.legs[0].start;
     const lastStop = ride.legs[ride.legs.length - 1].end;
-    const changes = ride.legs.length - 1;
+    const changes = ride.legs.filter(
+      (leg) => leg.type === "PLATFORM_CHANGE"
+    ).length;
 
     return {
       type: "ride",

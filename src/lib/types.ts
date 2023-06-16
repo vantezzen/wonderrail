@@ -44,7 +44,7 @@ const InterrailTimetableLegSchema = z.object({
   prices: z.array(InterrailPricesInfoSchema),
   id: z.string(),
   bookingInformation: InterrailBookingInformationSchema,
-  type: z.literal("TRAIN_TRAVEL"),
+  type: z.enum(["TRAIN_TRAVEL", "PLATFORM_CHANGE"]),
   status: z.enum(["REQUIRED", "NOT_REQUIRED", "OUTDATED", "INVALID"]),
   duration: InterrailDurationSchema,
   trainType: z.string(),
@@ -133,23 +133,10 @@ export const EXAMPLE_JOURNEY: Journey = {
   id: uuidv4(),
   name: "My Journey",
   description: "This is my journey",
-  startDate: new Date(),
+  // Today in 1 month
+  startDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 30),
   preferredDepartureTime: 10,
-  steps: [
-    // {
-    //   type: "location",
-    //   id: uuidv4(),
-    //   name: "Paris",
-    //   location: {
-    //     lat: 2.355006,
-    //     lng: 48.87993,
-    //   },
-    //   timerange: {
-    //     start: new Date("2021-01-01T00:00:00.000Z"),
-    //     end: new Date("2021-01-02T00:00:00.000Z"),
-    //   },
-    // },
-  ],
+  steps: [],
 };
 
 export type InterrailTimetableLeg = z.infer<typeof InterrailTimetableLegSchema>;

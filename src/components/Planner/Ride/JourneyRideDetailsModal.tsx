@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { JourneyRide } from "@/lib/types";
-import { ArrowRight, ClipboardList, Train, X } from "lucide-react";
+import { ArrowRight, ClipboardList, TextQuote, Train, X } from "lucide-react";
 import React from "react";
 import JourneyRideLeg from "./JourneyRideLeg";
 
@@ -17,8 +17,8 @@ function JourneyRideDetailsModal({ ride }: { ride: JourneyRide }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <Button variant="ghost" size="sm">
-          <ClipboardList size={16} />
+        <Button variant="secondary" size="sm">
+          <TextQuote size={16} />
         </Button>
       </AlertDialogTrigger>
 

@@ -1,4 +1,5 @@
 import { InterrailTimetableLeg } from "@/lib/types";
+import { lookup } from "@/lib/utils/number";
 import { ArrowRight, Clock, Dot, ReplaceAll, Train } from "lucide-react";
 import React from "react";
 
@@ -58,13 +59,21 @@ function JourneyRideLeg({ leg }: { leg: InterrailTimetableLeg }) {
             <>
               <Dot className="" size={16} />
 
-              <div className="">{price}€</div>
+              <div
+                className={lookup(price, {
+                  0: "text-green-500",
+                  20: "text-amber-500",
+                  40: "text-red-500",
+                })}
+              >
+                {price}€
+              </div>
             </>
           )}
 
           <Dot className="" size={16} />
 
-          <div className="">{status}</div>
+          <div>{status}</div>
         </div>
       </div>
     </div>
