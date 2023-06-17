@@ -5,6 +5,8 @@ import Image from "next/image";
 import Balancer from "react-wrap-balancer";
 import { Button } from "../ui/button";
 import interfaceImage from "@/assets/landing/interface.png";
+import style from "./Hero.module.css";
+import { cn } from "@/lib/utils";
 
 function Hero() {
   return (
@@ -38,16 +40,16 @@ function Hero() {
           </div>
           <div>
             <Image
-              className="max-w-5xl w-5/6 mx-auto rounded-[2rem]"
+              className={cn(
+                "max-w-5xl w-5/6 mx-auto rounded-[2rem]",
+                style.heroImage
+              )}
               src={interfaceImage}
               alt=""
               priority
               placeholder="blur"
               width={1920}
               height={1080}
-              style={{
-                transform: "perspective(300px) rotateX(4deg)",
-              }}
             />
           </div>
         </div>
