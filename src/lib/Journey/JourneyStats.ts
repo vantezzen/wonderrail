@@ -52,6 +52,8 @@ export default class JourneyStats {
       0
     );
 
+    const travelDays = this.getTravelDays();
+
     return {
       totalReservationAmount,
       totalTimeOnTrains,
@@ -62,6 +64,7 @@ export default class JourneyStats {
         start: journeyStart,
         end: journeyEnd,
       },
+      travelDays,
     };
   }
 
@@ -96,5 +99,28 @@ export default class JourneyStats {
     };
     console.log(cost);
     return cost;
+  }
+
+  // Interrail Ticket uses "travel days" for pricing.
+  // A travel day is a day where any train is used, it doesn't matter
+  // how many trains are used on that day.
+  private getTravelDays() {
+    const travelDates = new Set<string>();
+
+    for (const step of this.planner.journey.steps) {
+      if (step.type === "ride") {
+        // Add all dates between start and end date
+        const startDate = new Date(step.timerange.start);
+        const endDate = new Date(step.timerange.end);
+
+        const currentDate = new Date(startDate);
+        while (currentDate <= endDate) {
+          travelDates.add(currentDate.toLocaleDateString());
+          currentDate.setDate(currentDate.getDate() + 1);
+        }
+      }
+    }
+
+    return travelDates.size;
   }
 }

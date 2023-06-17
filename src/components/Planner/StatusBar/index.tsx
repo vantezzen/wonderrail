@@ -26,6 +26,12 @@ function StatusBar({ planner }: { planner: Planner }) {
 
       <StatusBarDivider />
 
+      <StatusBarElement title="Travel days">
+        <AutoCount value={stats.travelDays} />
+      </StatusBarElement>
+
+      <StatusBarDivider />
+
       <StatusBarElement title="Distance">
         <AutoCount value={Math.round(stats.distance)} />
         km

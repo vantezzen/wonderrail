@@ -12,12 +12,21 @@ import SaveAction from "./SaveAction";
 import LogoBar from "./LogoBar";
 import StatusBar from "./StatusBar";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
+import AiPopup from "./Ai";
+import WelcomePopup from "./WelcomePopup";
 
 function PlannerComponent({ journey }: { journey: Journey }) {
   const [planner] = React.useState(() => new Planner(journey));
   const [, forceUpdate] = React.useState({});
   const isReadOnly = useIsReadOnly();
+  const [isWelcomePopupOpen, setIsWelcomePopupOpen] = React.useState(false);
+  const [isAiPopupOpen, setIsAiPopupOpen] = React.useState(false);
+
   useEffect(() => {
+    if (planner.journey.steps.length === 0) {
+      setIsWelcomePopupOpen(true);
+    }
+
     const update = () => forceUpdate({});
     planner.on("change", update);
     return () => {
@@ -28,6 +37,21 @@ function PlannerComponent({ journey }: { journey: Journey }) {
   return (
     <>
       {planner.isLoading && <JourneyLoading />}
+      <WelcomePopup
+        open={isWelcomePopupOpen}
+        onAiCreate={() => {
+          setIsWelcomePopupOpen(false);
+          setIsAiPopupOpen(true);
+        }}
+        onManualCreate={() => {
+          setIsWelcomePopupOpen(false);
+        }}
+      />
+      <AiPopup
+        planner={planner}
+        open={isAiPopupOpen}
+        setOpen={setIsAiPopupOpen}
+      />
 
       <div className="grid lg:grid-cols-3 w-screen">
         <div className="lg:col-span-2 relative">
@@ -40,6 +64,7 @@ function PlannerComponent({ journey }: { journey: Journey }) {
         >
           <LogoBar />
           <SaveAction planner={planner} />
+
           <GeneralJourneySettings planner={planner} />
 
           <Heading className="mt-6">Itinerary</Heading>

@@ -1,19 +1,25 @@
 import { v4 as uuidv4 } from "uuid";
-import { InterrailLocation, Journey, JourneyStay, JourneyStep } from "../types";
+import {
+  InterrailLocation,
+  Journey,
+  JourneyStay,
+  JourneyStep,
+  JourneyTimerange,
+} from "../types";
 import EventEmitter from "events";
 import eurailData from "@/data/eurail.json";
-import {
-  getTimerangeLengthToDaysInMs,
-} from "../utils/date";
+import { getTimerangeLengthToDaysInMs } from "../utils/date";
 import { getDistanceFromLatLonInKm } from "../utils/coordinates";
 import Interrail from "./Interrail";
 import StepPlanner from "./StepPlanner";
 import JourneyStats from "./JourneyStats";
+import JourneyAi from "./JourneyAi";
 
 export default class Planner extends EventEmitter {
   public interrail = new Interrail();
   public stepPlanner = new StepPlanner();
   public stats = new JourneyStats(this);
+  public ai = new JourneyAi(this);
 
   public isLoading = false;
 
@@ -84,7 +90,7 @@ export default class Planner extends EventEmitter {
   /**
    * Add a new city to the journey, adding necessary rides in between
    */
-  async addLocation(location: InterrailLocation) {
+  async addLocation(location: InterrailLocation, timerange?: JourneyTimerange) {
     // Dont add if last step is this location to avoid duplicates
     const previousStep = this.journey.steps[
       this.journey.steps.length - 1
@@ -111,7 +117,7 @@ export default class Planner extends EventEmitter {
       type: "stay",
       id: uuidv4(),
       location,
-      timerange: {
+      timerange: timerange ?? {
         start: travelEndTime,
         end: endDate,
       },

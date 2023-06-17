@@ -195,3 +195,26 @@ export type GeoConnection = {
   duration: string;
   coordinates: [[number, number], [number, number]];
 };
+
+export const AiRequestSchema = z.object({
+  startDate: z.coerce.date(),
+  endDate: z.coerce.date(),
+  travelDays: z.number(),
+  startCity: z.string(),
+  preferences: z.string(),
+});
+export type AiRequest = z.infer<typeof AiRequestSchema>;
+
+export const AiLocation = z.object({
+  location: z.string(),
+  station: InterrailLocationSchema,
+  startDate: z.string(),
+  endDate: z.string(),
+  travelTime: z.number(), // in minutes
+  comment: z.string(), // rationale and highlights
+  totalTrains: z.number(),
+});
+export const AiResponseSchema = z.array(AiLocation);
+
+export type AiLocation = z.infer<typeof AiLocation>;
+export type AiResponse = z.infer<typeof AiResponseSchema>;

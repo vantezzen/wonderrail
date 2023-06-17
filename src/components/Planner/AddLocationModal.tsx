@@ -22,14 +22,6 @@ function AddLocationModal({ planner }: { planner: Planner }) {
   const [searchRaw, setSearch] = React.useState("");
   const [search] = useDebounce(searchRaw, 1000);
 
-  const locations = planner.getCities();
-
-  useEffect(() => {
-    if (planner.journey.steps.length === 0) {
-      setIsOpen(true);
-    }
-  }, [planner.journey.steps.length]);
-
   useEffect(() => {
     if (search.length < 3) return;
     setIsLoadingLocations(true);
