@@ -2,7 +2,6 @@ import { v4 as uuidv4 } from "uuid";
 import {
   EMPTY_JOURNEY,
   InterrailTimetableEntry,
-  InvalidRide,
   Journey,
   JourneyRide,
   JourneyStay,
@@ -15,7 +14,6 @@ import {
   getTravellableDate,
 } from "../utils/date";
 import {
-  areCoordinatesEqual,
   getDistanceFromLatLonInKm,
 } from "../utils/coordinates";
 import Interrail from "./Interrail";

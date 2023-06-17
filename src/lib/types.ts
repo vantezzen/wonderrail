@@ -140,6 +140,7 @@ export const JourneySchema = z.object({
   isPublic: z.boolean(),
   priceForFoodPerDay: z.number().default(20),
   priceForAccommodationPerDay: z.number().default(30),
+  priceForInterrailTicket: z.number().default(264),
 });
 
 export const EMPTY_JOURNEY: Journey = {
@@ -153,6 +154,7 @@ export const EMPTY_JOURNEY: Journey = {
   isPublic: false,
   priceForFoodPerDay: 20,
   priceForAccommodationPerDay: 30,
+  priceForInterrailTicket: 264,
 };
 
 export type InterrailTimetableLeg = z.infer<typeof InterrailTimetableLegSchema>;

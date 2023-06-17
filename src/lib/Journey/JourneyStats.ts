@@ -1,4 +1,4 @@
-import { Journey, JourneyStay } from "../types";
+import { JourneyStay } from "../types";
 import { getDistanceFromLatLonInKm } from "../utils/coordinates";
 import { getTimerangeLengthToDaysInDays } from "../utils/date";
 import Planner from "./Planner";
@@ -80,11 +80,19 @@ export default class JourneyStats {
     const totalAccommodationPrice =
       journeyLength * this.planner.journey.priceForAccommodationPerDay;
 
+    const priceForInterrailTicket =
+      this.planner.journey.priceForInterrailTicket;
+
     const cost = {
+      priceForInterrailTicket,
       totalReservationPrice,
       totalFoodPrice,
       totalAccommodationPrice,
-      total: totalReservationPrice + totalFoodPrice + totalAccommodationPrice,
+      total:
+        totalReservationPrice +
+        totalFoodPrice +
+        totalAccommodationPrice +
+        priceForInterrailTicket,
     };
     console.log(cost);
     return cost;

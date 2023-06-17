@@ -4,9 +4,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import JourneyStats from "@/lib/Journey/JourneyStats";
+import { PieChart } from "react-minimal-pie-chart";
 import React from "react";
-import StatusBarElement from "./StatusBarElement";
 import {
   Table,
   TableBody,
@@ -17,7 +16,8 @@ import {
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import Planner from "@/lib/Journey/Planner";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+import Dot from "@/components/Various/Dot";
 
 function CustomizableAmount({
   amount,
@@ -32,7 +32,7 @@ function CustomizableAmount({
 }) {
   return (
     <TableCell className="flex gap-1 items-center">
-      <AutoCount value={amount} />x
+      {amount}x
       <Input
         type="number"
         className="w-24"
@@ -67,60 +67,117 @@ function PriceDetailsPopover({ planner }: { planner: Planner }) {
           <ChevronDown size={16} className="" />
         </button>
       </PopoverTrigger>
-      <PopoverContent className="w-[500px] border-2 border-zinc-500">
-        <h2 className="text-lg font-bold text-zinc-300">Price details</h2>
+      <PopoverContent className="w-[600px] border-2 border-zinc-500">
+        <div className="flex gap-3 items-center">
+          <div className="">
+            <h2 className="text-lg font-bold text-zinc-300">Price details</h2>
 
-        <Table className="text-zinc-400">
-          <TableHeader>
-            <TableRow>
-              <TableHead>Type</TableHead>
-              <TableHead>Amount</TableHead>
-              <TableHead>Total</TableHead>
-            </TableRow>
-          </TableHeader>
+            <Table className="text-zinc-400">
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Type</TableHead>
+                  <TableHead>Amount</TableHead>
+                  <TableHead>Total</TableHead>
+                </TableRow>
+              </TableHeader>
 
-          <TableBody>
-            <TableRow>
-              <TableCell>Reservations</TableCell>
-              <TableCell>
-                <AutoCount value={stats.totalReservationAmount} />x
-              </TableCell>
-              <TableCell>
-                <AutoCount value={stats.cost.totalReservationPrice} />€
-              </TableCell>
-            </TableRow>
+              <TableBody>
+                <TableRow>
+                  <TableCell>
+                    <div className="flex items-center gap-1">
+                      <Dot className="bg-emerald-500" />
+                      Interrail Ticket
+                    </div>
+                  </TableCell>
+                  <CustomizableAmount
+                    amount={1}
+                    value={planner.journey.priceForInterrailTicket}
+                    setValue={(value) =>
+                      (planner.journey.priceForInterrailTicket = value)
+                    }
+                    planner={planner}
+                  />
+                  <TableCell>
+                    {planner.journey.priceForInterrailTicket}€
+                  </TableCell>
+                </TableRow>
 
-            <TableRow>
-              <TableCell>Accommodation</TableCell>
-              <CustomizableAmount
-                amount={stats.journeyLength}
-                value={planner.journey.priceForAccommodationPerDay}
-                setValue={(value) =>
-                  (planner.journey.priceForAccommodationPerDay = value)
-                }
-                planner={planner}
-              />
-              <TableCell>
-                <AutoCount value={stats.cost.totalAccommodationPrice} />€
-              </TableCell>
-            </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <div className="flex items-center gap-1">
+                      <Dot className="bg-amber-500" />
+                      Reservations
+                    </div>
+                  </TableCell>
+                  <TableCell>{stats.totalReservationAmount}x</TableCell>
+                  <TableCell>{stats.cost.totalReservationPrice}€</TableCell>
+                </TableRow>
 
-            <TableRow>
-              <TableCell>Food</TableCell>
-              <CustomizableAmount
-                amount={stats.journeyLength}
-                value={planner.journey.priceForFoodPerDay}
-                setValue={(value) =>
-                  (planner.journey.priceForFoodPerDay = value)
-                }
-                planner={planner}
-              />
-              <TableCell>
-                <AutoCount value={stats.cost.totalFoodPrice} />€
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
+                <TableRow>
+                  <TableCell>
+                    <div className="flex items-center gap-1">
+                      <Dot className="bg-purple-500" />
+                      Accommodation
+                    </div>
+                  </TableCell>
+                  <CustomizableAmount
+                    amount={stats.journeyLength}
+                    value={planner.journey.priceForAccommodationPerDay}
+                    setValue={(value) =>
+                      (planner.journey.priceForAccommodationPerDay = value)
+                    }
+                    planner={planner}
+                  />
+                  <TableCell>{stats.cost.totalAccommodationPrice}€</TableCell>
+                </TableRow>
+
+                <TableRow>
+                  <TableCell>
+                    <div className="flex items-center gap-1">
+                      <Dot className="bg-blue-500" />
+                      Food
+                    </div>
+                  </TableCell>
+                  <CustomizableAmount
+                    amount={stats.journeyLength}
+                    value={planner.journey.priceForFoodPerDay}
+                    setValue={(value) =>
+                      (planner.journey.priceForFoodPerDay = value)
+                    }
+                    planner={planner}
+                  />
+                  <TableCell>{stats.cost.totalFoodPrice}€</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
+
+          <PieChart
+            data={[
+              {
+                title: "Interrail Ticket",
+                value: planner.journey.priceForInterrailTicket,
+                color: "#10B981",
+              },
+              {
+                title: "Reservations",
+                value: stats.cost.totalReservationPrice,
+                color: "#F59E0B",
+              },
+              {
+                title: "Accommodation",
+                value: stats.cost.totalAccommodationPrice,
+                color: "#8B5CF6",
+              },
+              {
+                title: "Food",
+                value: stats.cost.totalFoodPrice,
+                color: "#3B82F6",
+              },
+            ]}
+            startAngle={-90}
+          />
+        </div>
       </PopoverContent>
     </Popover>
   );
