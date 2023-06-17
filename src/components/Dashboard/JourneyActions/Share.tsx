@@ -22,7 +22,7 @@ function Share({
   userId: string;
   isPublic: boolean;
 }) {
-  const shareUrl = `${window.location.origin}/journeys/${userId}/${journeyId}}`;
+  const shareUrl = `${window.location.origin}/journeys/${userId}/${journeyId}`;
   const [hasCopiedUrl, setHasCopiedUrl] = React.useState(false);
 
   return (
