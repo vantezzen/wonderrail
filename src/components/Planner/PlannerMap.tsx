@@ -14,6 +14,7 @@ import { ArcLayer } from "@deck.gl/layers/typed";
 import { HexagonLayer } from "@deck.gl/aggregation-layers/typed";
 import Planner from "@/lib/Journey/Planner";
 import { getDistanceFromLatLonInKm } from "@/lib/utils/coordinates";
+import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 
 function PlannerMap({ planner }: { planner: Planner }) {
   // Lines should be drawn between each step
@@ -35,6 +36,8 @@ function PlannerMap({ planner }: { planner: Planner }) {
       isInvalid: ride.type === "invalid",
     });
   }
+
+  const isReadOnly = useIsReadOnly();
 
   const firstStay = (planner.journey.steps[0] as JourneyStay)?.location || {
     lat: 48,
@@ -155,6 +158,7 @@ function PlannerMap({ planner }: { planner: Planner }) {
           return "grab";
         }}
         onClick={async ({ object }) => {
+          if (isReadOnly) return;
           if (!object) {
             setSelectedLocation(null);
             return;

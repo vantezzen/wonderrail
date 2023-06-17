@@ -7,6 +7,7 @@ import { Calendar, GripVertical, MapPin, Trash } from "lucide-react";
 import { Button } from "../../ui/button";
 import { JourneyStay } from "@/lib/types";
 import { Input } from "../../ui/input";
+import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 
 function JourneyStayDisplay({
   stay,
@@ -24,6 +25,8 @@ function JourneyStayDisplay({
   const isStartEndDateEqual =
     stay.timerange.start.toLocaleDateString() ===
     stay.timerange.end.toLocaleDateString();
+
+  const isReadOnly = useIsReadOnly();
 
   return (
     <div className="relative">
@@ -48,6 +51,7 @@ function JourneyStayDisplay({
                   onClick={() => planner.removeStep(stay)}
                   variant="secondary"
                   size="sm"
+                  disabled={isReadOnly}
                 >
                   <Trash className="" size={16} />
                 </Button>
@@ -65,6 +69,7 @@ function JourneyStayDisplay({
                       if (isNaN(value)) return;
                       setChangedDays(value);
                     }}
+                    disabled={isReadOnly}
                   />{" "}
                   {changedDays !== 1 ? "days" : "day"}
                 </span>
@@ -88,6 +93,7 @@ function JourneyStayDisplay({
                   }}
                   variant="secondary"
                   size="sm"
+                  disabled={isReadOnly}
                 >
                   <Calendar className="inline-block mr-2" size={14} />
                   Update

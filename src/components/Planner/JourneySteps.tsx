@@ -2,9 +2,11 @@ import React from "react";
 import Planner from "@/lib/Journey/Planner";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import JourneyStep from "./JourneyStep";
+import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 
 function JourneySteps({ planner }: { planner: Planner }) {
   const [isDragging, setIsDragging] = React.useState(false);
+  const isReadOnly = useIsReadOnly();
 
   return (
     <DragDropContext
@@ -27,7 +29,7 @@ function JourneySteps({ planner }: { planner: Planner }) {
                 key={step.id}
                 draggableId={step.type + step.id}
                 index={index}
-                isDragDisabled={step.type !== "stay"}
+                isDragDisabled={isReadOnly || step.type !== "stay"}
               >
                 {(provided) => (
                   <div

@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import Planner from "@/lib/Journey/Planner";
 import { ChevronDown } from "lucide-react";
 import Dot from "@/components/Various/Dot";
+import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 
 function CustomizableAmount({
   amount,
@@ -30,6 +31,7 @@ function CustomizableAmount({
   setValue: (value: number) => void;
   planner: Planner;
 }) {
+  const isReadOnly = useIsReadOnly();
   return (
     <TableCell className="flex gap-1 items-center">
       {amount}x
@@ -41,6 +43,7 @@ function CustomizableAmount({
           setValue(+e.target.value);
           planner.emit("change");
         }}
+        readOnly={isReadOnly}
       />
       €
     </TableCell>

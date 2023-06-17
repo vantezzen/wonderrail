@@ -11,10 +11,12 @@ import GeneralJourneySettings from "./GeneralJourneySettings";
 import SaveAction from "./SaveAction";
 import LogoBar from "./LogoBar";
 import StatusBar from "./StatusBar";
+import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 
 function PlannerComponent({ journey }: { journey: Journey }) {
   const [planner] = React.useState(() => new Planner(journey));
   const [, forceUpdate] = React.useState({});
+  const isReadOnly = useIsReadOnly();
   useEffect(() => {
     const update = () => forceUpdate({});
     planner.on("change", update);
@@ -53,7 +55,7 @@ function PlannerComponent({ journey }: { journey: Journey }) {
             </div>
           )}
 
-          <AddLocationModal planner={planner} />
+          {!isReadOnly && <AddLocationModal planner={planner} />}
         </div>
       </div>
     </>

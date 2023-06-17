@@ -25,3 +25,8 @@ export default function useSaveActionStatus() {
 
   return SaveActionStatus.SAVE;
 }
+
+export function useIsReadOnly() {
+  const saveActionStatus = useSaveActionStatus();
+  return saveActionStatus === SaveActionStatus.READ_ONLY;
+}

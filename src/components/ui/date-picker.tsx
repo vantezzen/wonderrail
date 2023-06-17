@@ -16,9 +16,11 @@ import {
 export function DatePicker({
   date,
   setDate,
+  disabled = false,
 }: {
   date?: Date;
   setDate: (date?: Date) => void;
+  disabled?: boolean;
 }) {
   return (
     <Popover>
@@ -29,6 +31,7 @@ export function DatePicker({
             "w-full justify-start text-left font-normal",
             !date && "text-muted-foreground"
           )}
+          disabled={disabled}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
           {date ? format(date, "PPP") : <span>Pick a date</span>}

@@ -15,8 +15,10 @@ import {
 import { padLeft } from "@/lib/utils/number";
 import { Input } from "../ui/input";
 import { Checkbox } from "../ui/checkbox";
+import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 
 function GeneralJourneySettings({ planner }: { planner: Planner }) {
+  const isReadOnly = useIsReadOnly();
   return (
     <Card>
       <CardHeader>
@@ -31,6 +33,7 @@ function GeneralJourneySettings({ planner }: { planner: Planner }) {
               planner.journey.name = e.target.value;
               planner.emit("change");
             }}
+            disabled={isReadOnly}
           />
         </VerticalInputContainer>
         <VerticalInputContainer>
@@ -41,6 +44,7 @@ function GeneralJourneySettings({ planner }: { planner: Planner }) {
               planner.journey.description = e.target.value;
               planner.emit("change");
             }}
+            disabled={isReadOnly}
           />
         </VerticalInputContainer>
         <VerticalInputContainer>
@@ -48,6 +52,7 @@ function GeneralJourneySettings({ planner }: { planner: Planner }) {
           <DatePicker
             date={planner.journey.startDate}
             setDate={(date) => planner.setStartDate(date)}
+            disabled={isReadOnly}
           />
         </VerticalInputContainer>
         <VerticalInputContainer>
@@ -56,7 +61,7 @@ function GeneralJourneySettings({ planner }: { planner: Planner }) {
             onValueChange={(value) => planner.setPreferredDepartureTime(+value)}
             defaultValue={String(planner.journey.preferredDepartureTime)}
           >
-            <SelectTrigger>
+            <SelectTrigger disabled={isReadOnly}>
               <SelectValue placeholder="Select preferred departure time" />
             </SelectTrigger>
             <SelectContent>
@@ -78,6 +83,7 @@ function GeneralJourneySettings({ planner }: { planner: Planner }) {
               planner.journey.isPublic = Boolean(checked);
               planner.emit("change");
             }}
+            disabled={isReadOnly}
           />
           <Label htmlFor="public">Make publicly available</Label>
         </div>
