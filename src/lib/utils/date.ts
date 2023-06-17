@@ -25,6 +25,15 @@ export function getDurationFromInterrail(duration: {
   return (duration.hours * 60 + duration.minutes) * 60 * 1000;
 }
 
+export function humanReadableDurationFromMinutes(minutes: number) {
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = Math.floor(minutes - hours * 60);
+  return {
+    hours,
+    minutes: remainingMinutes,
+  };
+}
+
 export function formatDateTime(date: Date) {
   return new Intl.DateTimeFormat(undefined, {
     dateStyle: "short",
@@ -49,10 +58,14 @@ export function getTravellableDate(date: Date, preferredDepartureTime = 10) {
   return travellableDate;
 }
 
-export function getTimerangeLengthToDays(timerange: JourneyTimerange) {
+export function getTimerangeLengthToDaysInMs(timerange: JourneyTimerange) {
+  return getTimerangeLengthToDaysInDays(timerange) * 24 * 60 * 60 * 1000;
+}
+
+export function getTimerangeLengthToDaysInDays(timerange: JourneyTimerange) {
   const start = getTravellableDate(timerange.start);
   const end = getTravellableDate(timerange.end);
-  return daysBetween(start, end) * 24 * 60 * 60 * 1000;
+  return daysBetween(start, end);
 }
 
 export function getIsoDateWithoutTimezoneDifference(date: Date) {

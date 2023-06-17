@@ -134,9 +134,12 @@ export const JourneySchema = z.object({
   name: z.string(),
   description: z.string().optional(),
   steps: z.array(JourneyStepSchema),
+
   startDate: z.coerce.date(),
   preferredDepartureTime: z.number(), // 0-24
   isPublic: z.boolean(),
+  priceForFoodPerDay: z.number().default(20),
+  priceForAccommodationPerDay: z.number().default(30),
 });
 
 export const EMPTY_JOURNEY: Journey = {
@@ -148,6 +151,8 @@ export const EMPTY_JOURNEY: Journey = {
   preferredDepartureTime: 10,
   steps: [],
   isPublic: false,
+  priceForFoodPerDay: 20,
+  priceForAccommodationPerDay: 30,
 };
 
 export type InterrailTimetableLeg = z.infer<typeof InterrailTimetableLegSchema>;

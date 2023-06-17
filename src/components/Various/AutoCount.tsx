@@ -10,7 +10,7 @@ function AutoCount({ value }: { value: number }) {
     setCount(value);
   }, [value]);
 
-  return <CountUp start={previousValue} end={count} />;
+  return <CountUp start={previousValue} end={count} duration={1} />;
 }
 
 export default AutoCount;

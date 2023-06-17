@@ -13,7 +13,6 @@ import React from "react";
 import JourneyRideLeg from "./JourneyRideLeg";
 
 function JourneyRideDetailsModal({ ride }: { ride: JourneyRide }) {
-  console.log(ride);
   return (
     <AlertDialog>
       <AlertDialogTrigger>

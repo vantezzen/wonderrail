@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import {
   EMPTY_JOURNEY,
   InterrailTimetableEntry,
+  InvalidRide,
   Journey,
   JourneyRide,
   JourneyStay,
@@ -10,11 +11,12 @@ import {
 import EventEmitter from "events";
 import {
   getIsoDateWithoutTimezoneDifference,
-  getTimerangeLengthToDays,
+  getTimerangeLengthToDaysInMs,
   getTravellableDate,
 } from "../utils/date";
 import {
   areCoordinatesEqual,
+  getDistanceFromLatLonInKm,
 } from "../utils/coordinates";
 import Interrail from "./Interrail";
 
@@ -91,28 +93,30 @@ export default class StepPlanner extends EventEmitter {
       }
 
       // Check if a ride already exists at this time for these stays
-      const existingRide = rides.find((ride) => {
+      let ride: JourneyStep | undefined = rides.find((ride) => {
         return (
-          areCoordinatesEqual(ride.start, currentStay.location.coordinates) &&
-          areCoordinatesEqual(ride.end, nextStay.location.coordinates) &&
-          ride.timerange.start.getTime() ===
-            currentStay.timerange.end.getTime() &&
-          ride.timerange.end.getTime() === nextStay.timerange.start.getTime()
+          getDistanceFromLatLonInKm(
+            ride.start,
+            currentStay.location.coordinates
+          ) < 20 &&
+          getDistanceFromLatLonInKm(ride.end, nextStay.location.coordinates) <
+            20 &&
+          ride.timerange.start.toLocaleDateString() ===
+            currentStay.timerange.end.toLocaleDateString() &&
+          ride.timerange.end.toLocaleDateString() ===
+            nextStay.timerange.start.toLocaleDateString()
         );
       });
 
-      if (existingRide) {
-        newJourneyWithRides.push(existingRide);
-      } else {
-        const ride = await this.getAvailableRideBetweenLocations(
+      if (!ride) {
+        ride = await this.getAvailableRideBetweenLocations(
           currentStay,
           nextStay
         );
-        newJourneyWithRides.push(ride);
-
-        if (ride.type === "ride") {
-          this.updateStaysWithRideTimes(currentStay, ride, nextStay);
-        }
+      }
+      newJourneyWithRides.push(ride);
+      if (ride.type === "ride") {
+        this.updateStaysWithRideTimes(currentStay, ride, nextStay);
       }
     }
     return newJourneyWithRides;
@@ -210,7 +214,7 @@ export default class StepPlanner extends EventEmitter {
    */
   private recalculateJourneyDates(locations: JourneyStay[], startDate: Date) {
     locations = locations.map((location) => {
-      const locationDuration = getTimerangeLengthToDays(location.timerange);
+      const locationDuration = getTimerangeLengthToDaysInMs(location.timerange);
       const newEndDate = new Date(startDate.getTime() + locationDuration);
       const newLocation = {
         ...location,

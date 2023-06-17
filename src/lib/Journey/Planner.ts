@@ -2,14 +2,19 @@ import { v4 as uuidv4 } from "uuid";
 import { InterrailLocation, Journey, JourneyStay, JourneyStep } from "../types";
 import EventEmitter from "events";
 import eurailData from "@/data/eurail.json";
-import { getTimerangeLengthToDays } from "../utils/date";
+import {
+  getTimerangeLengthToDaysInDays,
+  getTimerangeLengthToDaysInMs,
+} from "../utils/date";
 import { getDistanceFromLatLonInKm } from "../utils/coordinates";
 import Interrail from "./Interrail";
 import StepPlanner from "./StepPlanner";
+import JourneyStats from "./JourneyStats";
 
 export default class Planner extends EventEmitter {
   public interrail = new Interrail();
   public stepPlanner = new StepPlanner();
+  public stats = new JourneyStats(this);
 
   public isLoading = false;
 
@@ -148,7 +153,9 @@ export default class Planner extends EventEmitter {
 
     if (this.journey.steps.length > 0) {
       const firstStay = this.journey.steps[0] as JourneyStay;
-      const firstStayDuration = getTimerangeLengthToDays(firstStay.timerange);
+      const firstStayDuration = getTimerangeLengthToDaysInMs(
+        firstStay.timerange
+      );
       const newEndDate = new Date(startDate.getTime() + firstStayDuration);
       firstStay.timerange.start = startDate;
       firstStay.timerange.end = newEndDate;
@@ -160,46 +167,5 @@ export default class Planner extends EventEmitter {
   async setPreferredDepartureTime(preferredDepartureTime: number) {
     this.journey.preferredDepartureTime = preferredDepartureTime;
     await this.recalculateJourneySteps(this.journey.steps);
-  }
-
-  getJourneyStats() {
-    const totalReservationAmount = this.journey.steps.reduce((total, step) => {
-      if (step.type === "ride" && step.needsReservation) {
-        return total + 1;
-      }
-      return total;
-    }, 0);
-    const totalReservationPrice = this.journey.steps.reduce((total, step) => {
-      if (step.type === "ride" && step.price) {
-        return total + step.price;
-      }
-      return total;
-    }, 0);
-
-    const distance = this.journey.steps.reduce((total, step) => {
-      if (step.type === "ride") {
-        return total + getDistanceFromLatLonInKm(step.start, step.end);
-      }
-      return total;
-    }, 0);
-
-    return {
-      totalReservationAmount,
-
-      cost: {
-        totalReservationPrice,
-      },
-
-      distance,
-
-      timerange: {
-        start: this.journey.startDate || new Date(),
-        end:
-          (this.journey.steps[this.journey.steps.length - 1] as JourneyStay)
-            ?.timerange?.end ||
-          this.journey.startDate ||
-          new Date(),
-      },
-    };
   }
 }

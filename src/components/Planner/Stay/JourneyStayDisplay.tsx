@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardDescription, CardHeader, CardTitle } from "../../ui/card";
-import { getTimerangeLengthToDays } from "@/lib/utils/date";
+import { getTimerangeLengthToDaysInMs } from "@/lib/utils/date";
 import Planner from "@/lib/Journey/Planner";
 import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
 import { Calendar, GripVertical, MapPin, Trash } from "lucide-react";
@@ -17,7 +17,8 @@ function JourneyStayDisplay({
   planner: Planner;
   dragHandleProps?: DraggableProvidedDragHandleProps;
 }) {
-  const days = getTimerangeLengthToDays(stay.timerange) / 1000 / 60 / 60 / 24;
+  const days =
+    getTimerangeLengthToDaysInMs(stay.timerange) / 1000 / 60 / 60 / 24;
   const [changedDays, setChangedDays] = React.useState(days);
 
   const isStartEndDateEqual =
