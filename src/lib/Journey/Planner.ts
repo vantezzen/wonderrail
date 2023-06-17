@@ -144,6 +144,8 @@ export default class Planner extends EventEmitter {
     }
 
     this.journey.startDate = startDate;
+    this.emit("change");
+
     if (this.journey.steps.length > 0) {
       const firstStay = this.journey.steps[0] as JourneyStay;
       const firstStayDuration = getTimerangeLengthToDays(firstStay.timerange);
