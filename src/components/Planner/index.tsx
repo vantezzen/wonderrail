@@ -10,6 +10,7 @@ import JourneyLoading from "./JourneyLoading";
 import GeneralJourneySettings from "./GeneralJourneySettings";
 import SaveAction from "./SaveAction";
 import LogoBar from "./LogoBar";
+import StatusBar from "./StatusBar";
 
 function PlannerComponent({ journey }: { journey: Journey }) {
   const [planner] = React.useState(() => new Planner(journey));
@@ -26,12 +27,13 @@ function PlannerComponent({ journey }: { journey: Journey }) {
     <>
       {planner.isLoading && <JourneyLoading />}
 
-      <div className="grid grid-cols-3">
-        <div className="col-span-2">
+      <div className="grid lg:grid-cols-3 w-screen">
+        <div className="lg:col-span-2 relative">
           <PlannerMap planner={planner} />
+          <StatusBar planner={planner} />
         </div>
         <div
-          className="p-12 overflow-y-auto h-screen bg-black"
+          className="p-12 lg:overflow-y-auto h-screen bg-black"
           suppressHydrationWarning
         >
           <LogoBar />
