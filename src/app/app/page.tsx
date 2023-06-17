@@ -1,4 +1,6 @@
 "use client";
+import Delete from "@/components/Dashboard/JourneyActions/Delete";
+import Share from "@/components/Dashboard/JourneyActions/Share";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuthState } from "@/lib/firebase/FirebaseConnectionStore";
@@ -44,41 +46,53 @@ function AppPage() {
                 ) as Journey;
 
                 return (
-                  <Link
-                    href={`/journeys/${user?.uid}/${journeyItem.id}`}
-                    key={journey.id}
-                  >
-                    <button className="rounded bg-zinc-900 hover:bg-zinc-800 p-4 w-full text-left duration-100 flex justify-between items-center">
-                      <div>
-                        <h3 className="text-lg font-bold">{journey.name}</h3>
+                  <div key={journeyItem.id} className="flex gap-4 items-center">
+                    <Link
+                      href={`/journeys/${user?.uid}/${journeyItem.id}`}
+                      key={journey.id}
+                      className="w-full"
+                    >
+                      <button className="rounded bg-zinc-900 hover:bg-zinc-800 p-4 w-full text-left duration-100 flex justify-between items-center">
+                        <div>
+                          <h3 className="text-lg font-bold">{journey.name}</h3>
 
-                        <p className="text-zinc-500 font-medium mt-1 text-sm">
-                          {journey.description}
-                        </p>
+                          <p className="text-zinc-500 font-medium mt-1 text-sm">
+                            {journey.description}
+                          </p>
 
-                        <div className="flex gap-1 items-center text-zinc-500 text-xs mt-2">
-                          <span>
-                            {
-                              journey.steps.filter(
-                                (step) => step.type === "stay"
-                              ).length
-                            }{" "}
-                            stops
-                          </span>
+                          <div className="flex gap-1 items-center text-zinc-500 text-xs mt-2">
+                            <span>
+                              {
+                                journey.steps.filter(
+                                  (step) => step.type === "stay"
+                                ).length
+                              }{" "}
+                              stops
+                            </span>
 
-                          <Dot size={12} className="text-zinc-500" />
+                            <Dot size={12} className="text-zinc-500" />
 
-                          <span>
-                            Starting{" "}
-                            {new Date(
-                              journey.startDate as unknown as string
-                            ).toLocaleDateString()}
-                          </span>
+                            <span>
+                              Starting{" "}
+                              {new Date(
+                                journey.startDate as unknown as string
+                              ).toLocaleDateString()}
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                      <ChevronRight className="text-zinc-500" />
-                    </button>
-                  </Link>
+                        <ChevronRight className="text-zinc-500" />
+                      </button>
+                    </Link>
+
+                    <div className="flex flex-col gap-2">
+                      <Share
+                        journeyId={journeyItem.id}
+                        userId={user?.uid!}
+                        isPublic={journey.isPublic}
+                      />
+                      <Delete journeyId={journeyItem.id} userId={user?.uid!} />
+                    </div>
+                  </div>
                 );
               })}
             </div>

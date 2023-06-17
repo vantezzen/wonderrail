@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import {
   EMPTY_JOURNEY,
-  InterrailLocation,
   InterrailTimetableEntry,
   Journey,
   JourneyRide,
@@ -9,7 +8,6 @@ import {
   JourneyStep,
 } from "../types";
 import EventEmitter from "events";
-import eurailData from "@/data/eurail.json";
 import {
   getIsoDateWithoutTimezoneDifference,
   getTimerangeLengthToDays,
@@ -17,7 +15,6 @@ import {
 } from "../utils/date";
 import {
   areCoordinatesEqual,
-  getDistanceFromLatLonInKm,
 } from "../utils/coordinates";
 import Interrail from "./Interrail";
 

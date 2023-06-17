@@ -1,7 +1,6 @@
 import Planner from "@/lib/Journey/Planner";
 import React from "react";
 import StatusBarElement from "./StatusBarElement";
-import { Minus } from "lucide-react";
 import StatusBarDivider from "./StatusBarDivider";
 
 function StatusBar({ planner }: { planner: Planner }) {
