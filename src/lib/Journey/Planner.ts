@@ -1,18 +1,9 @@
 import { v4 as uuidv4 } from "uuid";
-import {
-  InterrailLocation,
-  Journey,
-  JourneyStay,
-  JourneyStep,
-} from "../types";
+import { InterrailLocation, Journey, JourneyStay, JourneyStep } from "../types";
 import EventEmitter from "events";
 import eurailData from "@/data/eurail.json";
-import {
-  getTimerangeLengthToDays,
-} from "../utils/date";
-import {
-  getDistanceFromLatLonInKm,
-} from "../utils/coordinates";
+import { getTimerangeLengthToDays } from "../utils/date";
+import { getDistanceFromLatLonInKm } from "../utils/coordinates";
 import Interrail from "./Interrail";
 import StepPlanner from "./StepPlanner";
 
@@ -200,10 +191,12 @@ export default class Planner extends EventEmitter {
       distance,
 
       timerange: {
-        start: this.journey.startDate,
+        start: this.journey.startDate || new Date(),
         end:
           (this.journey.steps[this.journey.steps.length - 1] as JourneyStay)
-            .timerange?.end || this.journey.startDate,
+            ?.timerange?.end ||
+          this.journey.startDate ||
+          new Date(),
       },
     };
   }

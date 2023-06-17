@@ -9,6 +9,10 @@ export default class Storage {
       throw new Error("No user signed in");
     }
 
+    if (localStorage.getItem("journey")) {
+      localStorage.removeItem("journey");
+    }
+
     const journeyDocRef = doc(
       firestore,
       `/users/${user.uid}/journeys/${journey.id}`
@@ -45,12 +49,13 @@ export default class Storage {
     localStorage.setItem("journey", journeyJson);
   }
 
-  async loadTemporaryJourney() {
+  loadTemporaryJourney() {
     const journeyJson = localStorage.getItem("journey");
     if (!journeyJson) {
       throw new Error("No temporary journey found");
     }
 
-    return JSON.parse(journeyJson) as Journey;
+    const journey = JourneySchema.parse(JSON.parse(journeyJson)) as Journey;
+    return journey;
   }
 }

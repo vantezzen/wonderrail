@@ -20,8 +20,13 @@ const uiConfig: firebaseui.auth.Config = {
       const provider = authResult.credential?.providerId ?? "password";
       localStorage.setItem("auth.lastLoginProvider", provider);
 
-      // Forces page reload wiht refresh, otherwise race conditions and caching might cause problems
-      window.location.href = "/app";
+      const hasTemporarilySavedJourney =
+        localStorage.getItem("journey") !== null;
+
+      // Forces page reload with refresh, otherwise race conditions and caching might cause problems
+      window.location.href = hasTemporarilySavedJourney
+        ? "/journeys/temp"
+        : "/app";
 
       return false;
     },

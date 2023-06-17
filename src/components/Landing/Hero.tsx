@@ -31,7 +31,7 @@ function Hero() {
             </div>
 
             <div className="flex items-center gap-6 mt-12">
-              <Link href="/auth">
+              <Link href="/journeys/new">
                 <Button>Plan your journey now</Button>
               </Link>
             </div>
