@@ -7,3 +7,9 @@ declare module "*eurail.json" {
   };
   export default value;
 }
+
+declare global {
+  interface Window {
+    sa_event(name: string): void;
+  }
+}

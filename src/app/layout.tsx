@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { FirebaseConnectionStoreProvider } from "@/lib/firebase/FirebaseConnectionStore";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,19 @@ export default function RootLayout({
         <FirebaseConnectionStoreProvider>
           {children}
         </FirebaseConnectionStoreProvider>
+
+        <Script
+          src="https://scripts.simpleanalyticscdn.com/latest.js"
+          data-collect-dnt="true"
+        />
+        <noscript>
+          {/* eslint-disable @next/next/no-img-element */}
+          <img
+            src="https://queue.simpleanalyticscdn.com/noscript.gif"
+            alt=""
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </noscript>
       </body>
     </html>
   );
