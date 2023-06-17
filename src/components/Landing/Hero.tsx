@@ -20,14 +20,11 @@ function Hero() {
               </h1>
               <p className="mt-5 text-base text-zinc-400 sm:mt-8 sm:text-xl lg:text-lg xl:text-xl">
                 <Balancer>
-                  Discover Europe by Train: Plan, Personalize, and Share your
-                  Interrail Journey. Say goodbye to complicated planning and
-                  overwhelming choices.
+                  Say goodbye to complicated planning and overwhelming choices.
                   <br />
-                  Our intelligent suggestions and user-friendly map guide you
-                  through the maze of options, ensuring a stress-free tour
-                  planning experience. With WonderRail, all that's left is the
-                  thrill of the journey.
+                  WonderRail guides you through the maze of options, ensuring a
+                  stress-free tour planning experience. With WonderRail, all
+                  that's left is the thrill of the journey.
                 </Balancer>
               </p>
             </div>
