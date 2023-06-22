@@ -2,6 +2,7 @@ import dedent from "ts-dedent";
 import { AiRequestSchema, AiResponse } from "@/lib/types";
 import { Configuration, OpenAIApi } from "openai";
 import { getInterrailStations } from "@/lib/api/getInterrailStations";
+import hcaptcha from "hcaptcha";
 
 const EXAMPLE = [
   {
@@ -130,6 +131,27 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export async function POST(request: Request) {
+  const useCaptcha = process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY !== undefined;
+  if (useCaptcha) {
+    const hCaptchaToken = request.headers.get("hcaptcha-token");
+    const { success: hcaptchaSuccess } = await hcaptcha.verify(
+      process.env.HCAPTCHA_SECRET_KEY!,
+      hCaptchaToken as string,
+      undefined,
+      process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY
+    );
+
+    if (!hcaptchaSuccess) {
+      return new Response(
+        JSON.stringify({ message: "Invalid hCaptcha token" }),
+        {
+          status: 400,
+          headers: { "content-type": "application/json" },
+        }
+      );
+    }
+  }
+
   const requestBody = await request.json();
   const data = AiRequestSchema.parse(requestBody);
   const travelDaysTotal = Math.floor(
