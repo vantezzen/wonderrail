@@ -5,7 +5,6 @@ import Planner from "@/lib/Journey/Planner";
 import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
 import {
   Calendar,
-  Expand,
   GripVertical,
   MapPin,
   Settings2,
