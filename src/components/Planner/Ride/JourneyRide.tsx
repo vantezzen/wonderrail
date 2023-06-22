@@ -1,10 +1,16 @@
 import { JourneyRide } from "@/lib/types";
 import { durationBetween, formatDateTime, formatTime } from "@/lib/utils/date";
-import { Info, Receipt, ReplaceAll, Train } from "lucide-react";
+import { Info, MapPin, Plus, Receipt, ReplaceAll, Train } from "lucide-react";
 import React from "react";
 import JourneyRideBadge from "./JourneyRideBadge";
 import JourneyRideDetailsModal from "./JourneyRideDetailsModal";
 import { lookup } from "@/lib/utils/number";
+import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 function JourneyRide({ ride }: { ride: JourneyRide }) {
   const duration = durationBetween(ride.timerange.start, ride.timerange.end);
@@ -14,11 +20,11 @@ function JourneyRide({ ride }: { ride: JourneyRide }) {
     ride.timerange.end.toLocaleDateString();
 
   return (
-    <div className="flex items-center gap-4 text-slate-600 w-full">
+    <div className="flex items-center gap-4 text-zinc-600 w-full">
       <Train className="" size={16} />
 
       <div className="mr-auto">
-        <div className=" font-medium text-slate-200">{ride.name}</div>
+        <div className=" font-bold text-sm text-zinc-200">{ride.name}</div>
         <div className=" text-sm">
           {duration}h (
           <span suppressHydrationWarning>
@@ -43,7 +49,7 @@ function JourneyRide({ ride }: { ride: JourneyRide }) {
               icon={<Info className="" size={16} />}
               className="bg-pink-700 hover:bg-pink-700"
             >
-              Needs reservation
+              Reservation
             </JourneyRideBadge>
           )}
           {ride.price && ride.price > 0 && (
@@ -73,7 +79,25 @@ function JourneyRide({ ride }: { ride: JourneyRide }) {
         </div>
       </div>
 
-      <JourneyRideDetailsModal ride={ride} />
+      <div className="flex gap-2">
+        <JourneyRideDetailsModal ride={ride} />
+
+        <Tooltip>
+          <TooltipTrigger>
+            <Button variant="secondary" size="sm" className="relative">
+              <MapPin size={16} />
+
+              <Plus
+                size={14}
+                strokeWidth={2}
+                className="absolute top-1/2 left-1/2"
+              />
+            </Button>
+          </TooltipTrigger>
+
+          <TooltipContent>Add another location</TooltipContent>
+        </Tooltip>
+      </div>
     </div>
   );
 }

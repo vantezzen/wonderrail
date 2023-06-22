@@ -3,6 +3,8 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { FirebaseConnectionStoreProvider } from "@/lib/firebase/FirebaseConnectionStore";
 import Script from "next/script";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +22,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn(inter.className, "dark bg-background")}>
         <FirebaseConnectionStoreProvider>
-          {children}
+          <TooltipProvider>
+            <Toaster />
+            {children}
+          </TooltipProvider>
         </FirebaseConnectionStoreProvider>
 
         <Script

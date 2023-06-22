@@ -56,7 +56,7 @@ function JourneyRideLeg({ leg }: { leg: InterrailTimetableLeg }) {
           {leg.start.station} <ArrowRight size={14} /> {leg.end.station}
         </div>
 
-        <div className="flex gap-1 items-center text-slate-400">
+        <div className="flex gap-1 items-center text-zinc-400">
           <div className="">
             {leg.duration.hours}h {leg.duration.minutes}m
           </div>

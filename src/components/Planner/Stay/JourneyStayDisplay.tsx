@@ -3,11 +3,28 @@ import { Card, CardDescription, CardHeader, CardTitle } from "../../ui/card";
 import { getTimerangeLengthToDaysInMs } from "@/lib/utils/date";
 import Planner from "@/lib/Journey/Planner";
 import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
-import { Calendar, GripVertical, MapPin, Trash } from "lucide-react";
+import {
+  Calendar,
+  Expand,
+  GripVertical,
+  MapPin,
+  Settings2,
+  Trash,
+} from "lucide-react";
 import { Button } from "../../ui/button";
 import { JourneyStay } from "@/lib/types";
 import { Input } from "../../ui/input";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 function JourneyStayDisplay({
   stay,
@@ -39,66 +56,87 @@ function JourneyStayDisplay({
             </div>
           </div>
 
-          <div className="flex items-center text-slate-600 w-full">
+          <div className="flex items-center text-zinc-600 w-full">
             <CardHeader className="w-full">
-              <div className="flex justify-between items-center">
-                <CardTitle className="text-slate-200 flex items-center">
-                  <MapPin className="mr-2 text-slate-400" size={16} />
-                  {stay.location.name}
-                </CardTitle>
+              <Collapsible>
+                <div className="flex justify-between items-center">
+                  <CardTitle className="text-zinc-200 flex items-center font-bold text-lg">
+                    <MapPin className="mr-2 text-zinc-400" size={16} />
+                    {stay.location.name}
+                  </CardTitle>
 
-                <Button
-                  onClick={() => planner.removeStep(stay)}
-                  variant="secondary"
-                  size="sm"
-                  disabled={isReadOnly}
-                >
-                  <Trash className="" size={16} />
-                </Button>
-              </div>
+                  <div className="flex gap-2">
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Button
+                          onClick={() => planner.removeStep(stay)}
+                          variant="secondary"
+                          size="sm"
+                          disabled={isReadOnly}
+                        >
+                          <Trash className="" size={16} />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>Remove</TooltipContent>
+                    </Tooltip>
 
-              <CardDescription className="flex flex-col xl:flex-row justify-between text-slate-400 xl:items-center gap-2 pt-1">
-                <span className="flex items-center gap-2">
-                  stay here for
-                  <Input
-                    className="w-14 h-8"
-                    type="number"
-                    value={changedDays}
-                    onChange={(e) => {
-                      const value = parseInt(e.target.value);
-                      if (isNaN(value)) return;
-                      setChangedDays(value);
-                    }}
-                    disabled={isReadOnly}
-                  />{" "}
-                  {changedDays !== 1 ? "days" : "day"}
-                </span>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <CollapsibleTrigger asChild>
+                          <Button variant="secondary" size="sm">
+                            <Settings2 className="" size={16} />
+                          </Button>
+                        </CollapsibleTrigger>
+                      </TooltipTrigger>
+                      <TooltipContent>Settings</TooltipContent>
+                    </Tooltip>
+                  </div>
+                </div>
 
-                <span
-                  className="font-medium text-zinc-600"
-                  suppressHydrationWarning
-                >
-                  {isStartEndDateEqual
-                    ? stay.timerange.start.toLocaleDateString()
-                    : stay.timerange.start.toLocaleDateString() +
-                      " - " +
-                      stay.timerange.end.toLocaleDateString()}
-                </span>
-              </CardDescription>
+                <CollapsibleContent>
+                  <CardDescription className="flex flex-col xl:flex-row justify-between text-zinc-400 xl:items-center gap-2 pt-1">
+                    <span className="flex items-center gap-2">
+                      <Input
+                        className="w-14 h-8"
+                        type="number"
+                        value={changedDays}
+                        onChange={(e) => {
+                          const value = parseInt(e.target.value);
+                          if (isNaN(value)) return;
+                          setChangedDays(value);
+                        }}
+                        disabled={isReadOnly}
+                      />{" "}
+                      {changedDays !== 1 ? "days" : "day"}
+                    </span>
 
-              {changedDays !== days && (
-                <Button
-                  onClick={() => {
-                    planner.changeStayDuration(stay, changedDays);
-                  }}
-                  variant="secondary"
-                  size="sm"
-                  disabled={isReadOnly}
-                >
-                  <Calendar className="inline-block mr-2" size={14} />
-                  Update
-                </Button>
-              )}
+                    <span
+                      className="font-medium text-zinc-600"
+                      suppressHydrationWarning
+                    >
+                      {isStartEndDateEqual
+                        ? stay.timerange.start.toLocaleDateString()
+                        : stay.timerange.start.toLocaleDateString() +
+                          " - " +
+                          stay.timerange.end.toLocaleDateString()}
+                    </span>
+                  </CardDescription>
+
+                  {changedDays !== days && (
+                    <Button
+                      onClick={() => {
+                        planner.changeStayDuration(stay, changedDays);
+                      }}
+                      variant="secondary"
+                      size="sm"
+                      disabled={isReadOnly}
+                    >
+                      <Calendar className="inline-block mr-2" size={14} />
+                      Update
+                    </Button>
+                  )}
+                </CollapsibleContent>
+              </Collapsible>
             </CardHeader>
             <div className="mr-2 flex flex-col gap-2 mt-2"></div>
           </div>

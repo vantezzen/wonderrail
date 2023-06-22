@@ -11,18 +11,28 @@ import { JourneyRide } from "@/lib/types";
 import { TextQuote, X } from "lucide-react";
 import React from "react";
 import JourneyRideLeg from "./JourneyRideLeg";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 function JourneyRideDetailsModal({ ride }: { ride: JourneyRide }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <Button variant="secondary" size="sm">
-          <TextQuote size={16} />
-        </Button>
+        <Tooltip>
+          <TooltipTrigger>
+            <Button variant="secondary" size="sm">
+              <TextQuote size={16} />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Ride details</TooltipContent>
+        </Tooltip>
       </AlertDialogTrigger>
 
       <AlertDialogContent className="min-w-[70vw]">
-        <AlertDialogHeader className="text-slate-300">
+        <AlertDialogHeader className="text-zinc-300">
           <div className="flex justify-between items-center">
             <div>{ride.name}</div>
 

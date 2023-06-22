@@ -1,6 +1,7 @@
 "use client";
 import Delete from "@/components/Dashboard/JourneyActions/Delete";
 import Share from "@/components/Dashboard/JourneyActions/Share";
+import Profile from "@/components/Dashboard/Profile";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuthState } from "@/lib/firebase/FirebaseConnectionStore";
@@ -99,18 +100,7 @@ function AppPage() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>My profile</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Link href="/auth/logout">
-              <Button variant="destructive" className="w-full">
-                Logout
-              </Button>
-            </Link>
-          </CardContent>
-        </Card>
+        <Profile />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React from "react";
-import { Badge } from "../../badge/badge";
 import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 
 function JourneyRideBadge({
   icon,
