@@ -1,6 +1,6 @@
 import { InterrailTimetableLeg } from "@/lib/types";
 import { lookup } from "@/lib/utils/number";
-import { ArrowRight, Dot, ReplaceAll, Train } from "lucide-react";
+import { ArrowRight, Dot, ReplaceAll, School2, Train } from "lucide-react";
 import React from "react";
 
 const statusTexts = {
@@ -13,15 +13,27 @@ const statusTexts = {
 };
 
 function JourneyRideLeg({ leg }: { leg: InterrailTimetableLeg }) {
-  const isStartEndSame = leg.start.id === leg.end.id;
+  const legType = leg.type;
 
-  if (isStartEndSame) {
+  if (legType === "PLATFORM_CHANGE") {
     return (
       <div key={leg.id} className="flex gap-4 text-zinc-500 items-center">
         <ReplaceAll className="" size={16} />
         <div>
           <div className="text-zinc-200 font-medium flex gap-2 items-center">
-            Change ({leg.duration.hours}h {leg.duration.minutes}m)
+            Change platform ({leg.duration.hours}h {leg.duration.minutes}m)
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (legType === "STATION_CHANGE_WALK") {
+    return (
+      <div key={leg.id} className="flex gap-4 text-zinc-500 items-center">
+        <School2 className="" size={16} />
+        <div>
+          <div className="text-zinc-200 font-medium flex gap-2 items-center">
+            Change station ({leg.duration.hours}h {leg.duration.minutes}m)
           </div>
         </div>
       </div>

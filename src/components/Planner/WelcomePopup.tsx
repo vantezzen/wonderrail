@@ -8,7 +8,6 @@ import {
 } from "../ui/alert-dialog";
 import { Button } from "../ui/button";
 import { Sparkles } from "lucide-react";
-import InputDescription from "../Various/InputDescription";
 
 function WelcomePopup({
   onManualCreate,

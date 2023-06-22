@@ -1,5 +1,4 @@
 import { getInterrailStations } from "@/lib/api/getInterrailStations";
-import NodeGeocoder from "node-geocoder";
 
 export async function GET(
   request: Request,

@@ -13,7 +13,7 @@ const InterrailTransportInfoSchema = z.object({
 });
 
 const InterrailPricesInfoSchema = z.object({
-  type: z.enum(["FIRST_CLASS", "SECOND_CLASS"]),
+  type: z.enum(["FIRST_CLASS", "SECOND_CLASS"]).or(z.string()),
   amount: z.number(),
 });
 
@@ -44,7 +44,9 @@ const InterrailTimetableLegSchema = z.object({
   prices: z.array(InterrailPricesInfoSchema).optional(),
   id: z.string(),
   bookingInformation: InterrailBookingInformationSchema.optional(),
-  type: z.enum(["TRAIN_TRAVEL", "PLATFORM_CHANGE", "STATION_CHANGE_WALK"]),
+  type: z
+    .enum(["TRAIN_TRAVEL", "PLATFORM_CHANGE", "STATION_CHANGE_WALK"])
+    .or(z.string()),
   status: z
     .enum([
       "REQUIRED",
@@ -54,6 +56,7 @@ const InterrailTimetableLegSchema = z.object({
       "OPTIONAL",
       "NO_RESERVATION",
     ])
+    .or(z.string())
     .optional(),
   duration: InterrailDurationSchema,
   trainType: z.string().optional(),
@@ -64,7 +67,7 @@ const InterrailTimetableLegSchema = z.object({
 const InterrailTimetableEntrySchema = z.object({
   id: z.string(),
   price: z.number().optional(),
-  status: z.enum(["REQUIRED", "NOT_REQUIRED"]),
+  status: z.enum(["REQUIRED", "NOT_REQUIRED"]).or(z.string()),
   duration: InterrailDurationSchema,
   legs: z.array(InterrailTimetableLegSchema),
   departure: z.string(),

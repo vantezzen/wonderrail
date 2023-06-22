@@ -1,7 +1,6 @@
 import {
   AlertDialog,
   AlertDialogContent,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { AiRequest } from "@/lib/types";
 import React from "react";
@@ -46,6 +45,10 @@ function AiPopup({
             onConfirm={async () => {
               setAiState(AiState.LOADING);
               console.log("Generating itinerary...");
+
+              planner.journey.startDate = input.startDate;
+              planner.emit("change");
+
               await planner.ai.generateItinerary(input);
               setAiState(AiState.OUTPUT);
             }}
