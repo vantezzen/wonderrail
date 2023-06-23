@@ -3,8 +3,11 @@ import Planner from "@/lib/Journey/Planner";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import JourneyStep from "./JourneyStep";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
+import { JourneyStay } from "@/lib/types";
+import usePlannerStore from "./plannerStore";
 
-function JourneySteps({ planner }: { planner: Planner }) {
+function JourneySteps() {
+  const planner = usePlannerStore((state) => state.planner);
   const [isDragging, setIsDragging] = React.useState(false);
   const isReadOnly = useIsReadOnly();
 

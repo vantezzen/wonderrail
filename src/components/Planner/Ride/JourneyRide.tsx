@@ -12,7 +12,13 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-function JourneyRide({ ride }: { ride: JourneyRide }) {
+function JourneyRide({
+  ride,
+  addLocationBeforeThisRide,
+}: {
+  ride: JourneyRide;
+  addLocationBeforeThisRide?: () => void;
+}) {
   const duration = durationBetween(ride.timerange.start, ride.timerange.end);
 
   const isStartEndDateEqual =
@@ -84,7 +90,12 @@ function JourneyRide({ ride }: { ride: JourneyRide }) {
 
         <Tooltip>
           <TooltipTrigger>
-            <Button variant="secondary" size="sm" className="relative">
+            <Button
+              variant="secondary"
+              size="sm"
+              className="relative"
+              onClick={addLocationBeforeThisRide}
+            >
               <MapPin size={16} />
 
               <Plus
@@ -95,7 +106,9 @@ function JourneyRide({ ride }: { ride: JourneyRide }) {
             </Button>
           </TooltipTrigger>
 
-          <TooltipContent>Add another location</TooltipContent>
+          <TooltipContent>
+            Add another location between these locations
+          </TooltipContent>
         </Tooltip>
       </div>
     </div>

@@ -8,8 +8,10 @@ import { useAuthState } from "@/lib/firebase/FirebaseConnectionStore";
 import useJourneys from "@/lib/hooks/useJourneys";
 import { Journey } from "@/lib/types";
 import { ChevronRight, Dot, Plus } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import logoImage from "@/assets/logo.png";
 
 function AppPage() {
   const [user] = useAuthState();
@@ -17,6 +19,19 @@ function AppPage() {
 
   return (
     <div className="p-6 md:p-12">
+      <div className="flex gap-3 items-center mb-6">
+        <div>
+          <Image
+            src={logoImage}
+            alt="WonderRail logo"
+            width={100}
+            height={100}
+          />
+        </div>
+        <Dot size={16} />
+        <h1 className="font-bold">Dashboard</h1>
+      </div>
+
       <div className="grid md:grid-cols-3 gap-12">
         <Card className="md:col-span-2">
           <CardHeader>

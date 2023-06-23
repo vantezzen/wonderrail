@@ -1,5 +1,5 @@
 import Planner from "@/lib/Journey/Planner";
-import React, { useEffect } from "react";
+import React, { use, useEffect } from "react";
 import {
   CommandDialog,
   CommandGroup,
@@ -9,11 +9,20 @@ import {
 } from "../ui/command";
 import { Button } from "../ui/button";
 import { Loader2, Plus } from "lucide-react";
-import { InterrailLocation } from "@/lib/types";
+import { InterrailLocation, JourneyStay } from "@/lib/types";
 import { useDebounce } from "use-debounce";
+import usePlannerStore from "./plannerStore";
 
-function AddLocationModal({ planner }: { planner: Planner }) {
-  const [isOpen, setIsOpen] = React.useState(false);
+function AddLocationModal() {
+  const planner = usePlannerStore((state) => state.planner);
+  const isOpen = usePlannerStore((state) => state.popups.addLocation);
+  const updatePopupState = usePlannerStore((state) => state.setPopupState);
+  const setIsOpen = (open: boolean) => updatePopupState("addLocation", open);
+
+  const beforeLocation = usePlannerStore((state) => state.addLocationBefore);
+  const setBeforeLocation = usePlannerStore(
+    (state) => state.setAddLocationBefore
+  );
 
   const [isLoadingLocations, setIsLoadingLocations] = React.useState(false);
   const [interrailLocations, setInterrailLocations] = React.useState<
@@ -46,7 +55,13 @@ function AddLocationModal({ planner }: { planner: Planner }) {
         Add location
       </Button>
 
-      <CommandDialog open={isOpen} onOpenChange={setIsOpen}>
+      <CommandDialog
+        open={isOpen}
+        onOpenChange={(open) => {
+          setIsOpen(open);
+          setBeforeLocation(null);
+        }}
+      >
         {planner.journey.steps.length === 0 && (
           <div className="p-5 text-center">
             <h3 className="text-xl font-medium">Welcome to WonderRail!</h3>
@@ -73,7 +88,7 @@ function AddLocationModal({ planner }: { planner: Planner }) {
                 <CommandItem
                   key={station.id}
                   onSelect={() => {
-                    planner.addLocation(station);
+                    planner.addLocation(station, undefined, beforeLocation);
                     setIsOpen(false);
                   }}
                   className="cursor-pointer"

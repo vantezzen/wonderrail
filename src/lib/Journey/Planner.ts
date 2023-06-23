@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import {
   InterrailLocation,
   Journey,
+  JourneyRide,
   JourneyStay,
   JourneyStep,
   JourneyTimerange,
@@ -90,21 +91,27 @@ export default class Planner extends EventEmitter {
   /**
    * Add a new city to the journey, adding necessary rides in between
    */
-  async addLocation(location: InterrailLocation, timerange?: JourneyTimerange) {
-    // Dont add if last step is this location to avoid duplicates
-    const previousStep = this.journey.steps[
-      this.journey.steps.length - 1
-    ] as JourneyStay;
-
+  async addLocation(
+    location: InterrailLocation,
+    timerange?: JourneyTimerange,
+    beforeLocation?: JourneyStay | null
+  ) {
     let travelEndTime = this.journey.startDate;
-    if (previousStep) {
-      const distanceToPreviousStep = getDistanceFromLatLonInKm(
-        previousStep.location.coordinates,
-        location.coordinates
-      );
+    if (!beforeLocation) {
+      // Dont add if last step is this location to avoid duplicates
+      const previousStep = this.journey.steps[
+        this.journey.steps.length - 1
+      ] as JourneyStay;
 
-      if (distanceToPreviousStep < 50) {
-        return;
+      if (previousStep) {
+        const distanceToPreviousStep = getDistanceFromLatLonInKm(
+          previousStep.location.coordinates,
+          location.coordinates
+        );
+
+        if (distanceToPreviousStep < 50) {
+          return;
+        }
       }
     }
 
@@ -113,7 +120,7 @@ export default class Planner extends EventEmitter {
         ? new Date(travelEndTime.getTime() + 1000 * 60 * 60 * 24 * 2) // Stay is 2 days long by default
         : travelEndTime; // The first stay should be 0 days long as we expect it to be where the person lives
 
-    this.journey.steps.push({
+    const stay: JourneyStay = {
       type: "stay",
       id: uuidv4(),
       location,
@@ -121,7 +128,17 @@ export default class Planner extends EventEmitter {
         start: travelEndTime,
         end: endDate,
       },
-    });
+    };
+
+    if (beforeLocation) {
+      const beforeLocationIndex = this.journey.steps.findIndex(
+        (step) => "id" in step && step.id === beforeLocation?.id
+      );
+
+      this.journey.steps.splice(beforeLocationIndex, 0, stay);
+    } else {
+      this.journey.steps.push(stay);
+    }
 
     await this.recalculateJourneySteps(this.journey.steps);
     this.emit("change");
@@ -172,5 +189,18 @@ export default class Planner extends EventEmitter {
   async setPreferredDepartureTime(preferredDepartureTime: number) {
     this.journey.preferredDepartureTime = preferredDepartureTime;
     await this.recalculateJourneySteps(this.journey.steps);
+  }
+
+  getStayAfterRide(ride: JourneyRide) {
+    const rideIndex = this.journey.steps.findIndex(
+      (journeyStep) => "id" in journeyStep && journeyStep.id === ride.id
+    );
+
+    if (rideIndex === -1) {
+      throw new Error("Ride not found");
+    }
+
+    const nextStay = this.journey.steps[rideIndex + 1] as JourneyStay;
+    return nextStay ?? null;
   }
 }

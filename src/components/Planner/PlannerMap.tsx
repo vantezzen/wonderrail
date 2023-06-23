@@ -15,8 +15,11 @@ import { HexagonLayer } from "@deck.gl/aggregation-layers/typed";
 import Planner from "@/lib/Journey/Planner";
 import { getDistanceFromLatLonInKm } from "@/lib/utils/coordinates";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
+import usePlannerStore from "./plannerStore";
 
-function PlannerMap({ planner }: { planner: Planner }) {
+function PlannerMap() {
+  const planner = usePlannerStore((state) => state.planner);
+
   // Lines should be drawn between each step
   const lines = [];
   const rides = planner.journey.steps.filter(
@@ -56,7 +59,7 @@ function PlannerMap({ planner }: { planner: Planner }) {
   const [isHoveringCity, setIsHoveringCity] = React.useState(false);
 
   return (
-    <div className="min-h-screen w-full relative">
+    <div className="w-full relative">
       <DeckGL
         initialViewState={{
           latitude: firstStay?.coordinates?.lat || 48,
@@ -65,7 +68,7 @@ function PlannerMap({ planner }: { planner: Planner }) {
           pitch: 30,
         }}
         controller
-        style={{ width: "100%", height: "100vh" }}
+        style={{ width: "100%", height: "calc(100vh - 4rem)" }}
         layers={[
           // Chosen rides
           new ArcLayer({

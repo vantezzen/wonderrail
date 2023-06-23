@@ -1,10 +1,11 @@
 import Planner from "@/lib/Journey/Planner";
-import { JourneyStep } from "@/lib/types";
+import { JourneyStay, JourneyStep } from "@/lib/types";
 import React from "react";
 import JourneyRide from "./Ride/JourneyRide";
 import JourneyStayDisplay from "./Stay/JourneyStayDisplay";
 import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
 import InvalidJourneyStep from "./InvalidJourneyStep";
+import usePlannerStore from "./plannerStore";
 
 function JourneyStep({
   step,
@@ -17,9 +18,26 @@ function JourneyStep({
   dragHandleProps?: DraggableProvidedDragHandleProps;
   isDragging?: boolean;
 }) {
+  const setAddLocationBefore = usePlannerStore(
+    (state) => state.setAddLocationBefore
+  );
+  const setPopupState = usePlannerStore((state) => state.setPopupState);
+
   if (step.type === "ride") {
     if (isDragging) return null;
-    return <JourneyRide key={step.id} ride={step} />;
+    return (
+      <JourneyRide
+        key={step.id}
+        ride={step}
+        addLocationBeforeThisRide={() => {
+          const nextStay = planner.getStayAfterRide(step);
+          if (nextStay) {
+            setAddLocationBefore(nextStay);
+            setPopupState("addLocation", true);
+          }
+        }}
+      />
+    );
   } else if (step.type === "stay") {
     return (
       <JourneyStayDisplay

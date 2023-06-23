@@ -3,28 +3,35 @@ import React, { useEffect } from "react";
 import PlannerMap from "./PlannerMap";
 import Heading from "../Various/Heading";
 import JourneySteps from "./JourneySteps";
-import { Journey } from "@/lib/types";
+import { Journey, JourneyStay } from "@/lib/types";
 import Planner from "@/lib/Journey/Planner";
 import AddLocationModal from "./AddLocationModal";
 import JourneyLoading from "./JourneyLoading";
 import GeneralJourneySettings from "./GeneralJourneySettings";
-import SaveAction from "./SaveAction";
 import LogoBar from "./LogoBar";
 import StatusBar from "./StatusBar";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 import AiPopup from "./Ai";
 import WelcomePopup from "./WelcomePopup";
+import usePlannerStore from "./plannerStore";
+import LoadingScreen from "../Various/LoadingScreen";
+import MenuBar from "./MenuBar";
+import { ScrollArea } from "../ui/scroll-area";
 
 function PlannerComponent({ journey }: { journey: Journey }) {
-  const [planner] = React.useState(() => new Planner(journey));
+  const plannerStore = usePlannerStore();
+  const planner = plannerStore.planner;
+  useEffect(() => {
+    plannerStore.setPlanner(new Planner(journey));
+  }, [journey]);
+
   const [, forceUpdate] = React.useState({});
   const isReadOnly = useIsReadOnly();
-  const [isWelcomePopupOpen, setIsWelcomePopupOpen] = React.useState(false);
-  const [isAiPopupOpen, setIsAiPopupOpen] = React.useState(false);
 
   useEffect(() => {
+    if (!planner) return;
     if (planner.journey.steps.length === 0) {
-      setIsWelcomePopupOpen(true);
+      plannerStore.setPopupState("welcome", true);
     }
 
     const update = () => forceUpdate({});
@@ -34,41 +41,34 @@ function PlannerComponent({ journey }: { journey: Journey }) {
     };
   }, [planner]);
 
+  if (!planner) return <LoadingScreen text="Loading planner..." />;
+
   return (
     <>
       {planner.isLoading && <JourneyLoading />}
-      <WelcomePopup
-        open={isWelcomePopupOpen}
-        onAiCreate={() => {
-          setIsWelcomePopupOpen(false);
-          setIsAiPopupOpen(true);
-        }}
-        onManualCreate={() => {
-          setIsWelcomePopupOpen(false);
-        }}
-      />
-      <AiPopup
-        planner={planner}
-        open={isAiPopupOpen}
-        setOpen={setIsAiPopupOpen}
-      />
+      <WelcomePopup />
+      <AiPopup />
 
-      <div className="grid lg:grid-cols-3 w-screen">
+      <MenuBar />
+
+      <div
+        className="grid lg:grid-cols-3 w-screen"
+        style={{
+          height: "calc(100vh - 4rem)",
+        }}
+      >
         <div className="lg:col-span-2 relative">
-          <PlannerMap planner={planner} />
-          <StatusBar planner={planner} />
+          <PlannerMap />
+          <StatusBar />
         </div>
         <div
-          className="p-12 lg:overflow-y-auto h-screen bg-black"
+          className="p-12 bg-black h-full overflow-y-scroll"
           suppressHydrationWarning
         >
-          <LogoBar />
-          <SaveAction planner={planner} />
-
-          <GeneralJourneySettings planner={planner} />
+          <GeneralJourneySettings />
 
           <Heading className="mt-6">Itinerary</Heading>
-          <JourneySteps planner={planner} />
+          <JourneySteps />
 
           {planner.journey.steps.length === 0 && (
             <div className="mt-6 text-center">
@@ -80,7 +80,7 @@ function PlannerComponent({ journey }: { journey: Journey }) {
             </div>
           )}
 
-          {!isReadOnly && <AddLocationModal planner={planner} />}
+          {!isReadOnly && <AddLocationModal />}
         </div>
       </div>
     </>

@@ -6,8 +6,10 @@ import AutoCount from "@/components/Various/AutoCount";
 import PriceDetailsPopover from "./PriceDetailsPopover";
 import { humanReadableDurationFromMinutes } from "@/lib/utils/date";
 import { padLeft } from "@/lib/utils/number";
+import usePlannerStore from "../plannerStore";
 
-function StatusBar({ planner }: { planner: Planner }) {
+function StatusBar() {
+  const planner = usePlannerStore((state) => state.planner);
   const stats = planner.stats.get();
   const totalDurationOnTrains = humanReadableDurationFromMinutes(
     stats.totalTimeOnTrains

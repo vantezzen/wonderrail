@@ -8,18 +8,16 @@ import {
 } from "../ui/alert-dialog";
 import { Button } from "../ui/button";
 import { Sparkles } from "lucide-react";
+import usePlannerStore from "./plannerStore";
 
-function WelcomePopup({
-  onManualCreate,
-  onAiCreate,
-  open,
-}: {
-  onManualCreate: () => void;
-  onAiCreate: () => void;
-  open: boolean;
-}) {
+function WelcomePopup() {
+  const isOpen = usePlannerStore((state) => state.popups.welcome);
+  const updatePopupState = usePlannerStore((state) => state.setPopupState);
+  const setIsWelcomePopupOpen = (open: boolean) =>
+    updatePopupState("welcome", open);
+
   return (
-    <AlertDialog open={open} onOpenChange={() => {}}>
+    <AlertDialog open={isOpen} onOpenChange={setIsWelcomePopupOpen}>
       <AlertDialogContent className="md:w-[700px]">
         <AlertDialogHeader>
           <AlertDialogTitle className="text-zinc-300">
@@ -38,7 +36,10 @@ function WelcomePopup({
 
           <div className="grid grid-cols-2 gap-6 pt-6">
             <div>
-              <Button className="h-16" onClick={onManualCreate}>
+              <Button
+                className="h-16"
+                onClick={() => setIsWelcomePopupOpen(false)}
+              >
                 Create new journey manually
               </Button>
               <p className="font-medium text-sm text-zinc-500 mt-3">
@@ -49,7 +50,13 @@ function WelcomePopup({
             </div>
 
             <div>
-              <Button className="h-16" onClick={onAiCreate}>
+              <Button
+                className="h-16"
+                onClick={() => {
+                  setIsWelcomePopupOpen(false);
+                  updatePopupState("ai", true);
+                }}
+              >
                 Create new journey with AI{" "}
                 <Sparkles size={16} className="ml-2" />
               </Button>

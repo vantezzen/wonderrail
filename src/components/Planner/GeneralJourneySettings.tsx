@@ -16,8 +16,10 @@ import { padLeft } from "@/lib/utils/number";
 import { Input } from "../ui/input";
 import { Checkbox } from "../ui/checkbox";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
+import usePlannerStore from "./plannerStore";
 
-function GeneralJourneySettings({ planner }: { planner: Planner }) {
+function GeneralJourneySettings() {
+  const planner = usePlannerStore((state) => state.planner);
   const isReadOnly = useIsReadOnly();
   return (
     <Card>
