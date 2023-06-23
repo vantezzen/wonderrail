@@ -13,9 +13,7 @@ import {
   getTimerangeLengthToDaysInMs,
   getTravellableDate,
 } from "../utils/date";
-import {
-  getDistanceFromLatLonInKm,
-} from "../utils/coordinates";
+import { getDistanceFromLatLonInKm } from "../utils/coordinates";
 import Interrail from "./Interrail";
 
 export default class StepPlanner extends EventEmitter {
@@ -272,10 +270,13 @@ export default class StepPlanner extends EventEmitter {
 
         // Prefer rides that are close to the preferred departure time
         const departureTime = new Date(entry.departure).getHours();
-        const hoursDifference = Math.abs(
-          departureTime - this.existingJourney.preferredDepartureTime
-        );
-        rank += 100 - hoursDifference * 10;
+        // >0 if the preferred departure time is after the departure time
+        // <0 if the preferred departure time is before the departure time
+        const hoursDifference =
+          departureTime - this.existingJourney.preferredDepartureTime;
+        // Let departures before the preferred time have a higher impact on lowering the rank
+        const timeDistanceImpact = hoursDifference < 0 ? 20 : 10;
+        rank += 100 - Math.abs(hoursDifference) * timeDistanceImpact;
 
         return {
           entry,

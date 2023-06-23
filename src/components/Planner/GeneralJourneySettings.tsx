@@ -16,6 +16,7 @@ import { Input } from "../ui/input";
 import { Checkbox } from "../ui/checkbox";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 import usePlannerStore from "./plannerStore";
+import { ScrollArea } from "../ui/scroll-area";
 
 function GeneralJourneySettings() {
   const planner = usePlannerStore((state) => state.planner);
@@ -65,14 +66,16 @@ function GeneralJourneySettings() {
             <SelectTrigger disabled={isReadOnly}>
               <SelectValue placeholder="Select preferred departure time" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {Array.from({ length: 24 }, (_, i) => i).map((hour) => (
-                  <SelectItem value={String(hour)} key={hour}>
-                    {padLeft(hour, 2)}:00
-                  </SelectItem>
-                ))}
-              </SelectGroup>
+            <SelectContent className="max-h-[40vh]">
+              <ScrollArea>
+                <SelectGroup>
+                  {Array.from({ length: 24 }, (_, i) => i).map((hour) => (
+                    <SelectItem value={String(hour)} key={hour}>
+                      {padLeft(hour, 2)}:00
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </ScrollArea>
             </SelectContent>
           </Select>
         </VerticalInputContainer>
