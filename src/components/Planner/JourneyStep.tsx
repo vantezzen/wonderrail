@@ -1,5 +1,5 @@
 import Planner from "@/lib/Journey/Planner";
-import { JourneyStay, JourneyStep } from "@/lib/types";
+import { JourneyStep } from "@/lib/types";
 import React from "react";
 import JourneyRide from "./Ride/JourneyRide";
 import JourneyStayDisplay from "./Stay/JourneyStayDisplay";

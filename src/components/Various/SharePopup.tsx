@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { AlertTriangle, Copy, ShareIcon } from "lucide-react";
+import { AlertTriangle, Copy } from "lucide-react";
 import React from "react";
 
 function SharePopup({

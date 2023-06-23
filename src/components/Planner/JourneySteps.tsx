@@ -1,9 +1,7 @@
 import React from "react";
-import Planner from "@/lib/Journey/Planner";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import JourneyStep from "./JourneyStep";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
-import { JourneyStay } from "@/lib/types";
 import usePlannerStore from "./plannerStore";
 
 function JourneySteps() {

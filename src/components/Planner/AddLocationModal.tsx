@@ -1,5 +1,4 @@
-import Planner from "@/lib/Journey/Planner";
-import React, { use, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   CommandDialog,
   CommandGroup,
@@ -9,7 +8,7 @@ import {
 } from "../ui/command";
 import { Button } from "../ui/button";
 import { Loader2, Plus } from "lucide-react";
-import { InterrailLocation, JourneyStay } from "@/lib/types";
+import { InterrailLocation } from "@/lib/types";
 import { useDebounce } from "use-debounce";
 import usePlannerStore from "./plannerStore";
 

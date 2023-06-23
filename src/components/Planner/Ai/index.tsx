@@ -2,7 +2,6 @@ import { AlertDialog, AlertDialogContent } from "@/components/ui/alert-dialog";
 import { AiRequest } from "@/lib/types";
 import React from "react";
 import AiInput from "./AiInput";
-import Planner from "@/lib/Journey/Planner";
 import AiLoading from "./AiLoading";
 import AiOutput from "./AiOutput";
 import AiApplying from "./AiApplying";
