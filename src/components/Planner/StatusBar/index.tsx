@@ -1,4 +1,3 @@
-import Planner from "@/lib/Journey/Planner";
 import React from "react";
 import StatusBarElement from "./StatusBarElement";
 import StatusBarDivider from "./StatusBarDivider";
@@ -16,7 +15,7 @@ function StatusBar() {
   );
 
   return (
-    <div className="w-full py-6 px-12 bg-black lg:absolute bottom-0 left-0 flex flex-col lg:flex-row lg:gap-12">
+    <div className="w-full py-6 px-12 bg-black lg:absolute bottom-0 left-0 flex flex-col lg:flex-row gap-3 lg:gap-6 xl:gap-12 overflow-x-hidden">
       <PriceDetailsPopover planner={planner} />
 
       <StatusBarDivider />

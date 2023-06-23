@@ -3,12 +3,11 @@ import React, { useEffect } from "react";
 import PlannerMap from "./PlannerMap";
 import Heading from "../Various/Heading";
 import JourneySteps from "./JourneySteps";
-import { Journey, JourneyStay } from "@/lib/types";
+import { Journey } from "@/lib/types";
 import Planner from "@/lib/Journey/Planner";
 import AddLocationModal from "./AddLocationModal";
 import JourneyLoading from "./JourneyLoading";
 import GeneralJourneySettings from "./GeneralJourneySettings";
-import LogoBar from "./LogoBar";
 import StatusBar from "./StatusBar";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 import AiPopup from "./Ai";
@@ -16,7 +15,6 @@ import WelcomePopup from "./WelcomePopup";
 import usePlannerStore from "./plannerStore";
 import LoadingScreen from "../Various/LoadingScreen";
 import MenuBar from "./MenuBar";
-import { ScrollArea } from "../ui/scroll-area";
 
 function PlannerComponent({ journey }: { journey: Journey }) {
   const plannerStore = usePlannerStore();
@@ -52,17 +50,17 @@ function PlannerComponent({ journey }: { journey: Journey }) {
       <MenuBar />
 
       <div
-        className="grid lg:grid-cols-3 w-screen"
+        className="grid lg:grid-cols-2 xl:grid-cols-3 w-screen"
         style={{
           height: "calc(100vh - 4rem)",
         }}
       >
-        <div className="lg:col-span-2 relative">
+        <div className="xl:col-span-2 relative">
           <PlannerMap />
           <StatusBar />
         </div>
         <div
-          className="p-12 bg-black h-full overflow-y-scroll"
+          className="p-12 bg-black h-full lg:overflow-y-auto"
           suppressHydrationWarning
         >
           <GeneralJourneySettings />

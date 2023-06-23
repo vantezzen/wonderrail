@@ -26,8 +26,8 @@ function JourneyRide({
     ride.timerange.end.toLocaleDateString();
 
   return (
-    <div className="flex items-center gap-4 text-zinc-600 w-full">
-      <Train className="" size={16} />
+    <div className="flex xl:items-center gap-4 text-zinc-600 w-full flex-col xl:flex-row">
+      <Train className="hidden xl:block" size={16} />
 
       <div className="mr-auto">
         <div className=" font-bold text-sm text-zinc-200">{ride.name}</div>

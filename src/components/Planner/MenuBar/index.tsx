@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Menubar,
   MenubarContent,
@@ -18,11 +18,13 @@ import useSaveActionStatus, {
 import { useRouter } from "next/navigation";
 import Storage from "@/lib/Journey/Storage";
 import LoadingScreen from "@/components/Various/LoadingScreen";
+import ShortcutManager from "@/lib/Journey/ShortcutManager";
 
 function MenuBar() {
   const plannerStore = usePlannerStore();
   const router = useRouter();
 
+  const [shortcuts] = useState(() => new ShortcutManager());
   const saveStatus = useSaveActionStatus();
   const [isLoading, setIsLoading] = React.useState(false);
   const journeyId = usePlannerStore((state) => state.planner.journey.id);
@@ -41,37 +43,63 @@ function MenuBar() {
     };
   }, [plannerStore.planner]);
 
-  const actions = {
-    file: {
-      save: async () => {
-        if (saveStatus === SaveActionStatus.READ_ONLY) return;
+  const actions = useMemo(
+    () => ({
+      file: {
+        save: async () => {
+          if (saveStatus === SaveActionStatus.READ_ONLY) return;
 
-        if (saveStatus === SaveActionStatus.LOGIN) {
+          if (saveStatus === SaveActionStatus.LOGIN) {
+            const storage = new Storage();
+            storage.saveTemporaryJourney(plannerStore.planner.journey);
+            router.push("/auth");
+            return;
+          }
+
+          setIsLoading(true);
           const storage = new Storage();
-          storage.saveTemporaryJourney(plannerStore.planner.journey);
-          router.push("/auth");
-          return;
-        }
+          const { userId, journeyId } = await storage.saveJourney(
+            plannerStore.planner.journey
+          );
 
-        setIsLoading(true);
-        const storage = new Storage();
-        const { userId, journeyId } = await storage.saveJourney(
-          plannerStore.planner.journey
-        );
+          if (saveStatus === SaveActionStatus.NEW) {
+            router.push(`/journeys/${userId}/${journeyId}`);
+          } else {
+            setIsLoading(false);
+          }
+        },
+      },
+      itinerary: {
+        addLocation: () => {
+          plannerStore.setPopupState("addLocation", true);
+        },
+      },
+    }),
+    [plannerStore, router, saveStatus]
+  );
 
-        if (saveStatus === SaveActionStatus.NEW) {
-          router.push(`/journeys/${userId}/${journeyId}`);
-        } else {
-          setIsLoading(false);
-        }
+  useEffect(() => {
+    const shortcutItems = [
+      {
+        shortcut: "ctrl-s",
+        action: actions.file.save,
       },
-    },
-    itinerary: {
-      addLocation: () => {
-        plannerStore.setPopupState("addLocation", true);
+      {
+        shortcut: "ctrl-k",
+        action: actions.itinerary.addLocation,
       },
-    },
-  };
+    ];
+
+    for (const item of shortcutItems) {
+      shortcuts.addListener(item.shortcut, item.action);
+    }
+
+    return () => {
+      for (const item of shortcutItems) {
+        shortcuts.removeListener(item.shortcut, item.action);
+      }
+    };
+  }, [shortcuts, actions]);
 
   return (
     <div className="bg-black">
@@ -81,7 +109,10 @@ function MenuBar() {
         <MenubarMenu>
           <MenubarTrigger>File</MenubarTrigger>
           <MenubarContent>
-            <MenubarItem disabled={saveStatus === SaveActionStatus.READ_ONLY}>
+            <MenubarItem
+              disabled={saveStatus === SaveActionStatus.READ_ONLY}
+              onSelect={() => actions.file.save()}
+            >
               {saveStatus === SaveActionStatus.READ_ONLY && "Save"}
               {saveStatus === SaveActionStatus.NEW && "Create Journey"}
               {saveStatus === SaveActionStatus.SAVE && "Save"}
@@ -94,7 +125,9 @@ function MenuBar() {
               userId={user!.uid}
               isPublic={isPublic}
             >
-              <MenubarItem>Share</MenubarItem>
+              <MenubarItem onSelect={(e) => e.preventDefault()}>
+                Share
+              </MenubarItem>
             </SharePopup>
             <MenubarSeparator />
             <Link href="/app">
@@ -107,7 +140,7 @@ function MenuBar() {
           <MenubarTrigger>Itinerary</MenubarTrigger>
           <MenubarContent>
             <MenubarItem onClick={actions.itinerary.addLocation}>
-              New stop <MenubarShortcut>⌘N</MenubarShortcut>
+              New stop <MenubarShortcut>⌘K</MenubarShortcut>
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>

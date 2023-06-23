@@ -12,7 +12,6 @@ import {
 import DeckGL from "@deck.gl/react/typed";
 import { ArcLayer } from "@deck.gl/layers/typed";
 import { HexagonLayer } from "@deck.gl/aggregation-layers/typed";
-import Planner from "@/lib/Journey/Planner";
 import { getDistanceFromLatLonInKm } from "@/lib/utils/coordinates";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 import usePlannerStore from "./plannerStore";
@@ -59,7 +58,7 @@ function PlannerMap() {
   const [isHoveringCity, setIsHoveringCity] = React.useState(false);
 
   return (
-    <div className="w-full relative">
+    <div className="w-full relative h-[80vh] lg:h-[calc(100vh-4rem)]">
       <DeckGL
         initialViewState={{
           latitude: firstStay?.coordinates?.lat || 48,
@@ -68,7 +67,10 @@ function PlannerMap() {
           pitch: 30,
         }}
         controller
-        style={{ width: "100%", height: "calc(100vh - 4rem)" }}
+        style={{
+          width: "100%",
+          height: "100%",
+        }}
         layers={[
           // Chosen rides
           new ArcLayer({

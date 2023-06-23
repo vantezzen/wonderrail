@@ -3,13 +3,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from "../../ui/card";
 import { getTimerangeLengthToDaysInMs } from "@/lib/utils/date";
 import Planner from "@/lib/Journey/Planner";
 import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
-import {
-  Calendar,
-  GripVertical,
-  MapPin,
-  Settings2,
-  Trash,
-} from "lucide-react";
+import { Calendar, GripVertical, MapPin, Settings2, Trash } from "lucide-react";
 import { Button } from "../../ui/button";
 import { JourneyStay } from "@/lib/types";
 import { Input } from "../../ui/input";
@@ -58,13 +52,13 @@ function JourneyStayDisplay({
           <div className="flex items-center text-zinc-600 w-full">
             <CardHeader className="w-full">
               <Collapsible>
-                <div className="flex justify-between items-center">
+                <div className="flex lg:justify-between gap-2 xl:items-center ">
                   <CardTitle className="text-zinc-200 flex items-center font-bold text-lg">
                     <MapPin className="mr-2 text-zinc-400" size={16} />
                     {stay.location.name}
                   </CardTitle>
 
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 ml-auto">
                     <Tooltip>
                       <TooltipTrigger>
                         <Button
