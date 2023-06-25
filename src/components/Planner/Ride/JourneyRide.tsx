@@ -1,6 +1,13 @@
 import { JourneyRide } from "@/lib/types";
 import { durationBetween, formatDateTime, formatTime } from "@/lib/utils/date";
-import { Info, MapPin, Plus, Receipt, ReplaceAll, Train } from "lucide-react";
+import {
+  MapPin,
+  Plus,
+  Receipt,
+  ReplaceAll,
+  Ticket,
+  Train,
+} from "lucide-react";
 import React from "react";
 import JourneyRideBadge from "./JourneyRideBadge";
 import JourneyRideDetailsModal from "./JourneyRideDetailsModal";
@@ -51,12 +58,16 @@ function JourneyRide({
 
         <div className="flex gap-1 mt-2">
           {ride.needsReservation && (
-            <JourneyRideBadge
-              icon={<Info className="" size={16} />}
-              className="bg-pink-700 hover:bg-pink-700"
-            >
-              Reservation
-            </JourneyRideBadge>
+            <Tooltip>
+              <TooltipTrigger>
+                <JourneyRideBadge
+                  icon={<Ticket className="" size={16} />}
+                  className="bg-pink-700 hover:bg-pink-700"
+                />
+              </TooltipTrigger>
+
+              <TooltipContent>This ride requires a reservation</TooltipContent>
+            </Tooltip>
           )}
           {ride.price && ride.price > 0 && (
             <JourneyRideBadge
@@ -71,16 +82,25 @@ function JourneyRide({
             </JourneyRideBadge>
           )}
           {ride.changes > 0 && (
-            <JourneyRideBadge
-              icon={<ReplaceAll className="" size={16} />}
-              className={lookup(ride.changes, {
-                0: "bg-green-700 hover:bg-green-700",
-                2: "bg-amber-700 hover:bg-amber-700",
-                4: "bg-red-700 hover:bg-red-700",
-              })}
-            >
-              {ride.changes} {ride.changes > 1 ? "changes" : "change"}
-            </JourneyRideBadge>
+            <Tooltip>
+              <TooltipTrigger>
+                <JourneyRideBadge
+                  icon={<ReplaceAll className="" size={16} />}
+                  className={lookup(ride.changes, {
+                    0: "bg-green-700 hover:bg-green-700",
+                    2: "bg-amber-700 hover:bg-amber-700",
+                    4: "bg-red-700 hover:bg-red-700",
+                  })}
+                >
+                  {ride.changes}
+                </JourneyRideBadge>
+              </TooltipTrigger>
+
+              <TooltipContent>
+                This ride has {ride.changes}{" "}
+                {ride.changes > 1 ? "changes" : "change"}
+              </TooltipContent>
+            </Tooltip>
           )}
         </div>
       </div>
@@ -96,12 +116,17 @@ function JourneyRide({
               className="relative"
               onClick={addLocationBeforeThisRide}
             >
-              <MapPin size={16} />
+              <MapPin size={16} className="opacity-0" />
+              <MapPin
+                size={13}
+                className="absolute top-[30%] left-[30%]
+              "
+              />
 
               <Plus
-                size={14}
+                size={15}
                 strokeWidth={2}
-                className="absolute top-1/2 left-1/2"
+                className="absolute top-[45%] left-[45%]"
               />
             </Button>
           </TooltipTrigger>

@@ -43,7 +43,7 @@ function SignInScreen() {
   }, [user]);
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center gap-4 bg-black">
+    <div className="min-h-screen flex flex-col justify-center items-center gap-4 bg-zinc-900">
       <Image src={logoImage} width={150} height={150} alt="WonderRail logo" />
 
       <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebaseAuth} />

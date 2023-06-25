@@ -4,7 +4,7 @@ const nextConfig = {
     esmExternals: "loose",
   },
   images: {
-    domains: ["images.unsplash.com"],
+    domains: ["images.unsplash.com", "source.unsplash.com"],
   },
 };
 

@@ -4,7 +4,7 @@ import Image from "next/image";
 
 function LoadingScreen({ text }: { text?: string }) {
   return (
-    <div className="fixed inset-0 bg-black z-50 flex justify-center items-center gap-3 flex-col">
+    <div className="fixed inset-0 bg-zinc-900 z-50 flex justify-center items-center gap-3 flex-col">
       <Image
         src={logoImage}
         alt="logo"

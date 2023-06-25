@@ -9,7 +9,7 @@ function Heading({
   className?: string;
 }) {
   return (
-    <h1 className={cn("text-3xl font-bold text-white", className)}>
+    <h1 className={cn("text-xl font-bold text-white", className)}>
       {children}
     </h1>
   );

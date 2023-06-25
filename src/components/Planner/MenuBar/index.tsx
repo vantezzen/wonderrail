@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import Storage from "@/lib/Journey/Storage";
 import LoadingScreen from "@/components/Various/LoadingScreen";
 import ShortcutManager from "@/lib/Journey/ShortcutManager";
+import { Check } from "lucide-react";
 
 function MenuBar() {
   const plannerStore = usePlannerStore();
@@ -74,6 +75,20 @@ function MenuBar() {
           plannerStore.setPopupState("addLocation", true);
         },
       },
+      view: {
+        togglePopularCities: () => {
+          plannerStore.setView(
+            "showPopularCities",
+            !plannerStore.view.showPopularCities
+          );
+        },
+        toggleStatusBar: () => {
+          plannerStore.setView(
+            "showStatusBar",
+            !plannerStore.view.showStatusBar
+          );
+        },
+      },
     }),
     [plannerStore, router, saveStatus]
   );
@@ -87,6 +102,14 @@ function MenuBar() {
       {
         shortcut: "ctrl-k",
         action: actions.itinerary.addLocation,
+      },
+      {
+        shortcut: "ctrl-shift-p",
+        action: actions.view.togglePopularCities,
+      },
+      {
+        shortcut: "ctrl-shift-g",
+        action: actions.view.toggleStatusBar,
       },
     ];
 
@@ -102,7 +125,7 @@ function MenuBar() {
   }, [shortcuts, actions]);
 
   return (
-    <div className="bg-black">
+    <div className="bg-zinc-900">
       {isLoading && <LoadingScreen text="Saving..." />}
 
       <Menubar className="m-3">
@@ -141,6 +164,29 @@ function MenuBar() {
           <MenubarContent>
             <MenubarItem onClick={actions.itinerary.addLocation}>
               New stop <MenubarShortcut>⌘K</MenubarShortcut>
+            </MenubarItem>
+          </MenubarContent>
+        </MenubarMenu>
+
+        <MenubarMenu>
+          <MenubarTrigger>View</MenubarTrigger>
+          <MenubarContent>
+            <MenubarItem onClick={actions.view.togglePopularCities}>
+              {plannerStore.view.showPopularCities ? (
+                <Check size={12} className="mr-2" />
+              ) : (
+                ""
+              )}
+              Show popular cities <MenubarShortcut>⌘⇧P</MenubarShortcut>
+            </MenubarItem>
+
+            <MenubarItem onClick={actions.view.toggleStatusBar}>
+              {plannerStore.view.showStatusBar ? (
+                <Check size={12} className="mr-2" />
+              ) : (
+                ""
+              )}
+              Show status bar <MenubarShortcut>⌘⇧G</MenubarShortcut>
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>

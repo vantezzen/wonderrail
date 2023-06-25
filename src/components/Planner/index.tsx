@@ -42,7 +42,7 @@ function PlannerComponent({ journey }: { journey: Journey }) {
   if (!planner) return <LoadingScreen text="Loading planner..." />;
 
   return (
-    <>
+    <div className="bg-zinc-900">
       {planner.isLoading && <JourneyLoading />}
       <WelcomePopup />
       <AiPopup />
@@ -60,7 +60,7 @@ function PlannerComponent({ journey }: { journey: Journey }) {
           <StatusBar />
         </div>
         <div
-          className="p-12 bg-black h-full lg:overflow-y-auto"
+          className="p-6 pt-0 bg-zinc-900 h-full lg:overflow-y-auto"
           suppressHydrationWarning
         >
           <GeneralJourneySettings />
@@ -81,7 +81,7 @@ function PlannerComponent({ journey }: { journey: Journey }) {
           {!isReadOnly && <AddLocationModal />}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

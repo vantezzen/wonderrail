@@ -18,6 +18,9 @@ import usePlannerStore from "./plannerStore";
 
 function PlannerMap() {
   const planner = usePlannerStore((state) => state.planner);
+  const showPopularCities = usePlannerStore(
+    (state) => state.view.showPopularCities
+  );
 
   // Lines should be drawn between each step
   const lines = [];
@@ -57,14 +60,34 @@ function PlannerMap() {
   }, [lastStay]);
   const [isHoveringCity, setIsHoveringCity] = React.useState(false);
 
+  const [viewState, setViewState] = React.useState<Record<string, any>>({
+    latitude: firstStay?.coordinates?.lat || 48,
+    longitude: firstStay?.coordinates?.lng || 2,
+    zoom: 2,
+    pitch: 50,
+  });
+  useEffect(() => {
+    setTimeout(() => {
+      setViewState({
+        latitude: firstStay?.coordinates?.lat || 48,
+        longitude: firstStay?.coordinates?.lng || 2,
+        zoom: 4,
+        pitch: 30,
+        transitionDuration: 2000,
+        transitionEasing: (t: number) =>
+          // https://easings.net/#easeInOutCubic
+          t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2,
+      });
+    }, 1000);
+  }, []);
+
+  const colorOpacity = showPopularCities ? 100 : 0;
   return (
     <div className="w-full relative h-[80vh] lg:h-[calc(100vh-4rem)]">
       <DeckGL
-        initialViewState={{
-          latitude: firstStay?.coordinates?.lat || 48,
-          longitude: firstStay?.coordinates?.lng || 2,
-          zoom: 4,
-          pitch: 30,
+        viewState={viewState}
+        onViewStateChange={({ viewState }) => {
+          setViewState(viewState);
         }}
         controller
         style={{
@@ -132,9 +155,9 @@ function PlannerMap() {
               return 0;
             },
             colorRange: [
-              [255, 0, 0],
-              [255, 255, 255],
-              [0, 0, 255],
+              [255, 165, 105, colorOpacity],
+              [255, 255, 255, colorOpacity],
+              [0, 0, 255, colorOpacity],
             ],
           }),
         ]}

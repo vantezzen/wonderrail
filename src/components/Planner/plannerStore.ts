@@ -16,6 +16,12 @@ interface PlannerState {
 
   addLocationBefore: JourneyStay | null;
   setAddLocationBefore: (stay: JourneyStay | null) => void;
+
+  view: {
+    showPopularCities: boolean;
+    showStatusBar: boolean;
+  };
+  setView: (view: keyof PlannerState["view"], state: boolean) => void;
 }
 
 const usePlannerStore = create<PlannerState>()(
@@ -38,6 +44,18 @@ const usePlannerStore = create<PlannerState>()(
 
     addLocationBefore: null,
     setAddLocationBefore: (stay) => set({ addLocationBefore: stay }),
+
+    view: {
+      showPopularCities: true,
+      showStatusBar: true,
+    },
+    setView: (view, newState) =>
+      set((state) => ({
+        view: {
+          ...state.view,
+          [view]: newState,
+        },
+      })),
   }))
 );
 export default usePlannerStore;

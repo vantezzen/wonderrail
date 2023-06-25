@@ -7,10 +7,11 @@ export default class ShortcutManager extends EventEmitter {
   }
 
   handleKeyDown = (e: KeyboardEvent) => {
-    if (e.ctrlKey && e.shiftKey && e.key.length === 1) {
+    const hasCtrl = e.ctrlKey || e.metaKey;
+    if (hasCtrl && e.shiftKey && e.key.length === 1) {
       e.preventDefault();
       this.emit(`ctrl-shift-${e.key}`);
-    } else if (e.ctrlKey && e.key.length === 1) {
+    } else if (hasCtrl && e.key.length === 1) {
       e.preventDefault();
       this.emit(`ctrl-${e.key}`);
     }
