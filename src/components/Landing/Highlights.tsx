@@ -5,7 +5,6 @@ import itineraryImage from "@/assets/landing/itinerary.png";
 import timetableImage from "@/assets/landing/timetable.png";
 import priceTagImage from "@/assets/landing/price-tags.png";
 import threedImage from "@/assets/landing/3d.png";
-import lockerImage from "@/assets/landing/locker.png";
 import shareImage from "@/assets/landing/share.png";
 
 function Highlights() {
@@ -89,14 +88,14 @@ function Highlights() {
           size={8}
           top={
             <Image
-              src={lockerImage}
-              alt="locker"
+              src={itineraryImage}
+              alt="itinerary"
               className="rounded mx-auto w-full max-w-xl max-h-64"
               style={{ objectFit: "contain" }}
             />
           }
-          title="Keeping your data safe"
-          description="WonderRail is committed to protecting your privacy. We are fully GDPR-compiant and your data is securely stored in servers in the EU."
+          title="Open Source"
+          description="WonderRail is open source, meaning that you can contribute to the project and help us improve the Interrail experience for everyone. Check out our GitHub repository to get started."
         />
       </div>
     </div>

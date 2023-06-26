@@ -1,13 +1,6 @@
 import { JourneyRide } from "@/lib/types";
 import { durationBetween, formatDateTime, formatTime } from "@/lib/utils/date";
-import {
-  MapPin,
-  Plus,
-  Receipt,
-  ReplaceAll,
-  Ticket,
-  Train,
-} from "lucide-react";
+import { MapPin, Plus, Receipt, ReplaceAll, Ticket, Train } from "lucide-react";
 import React from "react";
 import JourneyRideBadge from "./JourneyRideBadge";
 import JourneyRideDetailsModal from "./JourneyRideDetailsModal";
@@ -117,11 +110,7 @@ function JourneyRide({
               onClick={addLocationBeforeThisRide}
             >
               <MapPin size={16} className="opacity-0" />
-              <MapPin
-                size={13}
-                className="absolute top-[30%] left-[30%]
-              "
-              />
+              <MapPin size={13} className="absolute top-[30%] left-[30%]" />
 
               <Plus
                 size={15}

@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 function FinalCta() {
   return (
     <section className="py-12 sm:py-16 lg:py-20 ">
-      <div className="mx-auto max-w-7xl p-12 bg-zinc-900 rounded">
+      <div className="mx-auto max-w-7xl p-12 bg-zinc-800 rounded">
         <div className="text-center lg:flex lg:items-center lg:justify-between lg:text-left">
           <div className="max-w-xl mx-auto lg:mx-0">
             <h2 className="text-3xl font-bold text-gray-100 sm:text-4xl font-pj">
