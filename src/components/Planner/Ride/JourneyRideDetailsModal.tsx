@@ -1,14 +1,14 @@
 import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogHeader,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { JourneyRide } from "@/lib/types";
-import { TextQuote, X } from "lucide-react";
+import { TextQuote } from "lucide-react";
 import React from "react";
 import JourneyRideLeg from "./JourneyRideLeg";
 import {
@@ -16,11 +16,12 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 function JourneyRideDetailsModal({ ride }: { ride: JourneyRide }) {
   return (
-    <AlertDialog>
-      <AlertDialogTrigger>
+    <Dialog>
+      <DialogTrigger>
         <Tooltip>
           <TooltipTrigger>
             <Button variant="secondary" size="sm">
@@ -29,30 +30,25 @@ function JourneyRideDetailsModal({ ride }: { ride: JourneyRide }) {
           </TooltipTrigger>
           <TooltipContent>Ride details</TooltipContent>
         </Tooltip>
-      </AlertDialogTrigger>
+      </DialogTrigger>
 
-      <AlertDialogContent className="min-w-[70vw]">
-        <AlertDialogHeader className="text-zinc-300">
-          <div className="flex justify-between items-center">
-            <div>{ride.name}</div>
+      <DialogContent className="min-w-[70vw]">
+        <ScrollArea className="max-h-[70vh]">
+          <DialogHeader className="text-zinc-300">
+            <DialogTitle>{ride.name}</DialogTitle>
 
-            <AlertDialogCancel asChild>
-              <Button variant="ghost" size="sm">
-                <X size={16} />
-              </Button>
-            </AlertDialogCancel>
-          </div>
-        </AlertDialogHeader>
-        <AlertDialogDescription></AlertDialogDescription>
+            <DialogDescription></DialogDescription>
+          </DialogHeader>
 
-        {ride.details?.legs.map((leg) => (
-          <>
-            <hr />
-            <JourneyRideLeg leg={leg} />
-          </>
-        ))}
-      </AlertDialogContent>
-    </AlertDialog>
+          {ride.details?.legs.map((leg) => (
+            <div className="py-2">
+              <hr className="pb-4" />
+              <JourneyRideLeg leg={leg} />
+            </div>
+          ))}
+        </ScrollArea>
+      </DialogContent>
+    </Dialog>
   );
 }
 
