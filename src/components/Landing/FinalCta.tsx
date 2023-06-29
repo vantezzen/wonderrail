@@ -8,10 +8,10 @@ function FinalCta() {
       <div className="mx-auto max-w-7xl p-12 bg-zinc-800 rounded">
         <div className="text-center lg:flex lg:items-center lg:justify-between lg:text-left">
           <div className="max-w-xl mx-auto lg:mx-0">
-            <h2 className="text-3xl font-bold text-gray-100 sm:text-4xl font-pj">
+            <h2 className="text-3xl font-bold text-zinc-50 sm:text-4xl font-pj">
               Ready to Embark on Your Adventure?
             </h2>
-            <p className="max-w-md mx-auto mt-4 text-base font-medium leading-7 text-gray-500 lg:mx-0 sm:mt-6 font-pj">
+            <p className="max-w-md mx-auto mt-4 text-base font-medium leading-7 text-zinc-400 lg:mx-0 sm:mt-6 font-pj">
               Europe is calling! Use WonderRail to transform your Interrail
               dreams into reality. Start your journey now!
             </p>

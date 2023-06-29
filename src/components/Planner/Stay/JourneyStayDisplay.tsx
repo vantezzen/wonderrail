@@ -9,13 +9,11 @@ import { JourneyStay } from "@/lib/types";
 import { Input } from "../../ui/input";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 
-
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import Image from "next/image";
 
 function JourneyStayDisplay({
   stay,
@@ -38,27 +36,9 @@ function JourneyStayDisplay({
 
   return (
     <div className="relative">
-      {/* <div className="absolute inset-0 w-full h-full z-0 opacity-20 bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] blur-lg filter" /> */}
+      <div className="absolute inset-0 w-full h-full z-0 opacity-20 bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] blur-lg filter" />
 
-      <Image
-        src={`https://source.unsplash.com/featured/?${stay.location.name}`}
-        fill
-        className="absolute inset-0 z-0 rounded-lg opacity-30"
-        alt={`Photo of ${stay.location.name}`}
-        style={{
-          objectFit: "cover",
-          objectPosition: "center",
-        }}
-      />
-
-      <Card
-        className="relative z-10 bg-transparent"
-        style={{
-          backdropFilter: "blur(2px)",
-          background:
-            "linear-gradient(180deg, rgba(33,33,33,0) 0%, rgba(33,33,33,0.9) 100%)",
-        }}
-      >
+      <Card className="relative z-10">
         <div className="flex">
           <div className="flex flex-col items-center justify-center pl-6">
             <div {...dragHandleProps}>

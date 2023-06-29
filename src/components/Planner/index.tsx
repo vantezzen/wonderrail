@@ -23,13 +23,19 @@ function PlannerComponent({ journey }: { journey: Journey }) {
     plannerStore.setPlanner(new Planner(journey));
   }, [journey]);
 
+  const [hasShownWelcomePopup, setHasShownWelcomePopup] = React.useState(false);
   const [, forceUpdate] = React.useState({});
   const isReadOnly = useIsReadOnly();
 
   useEffect(() => {
     if (!planner) return;
-    if (planner.journey.steps.length === 0) {
+    if (
+      planner.journey.steps.length === 0 &&
+      !isReadOnly &&
+      !hasShownWelcomePopup
+    ) {
       plannerStore.setPopupState("welcome", true);
+      setHasShownWelcomePopup(true);
     }
 
     const update = () => forceUpdate({});
