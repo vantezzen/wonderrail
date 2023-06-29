@@ -203,4 +203,9 @@ export default class Planner extends EventEmitter {
     const nextStay = this.journey.steps[rideIndex + 1] as JourneyStay;
     return nextStay ?? null;
   }
+
+  setJourney(journey: Journey) {
+    this.journey = journey;
+    this.emit("change");
+  }
 }

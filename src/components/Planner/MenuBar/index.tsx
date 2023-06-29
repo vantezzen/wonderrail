@@ -20,6 +20,9 @@ import Storage from "@/lib/Journey/Storage";
 import LoadingScreen from "@/components/Various/LoadingScreen";
 import ShortcutManager from "@/lib/Journey/ShortcutManager";
 import { Check } from "lucide-react";
+import { getFileContents } from "@/lib/utils/file";
+import { useToast } from "@/components/ui/use-toast";
+import ImportJsonMenu from "./ImportJsonMenu";
 
 function MenuBar() {
   const plannerStore = usePlannerStore();
@@ -32,6 +35,7 @@ function MenuBar() {
   const isPublic = usePlannerStore((state) => state.planner.journey.isPublic);
   const [user] = useAuthState();
   const [hasChanges, setHasChanges] = React.useState(false);
+  const { toast } = useToast();
 
   React.useEffect(() => {
     const onUpdate = () => {
@@ -68,6 +72,38 @@ function MenuBar() {
           } else {
             setIsLoading(false);
           }
+        },
+        exportJson: () => {
+          const storage = new Storage();
+          storage.downloadAsJson(plannerStore.planner.journey);
+        },
+        importJson: async (file: File) => {
+          const storage = new Storage();
+
+          let json;
+          try {
+            json = await getFileContents(file);
+          } catch (e) {
+            toast({
+              title: "Error reading file",
+              description: "Could not read file contents",
+              variant: "destructive",
+            });
+            return;
+          }
+
+          let journey;
+          try {
+            journey = storage.loadFromJson(json);
+          } catch (e) {
+            toast({
+              title: "Invalid journey",
+              description: "The file you uploaded is not a valid journey",
+              variant: "destructive",
+            });
+            return;
+          }
+          plannerStore.planner.setJourney(journey);
         },
       },
       itinerary: {
@@ -143,15 +179,22 @@ function MenuBar() {
               {hasChanges && "*"}
               <MenubarShortcut>⌘S</MenubarShortcut>
             </MenubarItem>
-            <SharePopup
-              journeyId={journeyId}
-              userId={user!.uid}
-              isPublic={isPublic}
-            >
-              <MenubarItem onSelect={(e) => e.preventDefault()}>
-                Share
-              </MenubarItem>
-            </SharePopup>
+            {user && journeyId && (
+              <SharePopup
+                journeyId={journeyId}
+                userId={user!.uid}
+                isPublic={isPublic}
+              >
+                <MenubarItem onSelect={(e) => e.preventDefault()}>
+                  Share
+                </MenubarItem>
+              </SharePopup>
+            )}
+            <MenubarSeparator />
+            <MenubarItem onSelect={() => actions.file.exportJson()}>
+              Export journey as file
+            </MenubarItem>
+            <ImportJsonMenu onImport={actions.file.importJson} />
             <MenubarSeparator />
             <Link href="/app">
               <MenubarItem>Back to dashboard</MenubarItem>

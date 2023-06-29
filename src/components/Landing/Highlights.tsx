@@ -28,8 +28,8 @@ function Highlights() {
               className="rounded mx-auto"
             />
           }
-          title="Effortless Itinerary Planning"
-          description="Our intelligent journey planner automates the process of selecting the best trains for your trip. Get all necessary details like train changes, ticket prices, and reservation requirements, all in one place."
+          title="Start planning without hustle"
+          description="No login required, just start planning your trip right away. WonderRail is a web app, meaning that you can access it from any device with a browser."
         />
         <Highlight
           size={8}
@@ -41,7 +41,7 @@ function Highlights() {
             />
           }
           title="Your Travel Companion"
-          description="Never miss a beat with WonderRail's comprehensive travel information. Stay updated with ticket prices, reservation requirements, and more for a smooth Interrail journey."
+          description="Our intelligent journey planner automates the process of selecting the best trains for your trip. Get all necessary details like train changes, ticket prices, and reservation requirements, all in one place."
         />
 
         <Highlight
