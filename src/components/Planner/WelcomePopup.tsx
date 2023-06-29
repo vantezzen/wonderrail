@@ -9,6 +9,8 @@ import {
 import { Button } from "../ui/button";
 import { Sparkles } from "lucide-react";
 import usePlannerStore from "./plannerStore";
+import Image from "next/image";
+import logoImage from "@/assets/logo.png";
 
 function WelcomePopup() {
   const isOpen = usePlannerStore((state) => state.popups.welcome);
@@ -20,6 +22,13 @@ function WelcomePopup() {
     <AlertDialog open={isOpen} onOpenChange={setIsWelcomePopupOpen}>
       <AlertDialogContent className="md:w-[700px]">
         <AlertDialogHeader>
+          <Image
+            src={logoImage}
+            alt="logo"
+            width={100}
+            height={100}
+            className="mb-6"
+          />
           <AlertDialogTitle className="text-zinc-300">
             Welcome to WonderRail!
           </AlertDialogTitle>
@@ -34,39 +43,9 @@ function WelcomePopup() {
             .
           </AlertDialogDescription>
 
-          <div className="grid grid-cols-2 gap-6 pt-6">
-            <div>
-              <Button
-                className="h-16"
-                onClick={() => setIsWelcomePopupOpen(false)}
-              >
-                Create new journey manually
-              </Button>
-              <p className="font-medium text-sm text-zinc-500 mt-3">
-                Create your journey from scratch, keeping full control of your
-                trip. This is best if you already know where you want to go or
-                already have experience with Interrail.
-              </p>
-            </div>
-
-            <div>
-              <Button
-                className="h-16"
-                onClick={() => {
-                  setIsWelcomePopupOpen(false);
-                  updatePopupState("ai", true);
-                }}
-              >
-                Create new journey with AI{" "}
-                <Sparkles size={16} className="ml-2" />
-              </Button>
-              <p className="font-medium text-sm text-zinc-500 mt-3">
-                Let our AI create a journey for you based on your preferences.
-                This is best if you're new to Interrail or don't know where you
-                want to go. You can always edit the journey afterwards.
-              </p>
-            </div>
-          </div>
+          <Button onClick={() => setIsWelcomePopupOpen(false)}>
+            Start planning
+          </Button>
         </AlertDialogHeader>
       </AlertDialogContent>
     </AlertDialog>
