@@ -11,6 +11,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 
 function JourneyRide({
   ride,
@@ -24,6 +25,8 @@ function JourneyRide({
   const isStartEndDateEqual =
     ride.timerange.start.toLocaleDateString() ===
     ride.timerange.end.toLocaleDateString();
+
+  const isReadonly = useIsReadOnly();
 
   return (
     <div className="flex xl:items-center gap-4 text-zinc-600 w-full flex-col xl:flex-row">
@@ -107,6 +110,7 @@ function JourneyRide({
               variant="secondary"
               size="sm"
               className="relative"
+              disabled={isReadonly}
               onClick={addLocationBeforeThisRide}
             >
               <MapPin size={16} className="opacity-0" />

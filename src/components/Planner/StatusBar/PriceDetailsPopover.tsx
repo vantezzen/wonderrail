@@ -56,7 +56,7 @@ function PriceDetailsPopover({ planner }: { planner: Planner }) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button className="flex gap-3 hover:bg-zinc-900 rounded px-2 items-center text-left">
+        <button className="flex gap-3 hover:bg-zinc-800 rounded px-2 items-center text-left">
           <div className="flex flex-col gap-1">
             <p className="text-xs text-zinc-600">Price</p>
             <p

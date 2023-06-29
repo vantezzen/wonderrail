@@ -194,7 +194,9 @@ function MenuBar() {
             <MenubarItem onSelect={() => actions.file.exportJson()}>
               Export journey as file
             </MenubarItem>
-            <ImportJsonMenu onImport={actions.file.importJson} />
+            {saveStatus !== SaveActionStatus.READ_ONLY && (
+              <ImportJsonMenu onImport={actions.file.importJson} />
+            )}
             <MenubarSeparator />
             <Link href="/app">
               <MenubarItem>Back to dashboard</MenubarItem>
