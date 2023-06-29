@@ -41,7 +41,7 @@ function JourneyRideDetailsModal({ ride }: { ride: JourneyRide }) {
           </DialogHeader>
 
           {ride.details?.legs.map((leg) => (
-            <div className="py-2">
+            <div className="py-2" key={leg.id}>
               <hr className="pb-4" />
               <JourneyRideLeg leg={leg} />
             </div>
