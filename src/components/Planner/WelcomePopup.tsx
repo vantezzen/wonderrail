@@ -7,7 +7,6 @@ import {
   AlertDialogTitle,
 } from "../ui/alert-dialog";
 import { Button } from "../ui/button";
-import { Sparkles } from "lucide-react";
 import usePlannerStore from "./plannerStore";
 import Image from "next/image";
 import logoImage from "@/assets/logo.png";
