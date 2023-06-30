@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import {
   InterrailLocation,
+  InterrailTimetableEntry,
   Journey,
   JourneyRide,
   JourneyStay,
@@ -208,6 +209,19 @@ export default class Planner extends EventEmitter {
 
   setJourney(journey: Journey) {
     this.journey = journey;
+    this.emit("change");
+  }
+
+  async chooseAlternativeRide(
+    ride: JourneyRide,
+    alternativeRide: InterrailTimetableEntry
+  ) {
+    this.journey.steps = this.stepPlanner.chooseAlternativeRide(
+      ride,
+      alternativeRide,
+      this.journey.steps
+    );
+    await this.recalculateJourneySteps(this.journey.steps);
     this.emit("change");
   }
 }

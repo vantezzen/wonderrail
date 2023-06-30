@@ -169,7 +169,7 @@ export default class StepPlanner extends EventEmitter {
     currentStay: JourneyStay,
     nextStay: JourneyStay
   ): Promise<JourneyRide> {
-    const ride = await this.getBestInterrailTimetableEntry(
+    const rides = await this.getBestInterrailTimetableEntry(
       currentStay.location.interrailId,
       nextStay.location.interrailId,
       getTravellableDate(
@@ -178,9 +178,20 @@ export default class StepPlanner extends EventEmitter {
       )
     );
 
-    const firstStop = ride.legs[0].start;
-    const lastStop = ride.legs[ride.legs.length - 1].end;
-    const changes = ride.legs.filter(
+    return this.convertInterrailRideToJourneyRide(rides, currentStay, nextStay);
+  }
+
+  private convertInterrailRideToJourneyRide(
+    rides: {
+      bestRide: InterrailTimetableEntry;
+      otherRides: InterrailTimetableEntry[];
+    },
+    currentStay: JourneyStay,
+    nextStay: JourneyStay
+  ): JourneyRide {
+    const firstStop = rides.bestRide.legs[0].start;
+    const lastStop = rides.bestRide.legs[rides.bestRide.legs.length - 1].end;
+    const changes = rides.bestRide.legs.filter(
       (leg) => leg.type !== "TRAIN_TRAVEL"
     ).length;
 
@@ -191,12 +202,13 @@ export default class StepPlanner extends EventEmitter {
       start: currentStay.location.coordinates,
       end: nextStay.location.coordinates,
       timerange: {
-        start: new Date(ride.departure),
-        end: new Date(ride.arrival),
+        start: new Date(rides.bestRide.departure),
+        end: new Date(rides.bestRide.arrival),
       },
-      details: ride,
-      needsReservation: ride.status === "REQUIRED",
-      price: ride.price,
+      details: rides.bestRide,
+      alternatives: rides.otherRides,
+      needsReservation: rides.bestRide.status === "REQUIRED",
+      price: rides.bestRide.price,
       changes,
     };
   }
@@ -248,7 +260,13 @@ export default class StepPlanner extends EventEmitter {
       throw new Error("No rides found");
     }
 
-    return this.getBestInterrailRide(timetable);
+    const bestRide = this.getBestInterrailRide(timetable);
+    const otherRides = timetable.filter((ride) => ride !== bestRide);
+
+    return {
+      bestRide,
+      otherRides,
+    };
   }
 
   private getBestInterrailRide(timetable: InterrailTimetableEntry[]) {
@@ -263,6 +281,11 @@ export default class StepPlanner extends EventEmitter {
         // Prefer rides that don't require a reservation
         if (entry.status === "NOT_REQUIRED") {
           rank += 10;
+        }
+
+        // Don't prefer rides that are invalid
+        if (entry.status === "INVALID") {
+          rank -= 500;
         }
 
         // Prefer rides that are cheaper
@@ -283,5 +306,36 @@ export default class StepPlanner extends EventEmitter {
       .sort((a, b) => b.rank - a.rank);
 
     return rankedEntries[0].entry;
+  }
+
+  public chooseAlternativeRide(
+    ride: JourneyRide,
+    alternative: InterrailTimetableEntry,
+    newJourney: JourneyStep[]
+  ) {
+    const rideIndex = newJourney.findIndex((step) => step.id === ride.id);
+
+    const newAlternativeRides: InterrailTimetableEntry[] = [
+      ...(ride.alternatives?.filter((alt) => alt.id !== alternative.id) || []),
+      ride.details!,
+    ];
+
+    const newRide = this.convertInterrailRideToJourneyRide(
+      {
+        bestRide: alternative,
+        otherRides: newAlternativeRides,
+      },
+      newJourney[rideIndex - 1] as JourneyStay,
+      newJourney[rideIndex + 1] as JourneyStay
+    );
+
+    newJourney[rideIndex] = newRide;
+    this.updateStaysWithRideTimes(
+      newJourney[rideIndex - 1] as JourneyStay,
+      newRide,
+      newJourney[rideIndex + 1] as JourneyStay
+    );
+
+    return newJourney;
   }
 }

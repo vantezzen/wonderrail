@@ -119,6 +119,7 @@ export const JourneyRideSchema = z.object({
   timerange: JourneyTimerangeSchema,
   needsReservation: z.boolean(),
   details: InterrailTimetableEntrySchema.optional(),
+  alternatives: z.array(InterrailTimetableEntrySchema).optional(),
   price: z.number().optional(),
   changes: z.number(),
 });

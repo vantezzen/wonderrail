@@ -43,8 +43,8 @@ function JourneyRideDetailsModal({
         </Tooltip>
       </DialogTrigger>
 
-      <DialogContent className="min-w-[70vw]">
-        <ScrollArea className="max-h-[70vh]">
+      <DialogContent className="min-w-[70vw] p-12">
+        <ScrollArea className="max-h-[70vh] pr-3">
           <DialogHeader className="text-zinc-300">
             <DialogTitle>{ride.name}</DialogTitle>
 

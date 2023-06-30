@@ -47,6 +47,8 @@ function PlannerComponent({ journey }: { journey: Journey }) {
 
   if (!planner) return <LoadingScreen text="Loading planner..." />;
 
+  console.log(planner.journey);
+
   return (
     <div className="bg-zinc-900">
       {planner.isLoading && <JourneyLoading />}
