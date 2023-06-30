@@ -1,6 +1,6 @@
 import { InterrailTimetableLeg } from "@/lib/types";
 import { lookup } from "@/lib/utils/number";
-import { ArrowRight, Dot, ReplaceAll, School2, Train } from "lucide-react";
+import { ArrowRight, Bus, Dot, ReplaceAll, School2, Train } from "lucide-react";
 import React from "react";
 
 const statusTexts = {
@@ -34,6 +34,19 @@ function JourneyRideLeg({ leg }: { leg: InterrailTimetableLeg }) {
         <div>
           <div className="text-zinc-200 font-medium flex gap-2 items-center">
             Change station ({leg.duration.hours}h {leg.duration.minutes}m)
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (legType === "STATION_CHANGE_PUBLIC_TRANSPORT") {
+    return (
+      <div key={leg.id} className="flex gap-4 text-zinc-500 items-center">
+        <Bus className="" size={16} />
+        <div>
+          <div className="text-zinc-200 font-medium flex gap-2 items-center">
+            Station change by public transport ({leg.duration.hours}h{" "}
+            {leg.duration.minutes}m)
           </div>
         </div>
       </div>

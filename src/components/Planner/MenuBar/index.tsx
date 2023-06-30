@@ -112,12 +112,6 @@ function MenuBar() {
         },
       },
       view: {
-        togglePopularCities: () => {
-          plannerStore.setView(
-            "showPopularCities",
-            !plannerStore.view.showPopularCities
-          );
-        },
         toggleStatusBar: () => {
           plannerStore.setView(
             "showStatusBar",
@@ -138,10 +132,6 @@ function MenuBar() {
       {
         shortcut: "ctrl-k",
         action: actions.itinerary.addLocation,
-      },
-      {
-        shortcut: "ctrl-shift-p",
-        action: actions.view.togglePopularCities,
       },
       {
         shortcut: "ctrl-shift-g",
@@ -216,15 +206,6 @@ function MenuBar() {
         <MenubarMenu>
           <MenubarTrigger>View</MenubarTrigger>
           <MenubarContent>
-            <MenubarItem onClick={actions.view.togglePopularCities}>
-              {plannerStore.view.showPopularCities ? (
-                <Check size={12} className="mr-2" />
-              ) : (
-                ""
-              )}
-              Show popular cities <MenubarShortcut>⌘⇧P</MenubarShortcut>
-            </MenubarItem>
-
             <MenubarItem onClick={actions.view.toggleStatusBar}>
               {plannerStore.view.showStatusBar ? (
                 <Check size={12} className="mr-2" />

@@ -45,7 +45,12 @@ const InterrailTimetableLegSchema = z.object({
   id: z.string(),
   bookingInformation: InterrailBookingInformationSchema.optional(),
   type: z
-    .enum(["TRAIN_TRAVEL", "PLATFORM_CHANGE", "STATION_CHANGE_WALK"])
+    .enum([
+      "TRAIN_TRAVEL",
+      "PLATFORM_CHANGE",
+      "STATION_CHANGE_WALK",
+      "STATION_CHANGE_PUBLIC_TRANSPORT",
+    ])
     .or(z.string()),
   status: z
     .enum([

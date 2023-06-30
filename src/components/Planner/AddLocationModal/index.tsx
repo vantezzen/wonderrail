@@ -5,12 +5,13 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "../ui/command";
-import { Button } from "../ui/button";
+} from "../../ui/command";
+import { Button } from "../../ui/button";
 import { Loader2, Plus } from "lucide-react";
 import { InterrailLocation } from "@/lib/types";
 import { useDebounce } from "use-debounce";
-import usePlannerStore from "./plannerStore";
+import usePlannerStore from "../plannerStore";
+import CategoriesSelector from "./CategoriesSelector";
 
 function AddLocationModal() {
   const planner = usePlannerStore((state) => state.planner);
@@ -45,14 +46,20 @@ function AddLocationModal() {
 
   return (
     <>
-      <Button
-        onClick={() => setIsOpen(true)}
-        variant="secondary"
-        className="w-full mt-6"
-      >
-        <Plus size={16} className="mr-2" />
-        Add location
-      </Button>
+      <div className="relative mt-6">
+        <Button
+          onClick={() => setIsOpen(true)}
+          variant="secondary"
+          className="w-full relative z-10"
+        >
+          <Plus size={16} className="mr-2" />
+          Add location
+        </Button>
+
+        {planner.journey.steps.length === 0 && (
+          <span className="animate-ping-sm absolute inline-flex h-full w-full inset-0 rounded-lg bg-orange-200 opacity-75"></span>
+        )}
+      </div>
 
       <CommandDialog
         open={isOpen}
@@ -69,16 +76,15 @@ function AddLocationModal() {
             </p>
           </div>
         )}
-
         <CommandInput
           placeholder="Search..."
           value={searchRaw}
           onValueChange={setSearch}
         />
-
         {isLoadingLocations && (
           <Loader2 className="animate-spin my-6 mx-auto" size={32} />
         )}
+        {searchRaw.length === 0 && <CategoriesSelector />}
 
         <CommandList>
           {interrailLocations.length > 0 && (

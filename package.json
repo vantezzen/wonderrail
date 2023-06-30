@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "fix": "next lint --fix",
-    "convert-map": "node src/data/convert.js"
+    "convert-map": "node src/data/convert.js",
+    "add-category-locations": "node src/data/addCategoryLocations.js"
   },
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^1.8.1",

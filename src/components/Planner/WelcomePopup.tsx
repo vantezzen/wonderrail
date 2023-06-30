@@ -42,7 +42,12 @@ function WelcomePopup() {
             .
           </AlertDialogDescription>
 
-          <Button onClick={() => setIsWelcomePopupOpen(false)}>
+          <Button
+            onClick={() => {
+              setIsWelcomePopupOpen(false);
+              updatePopupState("addLocation", true);
+            }}
+          >
             Start planning
           </Button>
         </AlertDialogHeader>

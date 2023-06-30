@@ -8,7 +8,9 @@ import {
   JourneyTimerange,
 } from "../types";
 import EventEmitter from "events";
+
 import eurailData from "@/data/eurail.json";
+
 import { getTimerangeLengthToDaysInMs } from "../utils/date";
 import { getDistanceFromLatLonInKm } from "../utils/coordinates";
 import Interrail from "./Interrail";

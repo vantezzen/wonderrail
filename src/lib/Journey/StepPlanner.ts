@@ -13,9 +13,7 @@ import {
   getTimerangeLengthToDaysInMs,
   getTravellableDate,
 } from "../utils/date";
-import {
-  getDistanceFromLatLonInKm,
-} from "../utils/coordinates";
+import { getDistanceFromLatLonInKm } from "../utils/coordinates";
 import Interrail from "./Interrail";
 
 export default class StepPlanner extends EventEmitter {
@@ -183,7 +181,7 @@ export default class StepPlanner extends EventEmitter {
     const firstStop = ride.legs[0].start;
     const lastStop = ride.legs[ride.legs.length - 1].end;
     const changes = ride.legs.filter(
-      (leg) => leg.type === "PLATFORM_CHANGE"
+      (leg) => leg.type !== "TRAIN_TRAVEL"
     ).length;
 
     return {

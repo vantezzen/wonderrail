@@ -11,16 +11,12 @@ import {
 } from "@/lib/types";
 import DeckGL from "@deck.gl/react/typed";
 import { ArcLayer } from "@deck.gl/layers/typed";
-import { HexagonLayer } from "@deck.gl/aggregation-layers/typed";
 import { getDistanceFromLatLonInKm } from "@/lib/utils/coordinates";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 import usePlannerStore from "./plannerStore";
 
 function PlannerMap() {
   const planner = usePlannerStore((state) => state.planner);
-  const showPopularCities = usePlannerStore(
-    (state) => state.view.showPopularCities
-  );
 
   // Lines should be drawn between each step
   const lines = [];
@@ -81,7 +77,6 @@ function PlannerMap() {
     }, 1000);
   }, []);
 
-  const colorOpacity = showPopularCities ? 100 : 0;
   return (
     <div className="w-full relative h-[80vh] lg:h-[calc(100vh-4rem)]">
       <DeckGL
@@ -108,57 +103,6 @@ function PlannerMap() {
               d.isInvalid ? [230, 100, 100] : [230, 230, 230],
             getTargetColor: (d) =>
               d.isInvalid ? [230, 100, 100] : [230, 230, 230],
-          }),
-
-          // All rides
-          new ArcLayer({
-            id: "rides",
-            data: planner.getRides(selectedLocation),
-            pickable: false,
-            getWidth: 2,
-            getHeight: 0.1,
-            getSourcePosition: (d) => [d.from.lng, d.from.lat],
-            getTargetPosition: (d) => [d.to.lng, d.to.lat],
-            getSourceColor: (d) => [100, 100, 100],
-            getTargetColor: (d) => [100, 100, 100],
-          }),
-
-          // Locations
-          new HexagonLayer({
-            id: "journey-locations",
-            data: planner.getCities(),
-            pickable: true,
-            extruded: true,
-            radius: 20000,
-            elevationScale: 1,
-            getPosition: (d: InterrailLocation) => [
-              d.coordinates.lng,
-              d.coordinates.lat,
-            ],
-            getColorWeight: (d: InterrailLocation) => {
-              if (
-                selectedLocation?.coordinates &&
-                getDistanceFromLatLonInKm(
-                  d.coordinates,
-                  selectedLocation.coordinates
-                ) < 50
-              )
-                return 1;
-              if (
-                lastStay &&
-                getDistanceFromLatLonInKm(
-                  d.coordinates,
-                  lastStay.location.coordinates
-                ) < 50
-              )
-                return 2;
-              return 0;
-            },
-            colorRange: [
-              [255, 165, 105, colorOpacity],
-              [255, 255, 255, colorOpacity],
-              [0, 0, 255, colorOpacity],
-            ],
           }),
         ]}
         getTooltip={({ object }) => {

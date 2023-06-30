@@ -1,7 +1,17 @@
 import { JourneyRide } from "@/lib/types";
 import { durationBetween, formatDateTime, formatTime } from "@/lib/utils/date";
-import { MapPin, Plus, Receipt, ReplaceAll, Ticket, Train } from "lucide-react";
-import React from "react";
+import {
+  ExternalLink,
+  FileCheck,
+  MapPin,
+  Plus,
+  Receipt,
+  ReplaceAll,
+  ShoppingCart,
+  Ticket,
+  Train,
+} from "lucide-react";
+import React, { useState } from "react";
 import JourneyRideBadge from "./JourneyRideBadge";
 import JourneyRideDetailsModal from "./JourneyRideDetailsModal";
 import { lookup } from "@/lib/utils/number";
@@ -12,6 +22,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
+import usePlannerStore from "../plannerStore";
 
 function JourneyRide({
   ride,
@@ -20,6 +31,7 @@ function JourneyRide({
   ride: JourneyRide;
   addLocationBeforeThisRide?: () => void;
 }) {
+  const planner = usePlannerStore((state) => state.planner);
   const duration = durationBetween(ride.timerange.start, ride.timerange.end);
 
   const isStartEndDateEqual =
@@ -27,6 +39,8 @@ function JourneyRide({
     ride.timerange.end.toLocaleDateString();
 
   const isReadonly = useIsReadOnly();
+
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
   return (
     <div className="flex xl:items-center gap-4 text-zinc-600 w-full flex-col xl:flex-row">
@@ -52,8 +66,8 @@ function JourneyRide({
           )
         </div>
 
-        <div className="flex gap-1 mt-2">
-          {ride.needsReservation && (
+        <div className="flex gap-1 mt-2" onClick={() => setIsDetailsOpen(true)}>
+          {ride.needsReservation ? (
             <Tooltip>
               <TooltipTrigger>
                 <JourneyRideBadge
@@ -64,18 +78,36 @@ function JourneyRide({
 
               <TooltipContent>This ride requires a reservation</TooltipContent>
             </Tooltip>
+          ) : (
+            <Tooltip>
+              <TooltipTrigger>
+                <JourneyRideBadge
+                  icon={<FileCheck className="" size={16} />}
+                  className="bg-emerald-700 hover:bg-emerald-700"
+                />
+              </TooltipTrigger>
+
+              <TooltipContent>This ride requires no reservation</TooltipContent>
+            </Tooltip>
           )}
           {ride.price && ride.price > 0 && (
-            <JourneyRideBadge
-              icon={<Receipt className="" size={16} />}
-              className={lookup(ride.price, {
-                0: "bg-green-700 hover:bg-green-700",
-                20: "bg-amber-700 hover:bg-amber-700",
-                40: "bg-red-700 hover:bg-red-700",
-              })}
-            >
-              {ride.price}€
-            </JourneyRideBadge>
+            <Tooltip>
+              <TooltipTrigger>
+                <JourneyRideBadge
+                  icon={<Receipt className="" size={16} />}
+                  className={lookup(ride.price, {
+                    0: "bg-green-700 hover:bg-green-700",
+                    20: "bg-amber-700 hover:bg-amber-700",
+                    40: "bg-red-700 hover:bg-red-700",
+                  })}
+                >
+                  {ride.price}€
+                </JourneyRideBadge>
+              </TooltipTrigger>
+              <TooltipContent>
+                Total price for <strong>mandatory</strong> reservations.
+              </TooltipContent>
+            </Tooltip>
           )}
           {ride.changes > 0 && (
             <Tooltip>
@@ -102,7 +134,11 @@ function JourneyRide({
       </div>
 
       <div className="flex gap-2">
-        <JourneyRideDetailsModal ride={ride} />
+        <JourneyRideDetailsModal
+          ride={ride}
+          open={isDetailsOpen}
+          setIsOpen={setIsDetailsOpen}
+        />
 
         <Tooltip>
           <TooltipTrigger>
@@ -126,6 +162,25 @@ function JourneyRide({
 
           <TooltipContent>
             Add another location between these locations
+          </TooltipContent>
+        </Tooltip>
+
+        <Tooltip>
+          <TooltipTrigger>
+            <Button variant="secondary" size="sm" asChild>
+              <a
+                href={planner.interrail.getBookingUrl(ride)}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <ShoppingCart size={16} />
+              </a>
+            </Button>
+          </TooltipTrigger>
+
+          <TooltipContent className="flex gap-2 items-center">
+            Book reservations
+            <ExternalLink size={16} />
           </TooltipContent>
         </Tooltip>
       </div>

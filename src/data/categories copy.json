@@ -1,0 +1,563 @@
+{
+  "⛰️ Nature": [
+    {
+      "name": "Interlaken (Switzerland)",
+      "coordinates": { "lat": 46.6863, "lon": 7.8632 },
+      "description": "Known as the adventure capital of Switzerland, it offers beautiful views of mountains and lakes, perfect for outdoor activities like hiking, biking, and paragliding.",
+      "stats": {
+        "size": 2,
+        "cost": 5,
+        "safety": 5,
+        "english": 4
+      }
+    },
+    {
+      "name": "Lake District (United Kingdom)",
+      "coordinates": { "lat": 54.4609, "lon": -3.0886 },
+      "description": "A region and national park, famous for its lakes, forests and mountains. Ideal for hiking and enjoying nature.",
+      "stats": {
+        "size": 3,
+        "cost": 3,
+        "safety": 4,
+        "english": 5
+      }
+    },
+    {
+      "name": "Plitvice Lakes (Croatia)",
+      "coordinates": { "lat": 44.8654, "lon": 15.5821 },
+      "description": "A national park known for a chain of 16 terraced lakes, joined by waterfalls, that extend into a limestone canyon.",
+      "stats": {
+        "size": 3,
+        "cost": 2,
+        "safety": 4,
+        "english": 3
+      }
+    },
+    {
+      "name": "Loch Ness (Scotland)",
+      "coordinates": { "lat": 57.3229, "lon": -4.4244 },
+      "description": "Famous for its folklore and stunning landscapes, Loch Ness is a large, deep, freshwater loch in the Scottish Highlands.",
+      "stats": {
+        "size": 3,
+        "cost": 3,
+        "safety": 4,
+        "english": 5
+      }
+    },
+    {
+      "name": "Geiranger Fjord (Norway)",
+      "coordinates": { "lat": 62.1008, "lon": 7.2059 },
+      "description": "Considered one of the most beautiful fjords in the world, surrounded by majestic mountains.",
+      "stats": {
+        "size": 3,
+        "cost": 4,
+        "safety": 5,
+        "english": 5
+      }
+    },
+    {
+      "name": "Tuscany (Italy)",
+      "coordinates": { "lat": 43.7711, "lon": 11.2486 },
+      "description": "Known for its landscapes, history, artistic legacy, and its influence on high culture, it offers a range of outdoor activities and nature exploration.",
+      "stats": {
+        "size": 4,
+        "cost": 3,
+        "safety": 4,
+        "english": 3
+      }
+    },
+    {
+      "name": "The Azores (Portugal)",
+      "coordinates": { "lat": 37.7412, "lon": -25.6756 },
+      "description": "An archipelago in the mid-Atlantic, the Azores are characterized by dramatic landscapes, fishing villages, green pastures, and beautiful flora.",
+      "stats": {
+        "size": 3,
+        "cost": 3,
+        "safety": 4,
+        "english": 3
+      }
+    },
+    {
+      "name": "Black Forest (Germany)",
+      "coordinates": { "lat": 48.2779, "lon": 8.1683 },
+      "description": "The Black Forest is a mountainous region known for its dense, evergreen forests and picturesque villages.",
+      "stats": {
+        "size": 4,
+        "cost": 3,
+        "safety": 5,
+        "english": 4
+      }
+    },
+    {
+      "name": "Lapland (Finland)",
+      "coordinates": { "lat": 67.9222, "lon": 26.5046 },
+      "description": "A unique natural environment with clean air and waters, vast forests, and the Midnight Sun or Northern Lights.",
+      "stats": {
+        "size": 5,
+        "cost": 4,
+        "safety": 5,
+        "english": 5
+      }
+    },
+    {
+      "name": "Cappadocia (Turkey)",
+      "coordinates": { "lat": 38.6431, "lon": 34.8296 },
+      "description": "Known for its unique moon-like landscape, underground cities, cave churches, and hot air balloon rides.",
+      "stats": {
+        "size": 3,
+        "cost": 2,
+        "safety": 3,
+        "english": 2
+      }
+    }
+  ],
+  "🎉 Party": [
+    {
+      "name": "Berlin (Germany)",
+      "coordinates": { "lat": 52.52, "lon": 13.405 },
+      "description": "Known for its underground club scene and techno music, Berlin offers an incredible nightlife experience.",
+      "stats": {
+        "size": 5,
+        "cost": 3,
+        "safety": 4,
+        "english": 4
+      }
+    },
+    {
+      "name": "Ibiza (Spain)",
+      "coordinates": { "lat": 38.9067, "lon": 1.4201 },
+      "description": "A world-renowned island for parties and DJs, Ibiza is famous for its summer club scene which attracts a large number of tourists.",
+      "stats": {
+        "size": 3,
+        "cost": 5,
+        "safety": 4,
+        "english": 3
+      }
+    },
+    {
+      "name": "Barcelona (Spain)",
+      "coordinates": { "lat": 41.3851, "lon": 2.1734 },
+      "description": "Barcelona combines great beach parties and a bustling city nightlife with many clubs open until dawn.",
+      "stats": {
+        "size": 5,
+        "cost": 3,
+        "safety": 4,
+        "english": 4
+      }
+    },
+    {
+      "name": "Amsterdam (Netherlands)",
+      "coordinates": { "lat": 52.3676, "lon": 4.9041 },
+      "description": "Amsterdam is famous for its party culture, with diverse options from techno clubs to traditional bars.",
+      "stats": {
+        "size": 4,
+        "cost": 4,
+        "safety": 4,
+        "english": 5
+      }
+    },
+    {
+      "name": "Prague (Czech Republic)",
+      "coordinates": { "lat": 50.0755, "lon": 14.4378 },
+      "description": "Known for its beer culture, affordable drinks and numerous party spots, Prague offers a vibrant nightlife.",
+      "stats": {
+        "size": 4,
+        "cost": 2,
+        "safety": 3,
+        "english": 4
+      }
+    },
+    {
+      "name": "Mykonos (Greece)",
+      "coordinates": { "lat": 37.4467, "lon": 25.3289 },
+      "description": "A famous island for its lively nightlife and beach parties, attracting many DJs and party-goers especially in the summer.",
+      "stats": {
+        "size": 2,
+        "cost": 4,
+        "safety": 4,
+        "english": 4
+      }
+    },
+    {
+      "name": "Budapest (Hungary)",
+      "coordinates": { "lat": 47.4979, "lon": 19.0402 },
+      "description": "Budapest offers a unique nightlife scene with its 'ruin pubs', set in abandoned buildings and decorated with eclectic, funky art.",
+      "stats": {
+        "size": 4,
+        "cost": 2,
+        "safety": 3,
+        "english": 3
+      }
+    },
+    {
+      "name": "Hvar (Croatia)",
+      "coordinates": { "lat": 43.1729, "lon": 16.4411 },
+      "description": "Hvar is known for its beach clubs and bars, attracting many young people during the summer season.",
+      "stats": {
+        "size": 2,
+        "cost": 3,
+        "safety": 4,
+        "english": 3
+      }
+    },
+    {
+      "name": "London (United Kingdom)",
+      "coordinates": { "lat": 51.5074, "lon": -0.1278 },
+      "description": "London's nightlife is incredibly diverse, with a mix of traditional pubs, VIP clubs and music gigs.",
+      "stats": {
+        "size": 5,
+        "cost": 5,
+        "safety": 4,
+        "english": 5
+      }
+    },
+    {
+      "name": "Dublin (Ireland)",
+      "coordinates": { "lat": 53.3498, "lon": -6.2603 },
+      "description": "Famous for its pub culture and live music, Dublin is a great city for party-goers looking for a fun, friendly atmosphere.",
+      "stats": {
+        "size": 3,
+        "cost": 4,
+        "safety": 4,
+        "english": 5
+      }
+    }
+  ],
+  "🗿 History": [
+    {
+      "name": "Rome (Italy)",
+      "coordinates": { "lat": 41.9028, "lon": 12.4964 },
+      "description": "Known as the 'Eternal City', Rome is rich with history, from the Colosseum and Pantheon to the Vatican City.",
+      "stats": {
+        "size": 5,
+        "cost": 4,
+        "safety": 3,
+        "english": 3
+      }
+    },
+    {
+      "name": "Athens (Greece)",
+      "coordinates": { "lat": 37.9838, "lon": 23.7275 },
+      "description": "The cradle of Western civilization and the birthplace of democracy, featuring landmarks such as the Acropolis.",
+      "stats": {
+        "size": 3,
+        "cost": 3,
+        "safety": 4,
+        "english": 3
+      }
+    },
+    {
+      "name": "Berlin (Germany)",
+      "coordinates": { "lat": 52.52, "lon": 13.405 },
+      "description": "Rich in 20th-century history, Berlin is home to the Berlin Wall, Checkpoint Charlie, and the Holocaust Memorial.",
+      "stats": {
+        "size": 5,
+        "cost": 3,
+        "safety": 4,
+        "english": 4
+      }
+    },
+    {
+      "name": "Istanbul (Turkey)",
+      "coordinates": { "lat": 41.0082, "lon": 28.9784 },
+      "description": "Straddling Europe and Asia, Istanbul boasts a rich history with the Hagia Sophia, Topkapi Palace, and the Grand Bazaar.",
+      "stats": {
+        "size": 5,
+        "cost": 2,
+        "safety": 3,
+        "english": 3
+      }
+    },
+    {
+      "name": "Paris (France)",
+      "coordinates": { "lat": 48.8566, "lon": 2.3522 },
+      "description": "Renowned for its art and culture, Paris is home to historic sites like the Notre Dame, Louvre, and the Palace of Versailles.",
+      "stats": {
+        "size": 5,
+        "cost": 5,
+        "safety": 4,
+        "english": 3
+      }
+    },
+    {
+      "name": "Cordoba (Spain)",
+      "coordinates": { "lat": 37.8882, "lon": -4.7794 },
+      "description": "Historically a significant Roman city and a major Islamic center during the Middle Ages, its best-known monument is the Great Mosque of Cordoba.",
+      "stats": {
+        "size": 3,
+        "cost": 3,
+        "safety": 4,
+        "english": 2
+      }
+    },
+    {
+      "name": "York (United Kingdom)",
+      "coordinates": { "lat": 53.9598, "lon": -1.0873 },
+      "description": "One of the oldest cities in the UK, York features a well-preserved medieval city center and the imposing York Minster.",
+      "stats": {
+        "size": 2,
+        "cost": 3,
+        "safety": 4,
+        "english": 5
+      }
+    },
+    {
+      "name": "Vienna (Austria)",
+      "coordinates": { "lat": 48.2082, "lon": 16.3738 },
+      "description": "Once the capital of the Austro-Hungarian Empire, Vienna's historic sites include Schönbrunn Palace and St. Stephen's Cathedral.",
+      "stats": {
+        "size": 4,
+        "cost": 4,
+        "safety": 5,
+        "english": 4
+      }
+    },
+    {
+      "name": "Krakow (Poland)",
+      "coordinates": { "lat": 50.0647, "lon": 19.945 },
+      "description": "Preserving the memory of the Holocaust at the Auschwitz-Birkenau Museum and featuring a well-preserved medieval city center.",
+      "stats": {
+        "size": 3,
+        "cost": 2,
+        "safety": 4,
+        "english": 3
+      }
+    },
+    {
+      "name": "Dubrovnik (Croatia)",
+      "coordinates": { "lat": 42.6507, "lon": 18.0944 },
+      "description": "Known as the 'Pearl of the Adriatic', Dubrovnik's medieval walls and Old Town are UNESCO World Heritage sites.",
+      "stats": {
+        "size": 2,
+        "cost": 3,
+        "safety": 4,
+        "english": 4
+      }
+    }
+  ],
+
+  "🏖️ Beach": [
+    {
+      "name": "Nice (France)",
+      "coordinates": { "lat": 43.7034, "lon": 7.2663 },
+      "description": "Nice is a city located on the French Riviera known for its beautiful beaches, stunning sea views, and Mediterranean climate.",
+      "stats": {
+        "size": 4,
+        "cost": 3,
+        "safety": 4,
+        "english": 3
+      }
+    },
+    {
+      "name": "Barcelona (Spain)",
+      "coordinates": { "lat": 41.3851, "lon": 2.1734 },
+      "description": "Barcelona is a vibrant city known for its culture, architecture, and a range of beautiful beaches along the Mediterranean Sea.",
+      "stats": {
+        "size": 5,
+        "cost": 3,
+        "safety": 3,
+        "english": 3
+      }
+    },
+    {
+      "name": "Algarve (Portugal)",
+      "coordinates": { "lat": 37.0179, "lon": -7.9304 },
+      "description": "The Algarve region in Portugal is famous for its sandy beaches, golf resorts, and beautiful cliffs lining the Atlantic Ocean.",
+      "stats": {
+        "size": 3,
+        "cost": 2,
+        "safety": 4,
+        "english": 2
+      }
+    },
+    {
+      "name": "Santorini (Greece)",
+      "coordinates": { "lat": 36.3932, "lon": 25.4615 },
+      "description": "Santorini, a Greek island in the Aegean Sea, is known for its stunning beaches, white buildings, and breathtaking sunsets.",
+      "stats": {
+        "size": 3,
+        "cost": 4,
+        "safety": 4,
+        "english": 4
+      }
+    },
+    {
+      "name": "Amalfi Coast (Italy)",
+      "coordinates": { "lat": 40.6333, "lon": 14.6027 },
+      "description": "The Amalfi Coast is a 50-kilometer stretch of coastline along Italy's Sorrentine Peninsula, known for its colorful fishing villages and beautiful beaches.",
+      "stats": {
+        "size": 3,
+        "cost": 4,
+        "safety": 3,
+        "english": 3
+      }
+    },
+    {
+      "name": "Split (Croatia)",
+      "coordinates": { "lat": 43.5081, "lon": 16.4402 },
+      "description": "Split, a city on Croatia's Dalmatian Coast, offers stunning beaches, historic sites, and access to several islands.",
+      "stats": {
+        "size": 3,
+        "cost": 2,
+        "safety": 4,
+        "english": 3
+      }
+    },
+    {
+      "name": "Brighton (United Kingdom)",
+      "coordinates": { "lat": 50.8225, "lon": -0.1372 },
+      "description": "Brighton is a famous seaside resort on the south coast of England, known for its unique pebble beach, pier, and vibrant nightlife.",
+      "stats": {
+        "size": 3,
+        "cost": 4,
+        "safety": 4,
+        "english": 5
+      }
+    },
+    {
+      "name": "Biarritz (France)",
+      "coordinates": { "lat": 43.4832, "lon": -1.5586 },
+      "description": "Biarritz, a city on France's Basque coast, is a popular destination known for its beaches, surfing, and the art deco Casino Barrière.",
+      "stats": {
+        "size": 3,
+        "cost": 3,
+        "safety": 4,
+        "english": 2
+      }
+    },
+    {
+      "name": "Oludeniz (Turkey)",
+      "coordinates": { "lat": 36.5499, "lon": 29.1151 },
+      "description": "Oludeniz is a small village in Turkey known for its blue lagoon and beautiful beaches, which are regarded as some of the best in the country.",
+      "stats": {
+        "size": 2,
+        "cost": 2,
+        "safety": 3,
+        "english": 3
+      }
+    },
+    {
+      "name": "Dubrovnik (Croatia)",
+      "coordinates": { "lat": 42.6507, "lon": 18.0944 },
+      "description": "Dubrovnik is a city in southern Croatia known for its distinctive Old Town and beautiful beaches on the Adriatic Sea.",
+      "stats": {
+        "size": 3,
+        "cost": 3,
+        "safety": 4,
+        "english": 3
+      }
+    }
+  ],
+  "🗼 Capitals": [
+    {
+      "name": "Berlin (Germany)",
+      "coordinates": { "lat": 52.52, "lon": 13.405 },
+      "description": "Berlin, Germany's capital, is known for its art scene and modern landmarks like the gold-colored, swoop-roofed Berliner Philharmonie, built in 1963.",
+      "stats": {
+        "size": 5,
+        "cost": 3,
+        "safety": 4,
+        "english": 4
+      }
+    },
+    {
+      "name": "Vienna (Austria)",
+      "coordinates": { "lat": 48.2082, "lon": 16.3738 },
+      "description": "Vienna, the capital of Austria, is known for its rich history, from the baroque streetscapes to the imperial palaces. It's also famous for its cultural events, imperial sights, coffee houses, cozy wine taverns, and the very special Viennese charm.",
+      "stats": {
+        "size": 4,
+        "cost": 4,
+        "safety": 4,
+        "english": 4
+      }
+    },
+    {
+      "name": "Rome (Italy)",
+      "coordinates": { "lat": 41.9028, "lon": 12.4964 },
+      "description": "Rome, Italy's capital, is a sprawling, cosmopolitan city with nearly 3,000 years of globally influential art, architecture and culture on display.",
+      "stats": {
+        "size": 5,
+        "cost": 4,
+        "safety": 3,
+        "english": 3
+      }
+    },
+    {
+      "name": "Madrid (Spain)",
+      "coordinates": { "lat": 40.4168, "lon": -3.7038 },
+      "description": "Madrid, Spain's central capital, is a city of elegant boulevards and expansive, manicured parks. It's renowned for its rich repositories of European art.",
+      "stats": {
+        "size": 5,
+        "cost": 3,
+        "safety": 3,
+        "english": 3
+      }
+    },
+    {
+      "name": "Paris (France)",
+      "coordinates": { "lat": 48.8566, "lon": 2.3522 },
+      "description": "Paris, France's capital, is a major European city and a global center for art, fashion, gastronomy and culture. It's known for its charming streets, cafe culture, and famous landmarks such as the Eiffel Tower.",
+      "stats": {
+        "size": 5,
+        "cost": 5,
+        "safety": 3,
+        "english": 3
+      }
+    },
+    {
+      "name": "London (United Kingdom)",
+      "coordinates": { "lat": 51.5074, "lon": -0.1278 },
+      "description": "London, the capital of England and the United Kingdom, is a 21st-century city with history stretching back to Roman times. It is a vibrant and diverse city, known for its fantastic museums, iconic landmarks, and lively theater scene.",
+      "stats": {
+        "size": 5,
+        "cost": 5,
+        "safety": 4,
+        "english": 5
+      }
+    },
+    {
+      "name": "Lisbon (Portugal)",
+      "coordinates": { "lat": 38.7223, "lon": -9.1393 },
+      "description": "Lisbon, Portugal's hilly, coastal capital city, is known for its cafe culture and soulful Fado music. From imposing São Jorge Castle to the historic Belem Tower, there's a rich seafaring past to discover here.",
+      "stats": {
+        "size": 4,
+        "cost": 2,
+        "safety": 4,
+        "english": 3
+      }
+    },
+    {
+      "name": "Athens (Greece)",
+      "coordinates": { "lat": 37.9838, "lon": 23.7275 },
+      "description": "Athens, Greece's capital, is often cited as the cradle of Western civilization. It's a city where modern culture and ancient history collide, best represented by the iconic Acropolis that watches over the city.",
+      "stats": {
+        "size": 4,
+        "cost": 3,
+        "safety": 3,
+        "english": 3
+      }
+    },
+    {
+      "name": "Dublin (Ireland)",
+      "coordinates": { "lat": 53.3498, "lon": -6.2603 },
+      "description": "Dublin, the capital of Ireland, is known for its historic architecture and rich literary history. Dubliners will charm you with their wit and friendliness.",
+      "stats": {
+        "size": 3,
+        "cost": 4,
+        "safety": 4,
+        "english": 5
+      }
+    },
+    {
+      "name": "Copenhagen (Denmark)",
+      "coordinates": { "lat": 55.6761, "lon": 12.5683 },
+      "description": "Copenhagen, Denmark's capital, sits on the coastal islands of Zealand and Amager. It’s linked to Malmo in southern Sweden by the Öresund Bridge. The city is known for its historic architecture, modern design, and eco-friendly approach.",
+      "stats": {
+        "size": 4,
+        "cost": 5,
+        "safety": 5,
+        "english": 5
+      }
+    }
+  ]
+}
