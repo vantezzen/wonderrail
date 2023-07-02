@@ -41,7 +41,7 @@ function Highlights() {
             />
           }
           title="Your Travel Companion"
-          description="Our intelligent journey planner automates the process of selecting the best trains for your trip. Get all necessary details like train changes, ticket prices, and reservation requirements, all in one place."
+          description="Our intelligent journey planner automates the process of selecting the best trains for your trip. Get all necessary details like train changes, ticket prices, reservation requirements, hostel prices, and weather conditions, all in one place."
         />
 
         <Highlight
