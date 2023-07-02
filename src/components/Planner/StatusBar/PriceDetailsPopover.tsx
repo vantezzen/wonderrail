@@ -19,6 +19,7 @@ import Planner from "@/lib/Journey/Planner";
 import { ChevronDown } from "lucide-react";
 import Dot from "@/components/Various/Dot";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
+import { round } from "@/lib/utils/number";
 
 function CustomizableAmount({
   amount,
@@ -125,7 +126,9 @@ function PriceDetailsPopover({ planner }: { planner: Planner }) {
                     </div>
                   </TableCell>
                   <TableCell>{stats.journeyLength}x</TableCell>
-                  <TableCell>{stats.cost.totalAccommodationPrice}€</TableCell>
+                  <TableCell>
+                    {round(stats.cost.totalAccommodationPrice, 2)}€
+                  </TableCell>
                 </TableRow>
 
                 <TableRow>
