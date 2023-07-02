@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 
 const uiConfig: firebaseui.auth.Config = {
   signInSuccessUrl: "/app",
-  signInOptions: ["google.com", "facebook.com", "twitter.com", "password"],
+  signInOptions: ["google.com", "password"],
   signInFlow: "popup",
   callbacks: {
     signInFailure(error: firebaseui.auth.AuthUIError) {

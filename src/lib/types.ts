@@ -96,11 +96,39 @@ export const InterrailLocationSchema = z.object({
   interrailId: z.string(),
 });
 
+export const WeatherSchema = z.object({
+  timerange: JourneyTimerangeSchema,
+  minTemperature: z.number(),
+  avgTemperature: z.number(),
+  maxTemperature: z.number(),
+  precipitationMin: z.number(),
+  precipitationMax: z.number(),
+});
+
+export const HostelSchema = z.object({
+  id: z.coerce.number(),
+  name: z.string(),
+  starRating: z.number(),
+  veryPopular: z.boolean().default(false),
+  lowestAveragePricePerNight: z.coerce.number(),
+});
+
+export const HostelDataSchema = z.object({
+  timerange: JourneyTimerangeSchema,
+  lowestPricePerNight: z.coerce.number(),
+  highestPricePerNight: z.coerce.number(),
+  locationId: z.coerce.number(),
+  hostels: z.array(HostelSchema),
+});
+
 export const JourneyStaySchema = z.object({
   type: z.literal("stay"),
   id: z.string(),
+  locationName: z.string().optional(), // Neutral city name (e.g. "Hamburg, Germany") as location.name is the station name (e.g. "Hamburg Hbf")
   location: InterrailLocationSchema,
   timerange: JourneyTimerangeSchema,
+  hostels: HostelDataSchema.optional(),
+  weather: WeatherSchema.optional(),
 });
 
 export const InterrailLineSchema = z.object({
@@ -173,6 +201,9 @@ export type InterrailTimetableEntry = z.infer<
 export type Coordinate = z.infer<typeof CoordinateSchema>;
 export type JourneyTimerange = z.infer<typeof JourneyTimerangeSchema>;
 export type InterrailLocation = z.infer<typeof InterrailLocationSchema>;
+export type Weather = z.infer<typeof WeatherSchema>;
+export type Hostel = z.infer<typeof HostelSchema>;
+export type HostelData = z.infer<typeof HostelDataSchema>;
 export type JourneyStay = z.infer<typeof JourneyStaySchema>;
 export type InterrailLine = z.infer<typeof InterrailLineSchema>;
 export type JourneyRide = z.infer<typeof JourneyRideSchema>;

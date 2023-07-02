@@ -121,16 +121,10 @@ function PriceDetailsPopover({ planner }: { planner: Planner }) {
                     <div className="flex items-center gap-1">
                       <Dot className="bg-purple-500" />
                       Accommodation
+                      <div className="span text-zinc-500">*</div>
                     </div>
                   </TableCell>
-                  <CustomizableAmount
-                    amount={stats.journeyLength}
-                    value={planner.journey.priceForAccommodationPerDay}
-                    setValue={(value) =>
-                      (planner.journey.priceForAccommodationPerDay = value)
-                    }
-                    planner={planner}
-                  />
+                  <TableCell>{stats.journeyLength}x</TableCell>
                   <TableCell>{stats.cost.totalAccommodationPrice}€</TableCell>
                 </TableRow>
 
@@ -153,6 +147,10 @@ function PriceDetailsPopover({ planner }: { planner: Planner }) {
                 </TableRow>
               </TableBody>
             </Table>
+
+            <span className="text-zinc-500 text-sm">
+              *Based on the lowest hostel price available on Hostelworld
+            </span>
           </div>
 
           <PieChart

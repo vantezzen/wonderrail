@@ -17,12 +17,12 @@ import useSaveActionStatus, {
 } from "@/lib/hooks/useSaveActionStatus";
 import { useRouter } from "next/navigation";
 import Storage from "@/lib/Journey/Storage";
-import LoadingScreen from "@/components/Various/LoadingScreen";
 import ShortcutManager from "@/lib/Journey/ShortcutManager";
 import { Check } from "lucide-react";
 import { getFileContents } from "@/lib/utils/file";
 import { useToast } from "@/components/ui/use-toast";
 import ImportJsonMenu from "./ImportJsonMenu";
+import LoadingToast from "@/components/Various/LoadingToast";
 
 function MenuBar() {
   const plannerStore = usePlannerStore();
@@ -152,7 +152,7 @@ function MenuBar() {
 
   return (
     <div className="bg-zinc-900">
-      {isLoading && <LoadingScreen text="Saving..." />}
+      {isLoading && <LoadingToast title="Saving journey" />}
 
       <Menubar className="m-3">
         <MenubarMenu>

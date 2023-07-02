@@ -14,6 +14,8 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import HostelInformation from "./HostelInformation";
+import WeatherInformation from "./WeatherInformation";
 
 function JourneyStayDisplay({
   stay,
@@ -51,7 +53,7 @@ function JourneyStayDisplay({
               <div className="flex lg:justify-between gap-2 xl:items-center ">
                 <CardTitle className="text-zinc-200 flex items-center font-bold text-lg">
                   <MapPin className="mr-2 text-zinc-400" size={16} />
-                  {stay.location.name}
+                  {stay.locationName ?? stay.location.name}
                 </CardTitle>
 
                 <div className="flex gap-2 ml-auto">
@@ -112,6 +114,9 @@ function JourneyStayDisplay({
                   Update
                 </Button>
               )}
+
+              <HostelInformation stay={stay} />
+              <WeatherInformation stay={stay} />
             </CardHeader>
             <div className="mr-2 flex flex-col gap-2 mt-2"></div>
           </div>

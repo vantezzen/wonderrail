@@ -74,3 +74,21 @@ export function getIsoDateWithoutTimezoneDifference(date: Date) {
     2
   )}T${padLeft(date.getHours(), 2)}:${padLeft(date.getMinutes(), 2)}:00.000Z`;
 }
+
+export function timeRangesContainSameDays(
+  timerangeA?: JourneyTimerange,
+  timerangeB?: JourneyTimerange
+) {
+  if (!timerangeA || !timerangeB) {
+    return false;
+  }
+
+  const startA = getTravellableDate(timerangeA.start);
+  const endA = getTravellableDate(timerangeA.end);
+  const startB = getTravellableDate(timerangeB.start);
+  const endB = getTravellableDate(timerangeB.end);
+
+  return (
+    startA.getTime() === startB.getTime() && endA.getTime() === endB.getTime()
+  );
+}

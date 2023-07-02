@@ -11,3 +11,7 @@ export function lookup<T>(value: number, table: Record<number, T>): T {
   // @ts-ignore
   return table[key] || table[Object.keys(table).pop()];
 }
+
+export function round(value: number, decimals: number) {
+  return Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
+}
