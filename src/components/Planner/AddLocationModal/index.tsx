@@ -87,7 +87,7 @@ function AddLocationModal() {
         {searchRaw.length === 0 && <CategoriesSelector />}
 
         <CommandList>
-          {interrailLocations.length > 0 && (
+          {interrailLocations.length > 0 && searchRaw.length > 0 && (
             <CommandGroup heading="Search results">
               {interrailLocations.map((station) => (
                 <CommandItem
@@ -103,20 +103,6 @@ function AddLocationModal() {
               ))}
             </CommandGroup>
           )}
-
-          {/* <CommandGroup heading="Most popular">
-            {locations.map((location) => (
-              <CommandItem
-                key={location.id}
-                onSelect={() => {
-                  // planner.addLocation(location);
-                  setIsOpen(false);
-                }}
-              >
-                {location.name}
-              </CommandItem>
-            ))}
-          </CommandGroup> */}
         </CommandList>
       </CommandDialog>
     </>

@@ -3,7 +3,9 @@ import { getTimerangeLengthToDaysInDays } from "../utils/date";
 import { round } from "../utils/number";
 
 export default class Hostels {
-  public async getHostelsForStay(stay: JourneyStay): Promise<HostelData> {
+  public async getHostelsForStay(
+    stay: JourneyStay
+  ): Promise<HostelData | undefined> {
     const cityName = stay.locationName ?? stay.location.name;
 
     const searchParams = {
@@ -15,6 +17,8 @@ export default class Hostels {
       `/api/hostels/search?${new URLSearchParams(searchParams as any)}`
     );
     const hostels = await hostelResponse.json();
+
+    if (!hostels.filterData) return undefined;
 
     return {
       timerange: structuredClone(stay.timerange),
