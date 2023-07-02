@@ -15,6 +15,8 @@ import WelcomePopup from "./WelcomePopup";
 import usePlannerStore from "./plannerStore";
 import LoadingScreen from "../Various/LoadingScreen";
 import MenuBar from "./MenuBar";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import { Loader2 } from "lucide-react";
 
 function PlannerComponent({ journey }: { journey: Journey }) {
   const plannerStore = usePlannerStore();
@@ -75,6 +77,18 @@ function PlannerComponent({ journey }: { journey: Journey }) {
 
           <Heading className="mt-6">Itinerary</Heading>
           <JourneySteps />
+
+          {planner.isLoading && (
+            <Alert className="mt-3">
+              <Loader2 className="mr-2 animate-spin" size={16} />
+              <AlertTitle>Your journey being planned</AlertTitle>
+              <AlertDescription>
+                We are currently planning your journey in the background. During
+                this, information shown might be inaccurate. You can still
+                continue editing your journey.
+              </AlertDescription>
+            </Alert>
+          )}
 
           {planner.journey.steps.length === 0 && (
             <div className="mt-6 text-center">

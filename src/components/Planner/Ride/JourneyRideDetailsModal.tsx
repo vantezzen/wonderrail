@@ -32,11 +32,12 @@ function JourneyRideDetailsModal({
 
   return (
     <Dialog open={open} onOpenChange={setIsOpen}>
-      <DialogTrigger>
+      <DialogTrigger className="w-full md:w-auto">
         <Tooltip>
-          <TooltipTrigger>
-            <Button variant="secondary" size="sm">
+          <TooltipTrigger asChild>
+            <Button variant="secondary" size="sm" className="w-full md:w-auto">
               <Info size={16} />
+              <div className="md:hidden ml-2">Ride details</div>
             </Button>
           </TooltipTrigger>
           <TooltipContent>Ride details</TooltipContent>

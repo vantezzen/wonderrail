@@ -1,12 +1,6 @@
 import { JourneyRide } from "@/lib/types";
 import { durationBetween, formatDateTime, formatTime } from "@/lib/utils/date";
-import {
-  ExternalLink,
-  MapPin,
-  Plus,
-  ShoppingCart,
-  Train,
-} from "lucide-react";
+import { ExternalLink, Plus, ShoppingCart, Train } from "lucide-react";
 import React, { useState } from "react";
 import JourneyRideDetailsModal from "./JourneyRideDetailsModal";
 import { Button } from "@/components/ui/button";
@@ -79,18 +73,13 @@ function JourneyRide({
             <Button
               variant="secondary"
               size="sm"
-              className="relative"
+              className="w-full md:w-auto"
               disabled={isReadonly}
               onClick={addLocationBeforeThisRide}
             >
-              <MapPin size={16} className="opacity-0" />
-              <MapPin size={13} className="absolute top-[30%] left-[30%]" />
+              <Plus size={16} />
 
-              <Plus
-                size={15}
-                strokeWidth={2}
-                className="absolute top-[45%] left-[45%]"
-              />
+              <div className="md:hidden ml-2">Add another location</div>
             </Button>
           </TooltipTrigger>
 
@@ -101,13 +90,19 @@ function JourneyRide({
 
         <Tooltip>
           <TooltipTrigger>
-            <Button variant="secondary" size="sm" asChild>
+            <Button
+              variant="secondary"
+              size="sm"
+              asChild
+              className="w-full md:w-auto"
+            >
               <a
                 href={planner.interrail.getBookingUrl(ride)}
                 target="_blank"
                 rel="noreferrer"
               >
                 <ShoppingCart size={16} />
+                <div className="md:hidden ml-2">Book reservations</div>
               </a>
             </Button>
           </TooltipTrigger>

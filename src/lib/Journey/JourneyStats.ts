@@ -82,8 +82,8 @@ export default class JourneyStats {
       journeyLength * this.planner.journey.priceForFoodPerDay;
     const totalAccommodationPrice = this.planner.journey.steps.reduce(
       (total, step) => {
-        if (step.type === "stay" && step.hostels) {
-          const pricePerNight = step.hostels.lowestPricePerNight;
+        if (step.type === "stay") {
+          const pricePerNight = step.hostels?.lowestPricePerNight || 30;
           const duration = getTimerangeLengthToDaysInDays(step.timerange);
           return total + pricePerNight * duration;
         }
@@ -106,7 +106,6 @@ export default class JourneyStats {
         totalAccommodationPrice +
         priceForInterrailTicket,
     };
-    console.log(cost);
     return cost;
   }
 
