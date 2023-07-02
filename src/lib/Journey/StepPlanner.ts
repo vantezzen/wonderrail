@@ -254,6 +254,7 @@ export default class StepPlanner extends EventEmitter {
       arrival: false,
       currency: "EUR",
       travellers: 1,
+      minChangeTime: 10,
     });
 
     if (timetable.length === 0) {

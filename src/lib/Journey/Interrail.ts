@@ -12,6 +12,7 @@ export type InterrailTimetableRequest = {
   arrival: boolean;
   currency: string;
   travellers: number;
+  minChangeTime?: number;
 };
 
 export default class Interrail {
