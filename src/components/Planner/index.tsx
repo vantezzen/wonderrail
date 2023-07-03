@@ -17,6 +17,7 @@ import LoadingScreen from "../Various/LoadingScreen";
 import MenuBar from "./MenuBar";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { Loader2 } from "lucide-react";
+import CalendarView from "./CalendarView";
 
 function PlannerComponent({ journey }: { journey: Journey }) {
   const plannerStore = usePlannerStore();
@@ -56,6 +57,7 @@ function PlannerComponent({ journey }: { journey: Journey }) {
       {planner.isLoading && <JourneyLoading />}
       <WelcomePopup />
       <AiPopup />
+      <CalendarView />
 
       <MenuBar />
 

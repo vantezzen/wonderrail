@@ -118,6 +118,9 @@ function MenuBar() {
             !plannerStore.view.showStatusBar
           );
         },
+        showCalendar: () => {
+          plannerStore.setView("showCalendar", true);
+        },
       },
     }),
     [plannerStore, router, saveStatus]
@@ -213,6 +216,9 @@ function MenuBar() {
                 ""
               )}
               Show status bar <MenubarShortcut>⌘⇧G</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem onClick={actions.view.showCalendar}>
+              Show calendar
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
