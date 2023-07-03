@@ -54,15 +54,13 @@ export default class StepPlanner extends EventEmitter {
     const rides = newJourney.filter(
       (step) => step.type === "ride"
     ) as JourneyRide[];
-    const currentFirstStay = this.existingJourney.steps.filter(
-      (step) => step.type === "stay"
-    )[0] as JourneyStay | undefined;
-
-    let startDate = currentFirstStay?.timerange.start || new Date();
 
     // Recalculating journey dates is not necesarrily needed as they will
     // be recalculated later on, but it helps to get more predictable results
-    stays = await this.recalculateJourneyDates(stays, startDate);
+    stays = await this.recalculateJourneyDates(
+      stays,
+      new Date(existingJourney.startDate)
+    );
 
     const finishedJourney = await this.addRidesToJourney(stays, rides);
     this.updateLoadingState(-1);
