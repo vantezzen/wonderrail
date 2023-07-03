@@ -7,7 +7,10 @@ function FooterLink(
   }: {
     children: React.ReactNode;
     href?: string;
-  } & React.HTMLAttributes<HTMLAnchorElement>,
+  } & React.DetailedHTMLProps<
+    React.AnchorHTMLAttributes<HTMLAnchorElement>,
+    HTMLAnchorElement
+  >,
   ref: any
 ) {
   return (

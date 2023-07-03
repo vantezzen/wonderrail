@@ -14,8 +14,11 @@ function StatusBar() {
     stats.totalTimeOnTrains
   );
 
+  const showStatusBar = usePlannerStore((state) => state.view.showStatusBar);
+  if (!showStatusBar) return null;
+
   return (
-    <div className="w-full py-6 px-12 bg-black lg:absolute bottom-0 left-0 flex flex-col lg:flex-row gap-3 lg:gap-6 xl:gap-12 overflow-x-hidden">
+    <div className="w-full py-3 px-12 bg-zinc-900 lg:absolute bottom-0 left-0 flex flex-col lg:flex-row gap-3 lg:gap-6 xl:gap-12 overflow-x-hidden">
       <PriceDetailsPopover planner={planner} />
 
       <StatusBarDivider />

@@ -5,7 +5,6 @@ import itineraryImage from "@/assets/landing/itinerary.png";
 import timetableImage from "@/assets/landing/timetable.png";
 import priceTagImage from "@/assets/landing/price-tags.png";
 import threedImage from "@/assets/landing/3d.png";
-import lockerImage from "@/assets/landing/locker.png";
 import shareImage from "@/assets/landing/share.png";
 
 function Highlights() {
@@ -29,8 +28,8 @@ function Highlights() {
               className="rounded mx-auto"
             />
           }
-          title="Effortless Itinerary Planning"
-          description="Our intelligent journey planner automates the process of selecting the best trains for your trip. Get all necessary details like train changes, ticket prices, and reservation requirements, all in one place."
+          title="Start planning without hustle"
+          description="No login required, just start planning your trip right away. WonderRail is a web app, meaning that you can access it from any device with a browser."
         />
         <Highlight
           size={8}
@@ -42,7 +41,7 @@ function Highlights() {
             />
           }
           title="Your Travel Companion"
-          description="Never miss a beat with WonderRail's comprehensive travel information. Stay updated with ticket prices, reservation requirements, and more for a smooth Interrail journey."
+          description="Our intelligent journey planner automates the process of selecting the best trains for your trip. Get all necessary details like train changes, ticket prices, reservation requirements, hostel prices, and weather conditions, all in one place."
         />
 
         <Highlight
@@ -89,14 +88,14 @@ function Highlights() {
           size={8}
           top={
             <Image
-              src={lockerImage}
-              alt="locker"
+              src={itineraryImage}
+              alt="itinerary"
               className="rounded mx-auto w-full max-w-xl max-h-64"
               style={{ objectFit: "contain" }}
             />
           }
-          title="Keeping your data safe"
-          description="WonderRail is committed to protecting your privacy. We are fully GDPR-compiant and your data is securely stored in servers in the EU."
+          title="Open Source"
+          description="WonderRail is open source, meaning that you can contribute to the project and help us improve the Interrail experience for everyone. Check out our GitHub repository to get started."
         />
       </div>
     </div>

@@ -15,6 +15,8 @@ import WelcomePopup from "./WelcomePopup";
 import usePlannerStore from "./plannerStore";
 import LoadingScreen from "../Various/LoadingScreen";
 import MenuBar from "./MenuBar";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import { Loader2 } from "lucide-react";
 
 function PlannerComponent({ journey }: { journey: Journey }) {
   const plannerStore = usePlannerStore();
@@ -23,13 +25,19 @@ function PlannerComponent({ journey }: { journey: Journey }) {
     plannerStore.setPlanner(new Planner(journey));
   }, [journey]);
 
+  const [hasShownWelcomePopup, setHasShownWelcomePopup] = React.useState(false);
   const [, forceUpdate] = React.useState({});
   const isReadOnly = useIsReadOnly();
 
   useEffect(() => {
     if (!planner) return;
-    if (planner.journey.steps.length === 0) {
+    if (
+      planner.journey.steps.length === 0 &&
+      !isReadOnly &&
+      !hasShownWelcomePopup
+    ) {
       plannerStore.setPopupState("welcome", true);
+      setHasShownWelcomePopup(true);
     }
 
     const update = () => forceUpdate({});
@@ -41,8 +49,10 @@ function PlannerComponent({ journey }: { journey: Journey }) {
 
   if (!planner) return <LoadingScreen text="Loading planner..." />;
 
+  console.log(planner.journey);
+
   return (
-    <>
+    <div className="bg-zinc-900">
       {planner.isLoading && <JourneyLoading />}
       <WelcomePopup />
       <AiPopup />
@@ -60,13 +70,25 @@ function PlannerComponent({ journey }: { journey: Journey }) {
           <StatusBar />
         </div>
         <div
-          className="p-12 bg-black h-full lg:overflow-y-auto"
+          className="p-6 pt-0 bg-zinc-900 h-full lg:overflow-y-auto"
           suppressHydrationWarning
         >
           <GeneralJourneySettings />
 
           <Heading className="mt-6">Itinerary</Heading>
           <JourneySteps />
+
+          {planner.isLoading && (
+            <Alert className="mt-3">
+              <Loader2 className="mr-2 animate-spin" size={16} />
+              <AlertTitle>Your journey being planned</AlertTitle>
+              <AlertDescription>
+                We are currently planning your journey in the background. During
+                this, information shown might be inaccurate. You can still
+                continue editing your journey.
+              </AlertDescription>
+            </Alert>
+          )}
 
           {planner.journey.steps.length === 0 && (
             <div className="mt-6 text-center">
@@ -81,7 +103,7 @@ function PlannerComponent({ journey }: { journey: Journey }) {
           {!isReadOnly && <AddLocationModal />}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

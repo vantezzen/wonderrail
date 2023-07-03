@@ -1,6 +1,7 @@
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { firebaseAuth, firestore } from "../firebase/clientApp";
 import { Journey, JourneySchema } from "../types";
+import { saveAs } from "file-saver";
 
 export default class Storage {
   async saveJourney(journey: Journey) {
@@ -56,6 +57,19 @@ export default class Storage {
     }
 
     const journey = JourneySchema.parse(JSON.parse(journeyJson)) as Journey;
+    return journey;
+  }
+
+  downloadAsJson(journey: Journey) {
+    const journeyJson = JSON.stringify(journey);
+    const blob = new Blob([journeyJson], {
+      type: "application/json;charset=utf-8",
+    });
+    saveAs(blob, `${journey.name}.json`);
+  }
+
+  loadFromJson(json: string) {
+    const journey = JourneySchema.parse(JSON.parse(json)) as Journey;
     return journey;
   }
 }

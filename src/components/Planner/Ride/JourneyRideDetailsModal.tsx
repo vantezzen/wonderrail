@@ -1,14 +1,14 @@
 import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogHeader,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { JourneyRide } from "@/lib/types";
-import { TextQuote, X } from "lucide-react";
+import { ExternalLink, Info } from "lucide-react";
 import React from "react";
 import JourneyRideLeg from "./JourneyRideLeg";
 import {
@@ -16,43 +16,62 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import usePlannerStore from "../plannerStore";
 
-function JourneyRideDetailsModal({ ride }: { ride: JourneyRide }) {
+function JourneyRideDetailsModal({
+  ride,
+  open,
+  setIsOpen,
+}: {
+  ride: JourneyRide;
+  open: boolean;
+  setIsOpen: (open: boolean) => void;
+}) {
+  const planner = usePlannerStore((state) => state.planner);
+
   return (
-    <AlertDialog>
-      <AlertDialogTrigger>
+    <Dialog open={open} onOpenChange={setIsOpen}>
+      <DialogTrigger className="w-full md:w-auto">
         <Tooltip>
-          <TooltipTrigger>
-            <Button variant="secondary" size="sm">
-              <TextQuote size={16} />
+          <TooltipTrigger asChild>
+            <Button variant="secondary" size="sm" className="w-full md:w-auto">
+              <Info size={16} />
+              <div className="md:hidden ml-2">Ride details</div>
             </Button>
           </TooltipTrigger>
           <TooltipContent>Ride details</TooltipContent>
         </Tooltip>
-      </AlertDialogTrigger>
+      </DialogTrigger>
 
-      <AlertDialogContent className="min-w-[70vw]">
-        <AlertDialogHeader className="text-zinc-300">
-          <div className="flex justify-between items-center">
-            <div>{ride.name}</div>
+      <DialogContent className="min-w-[70vw] p-12">
+        <ScrollArea className="max-h-[70vh] pr-3">
+          <DialogHeader className="text-zinc-300">
+            <DialogTitle>{ride.name}</DialogTitle>
 
-            <AlertDialogCancel asChild>
-              <Button variant="ghost" size="sm">
-                <X size={16} />
-              </Button>
-            </AlertDialogCancel>
-          </div>
-        </AlertDialogHeader>
-        <AlertDialogDescription></AlertDialogDescription>
+            <DialogDescription></DialogDescription>
+          </DialogHeader>
 
-        {ride.details?.legs.map((leg) => (
-          <>
-            <hr />
-            <JourneyRideLeg leg={leg} />
-          </>
-        ))}
-      </AlertDialogContent>
-    </AlertDialog>
+          {ride.details?.legs.map((leg) => (
+            <div className="py-2" key={leg.id}>
+              <hr className="pb-4" />
+              <JourneyRideLeg leg={leg} />
+            </div>
+          ))}
+        </ScrollArea>
+
+        <Button className="mt-4 flex items-center gap-2" asChild>
+          <a
+            href={planner.interrail.getBookingUrl(ride)}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <ExternalLink size={16} />
+            Book this ride
+          </a>
+        </Button>
+      </DialogContent>
+    </Dialog>
   );
 }
 

@@ -22,6 +22,13 @@ function Footer() {
             <Link href="/app" legacyBehavior>
               <FooterLink>Dashboard</FooterLink>
             </Link>
+            <FooterLink
+              href="https://github.com/vantezzen/wonderrail"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </FooterLink>
           </FooterSection>
           <FooterSection title="Legal">
             <Link href="/legal/terms" legacyBehavior>

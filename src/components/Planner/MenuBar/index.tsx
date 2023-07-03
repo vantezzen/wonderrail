@@ -17,8 +17,12 @@ import useSaveActionStatus, {
 } from "@/lib/hooks/useSaveActionStatus";
 import { useRouter } from "next/navigation";
 import Storage from "@/lib/Journey/Storage";
-import LoadingScreen from "@/components/Various/LoadingScreen";
 import ShortcutManager from "@/lib/Journey/ShortcutManager";
+import { Check } from "lucide-react";
+import { getFileContents } from "@/lib/utils/file";
+import { useToast } from "@/components/ui/use-toast";
+import ImportJsonMenu from "./ImportJsonMenu";
+import LoadingToast from "@/components/Various/LoadingToast";
 
 function MenuBar() {
   const plannerStore = usePlannerStore();
@@ -31,6 +35,7 @@ function MenuBar() {
   const isPublic = usePlannerStore((state) => state.planner.journey.isPublic);
   const [user] = useAuthState();
   const [hasChanges, setHasChanges] = React.useState(false);
+  const { toast } = useToast();
 
   React.useEffect(() => {
     const onUpdate = () => {
@@ -68,10 +73,50 @@ function MenuBar() {
             setIsLoading(false);
           }
         },
+        exportJson: () => {
+          const storage = new Storage();
+          storage.downloadAsJson(plannerStore.planner.journey);
+        },
+        importJson: async (file: File) => {
+          const storage = new Storage();
+
+          let json;
+          try {
+            json = await getFileContents(file);
+          } catch (e) {
+            toast({
+              title: "Error reading file",
+              description: "Could not read file contents",
+              variant: "destructive",
+            });
+            return;
+          }
+
+          let journey;
+          try {
+            journey = storage.loadFromJson(json);
+          } catch (e) {
+            toast({
+              title: "Invalid journey",
+              description: "The file you uploaded is not a valid journey",
+              variant: "destructive",
+            });
+            return;
+          }
+          plannerStore.planner.setJourney(journey);
+        },
       },
       itinerary: {
         addLocation: () => {
           plannerStore.setPopupState("addLocation", true);
+        },
+      },
+      view: {
+        toggleStatusBar: () => {
+          plannerStore.setView(
+            "showStatusBar",
+            !plannerStore.view.showStatusBar
+          );
         },
       },
     }),
@@ -88,6 +133,10 @@ function MenuBar() {
         shortcut: "ctrl-k",
         action: actions.itinerary.addLocation,
       },
+      {
+        shortcut: "ctrl-shift-g",
+        action: actions.view.toggleStatusBar,
+      },
     ];
 
     for (const item of shortcutItems) {
@@ -102,8 +151,8 @@ function MenuBar() {
   }, [shortcuts, actions]);
 
   return (
-    <div className="bg-black">
-      {isLoading && <LoadingScreen text="Saving..." />}
+    <div className="bg-zinc-900">
+      {isLoading && <LoadingToast title="Saving journey" />}
 
       <Menubar className="m-3">
         <MenubarMenu>
@@ -120,15 +169,24 @@ function MenuBar() {
               {hasChanges && "*"}
               <MenubarShortcut>⌘S</MenubarShortcut>
             </MenubarItem>
-            <SharePopup
-              journeyId={journeyId}
-              userId={user!.uid}
-              isPublic={isPublic}
-            >
-              <MenubarItem onSelect={(e) => e.preventDefault()}>
-                Share
-              </MenubarItem>
-            </SharePopup>
+            {user && journeyId && (
+              <SharePopup
+                journeyId={journeyId}
+                userId={user!.uid}
+                isPublic={isPublic}
+              >
+                <MenubarItem onSelect={(e) => e.preventDefault()}>
+                  Share
+                </MenubarItem>
+              </SharePopup>
+            )}
+            <MenubarSeparator />
+            <MenubarItem onSelect={() => actions.file.exportJson()}>
+              Export journey as file
+            </MenubarItem>
+            {saveStatus !== SaveActionStatus.READ_ONLY && (
+              <ImportJsonMenu onImport={actions.file.importJson} />
+            )}
             <MenubarSeparator />
             <Link href="/app">
               <MenubarItem>Back to dashboard</MenubarItem>
@@ -141,6 +199,20 @@ function MenuBar() {
           <MenubarContent>
             <MenubarItem onClick={actions.itinerary.addLocation}>
               New stop <MenubarShortcut>⌘K</MenubarShortcut>
+            </MenubarItem>
+          </MenubarContent>
+        </MenubarMenu>
+
+        <MenubarMenu>
+          <MenubarTrigger>View</MenubarTrigger>
+          <MenubarContent>
+            <MenubarItem onClick={actions.view.toggleStatusBar}>
+              {plannerStore.view.showStatusBar ? (
+                <Check size={12} className="mr-2" />
+              ) : (
+                ""
+              )}
+              Show status bar <MenubarShortcut>⌘⇧G</MenubarShortcut>
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>

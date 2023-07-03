@@ -11,7 +11,6 @@ import {
 } from "@/lib/types";
 import DeckGL from "@deck.gl/react/typed";
 import { ArcLayer } from "@deck.gl/layers/typed";
-import { HexagonLayer } from "@deck.gl/aggregation-layers/typed";
 import { getDistanceFromLatLonInKm } from "@/lib/utils/coordinates";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 import usePlannerStore from "./plannerStore";
@@ -57,14 +56,33 @@ function PlannerMap() {
   }, [lastStay]);
   const [isHoveringCity, setIsHoveringCity] = React.useState(false);
 
+  const [viewState, setViewState] = React.useState<Record<string, any>>({
+    latitude: firstStay?.coordinates?.lat || 48,
+    longitude: firstStay?.coordinates?.lng || 2,
+    zoom: 2,
+    pitch: 50,
+  });
+  useEffect(() => {
+    setTimeout(() => {
+      setViewState({
+        latitude: firstStay?.coordinates?.lat || 48,
+        longitude: firstStay?.coordinates?.lng || 2,
+        zoom: 4,
+        pitch: 30,
+        transitionDuration: 2000,
+        transitionEasing: (t: number) =>
+          // https://easings.net/#easeInOutCubic
+          t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2,
+      });
+    }, 1000);
+  }, []);
+
   return (
     <div className="w-full relative h-[80vh] lg:h-[calc(100vh-4rem)]">
       <DeckGL
-        initialViewState={{
-          latitude: firstStay?.coordinates?.lat || 48,
-          longitude: firstStay?.coordinates?.lng || 2,
-          zoom: 4,
-          pitch: 30,
+        viewState={viewState}
+        onViewStateChange={({ viewState }) => {
+          setViewState(viewState);
         }}
         controller
         style={{
@@ -85,57 +103,6 @@ function PlannerMap() {
               d.isInvalid ? [230, 100, 100] : [230, 230, 230],
             getTargetColor: (d) =>
               d.isInvalid ? [230, 100, 100] : [230, 230, 230],
-          }),
-
-          // All rides
-          new ArcLayer({
-            id: "rides",
-            data: planner.getRides(selectedLocation),
-            pickable: false,
-            getWidth: 2,
-            getHeight: 0.1,
-            getSourcePosition: (d) => [d.from.lng, d.from.lat],
-            getTargetPosition: (d) => [d.to.lng, d.to.lat],
-            getSourceColor: (d) => [100, 100, 100],
-            getTargetColor: (d) => [100, 100, 100],
-          }),
-
-          // Locations
-          new HexagonLayer({
-            id: "journey-locations",
-            data: planner.getCities(),
-            pickable: true,
-            extruded: true,
-            radius: 20000,
-            elevationScale: 1,
-            getPosition: (d: InterrailLocation) => [
-              d.coordinates.lng,
-              d.coordinates.lat,
-            ],
-            getColorWeight: (d: InterrailLocation) => {
-              if (
-                selectedLocation?.coordinates &&
-                getDistanceFromLatLonInKm(
-                  d.coordinates,
-                  selectedLocation.coordinates
-                ) < 50
-              )
-                return 1;
-              if (
-                lastStay &&
-                getDistanceFromLatLonInKm(
-                  d.coordinates,
-                  lastStay.location.coordinates
-                ) < 50
-              )
-                return 2;
-              return 0;
-            },
-            colorRange: [
-              [255, 0, 0],
-              [255, 255, 255],
-              [0, 0, 255],
-            ],
           }),
         ]}
         getTooltip={({ object }) => {

@@ -16,28 +16,49 @@ interface PlannerState {
 
   addLocationBefore: JourneyStay | null;
   setAddLocationBefore: (stay: JourneyStay | null) => void;
+
+  view: {
+    showStatusBar: boolean;
+  };
+  setView: (view: keyof PlannerState["view"], state: boolean) => void;
 }
 
 const usePlannerStore = create<PlannerState>()(
-  devtools((set) => ({
-    planner: null as any,
-    setPlanner: (planner: Planner) => set({ planner }),
+  devtools(
+    (set): PlannerState => ({
+      planner: null as any,
+      setPlanner: (planner: Planner) => set({ planner }),
 
-    popups: {
-      welcome: false,
-      ai: false,
-      addLocation: false,
-    },
-    setPopupState: (popup, newState) =>
-      set((state) => ({
-        popups: {
-          ...state.popups,
-          [popup]: newState,
-        },
-      })),
+      popups: {
+        welcome: false,
+        ai: false,
+        addLocation: false,
+      },
+      setPopupState: (popup, newState) =>
+        set((state) => ({
+          popups: {
+            ...state.popups,
+            [popup]: newState,
+          },
+        })),
 
-    addLocationBefore: null,
-    setAddLocationBefore: (stay) => set({ addLocationBefore: stay }),
-  }))
+      addLocationBefore: null,
+      setAddLocationBefore: (stay) => set({ addLocationBefore: stay }),
+
+      view: {
+        showStatusBar: true,
+      },
+      setView: (view, newState) =>
+        set((state) => ({
+          view: {
+            ...state.view,
+            [view]: newState,
+          },
+        })),
+    }),
+    {
+      name: "usePlannerStore",
+    }
+  )
 );
 export default usePlannerStore;

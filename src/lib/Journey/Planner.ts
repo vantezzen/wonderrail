@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import {
   InterrailLocation,
+  InterrailTimetableEntry,
   Journey,
   JourneyRide,
   JourneyStay,
@@ -8,19 +9,31 @@ import {
   JourneyTimerange,
 } from "../types";
 import EventEmitter from "events";
+
 import eurailData from "@/data/eurail.json";
-import { getTimerangeLengthToDaysInMs } from "../utils/date";
+
+import {
+  getTimerangeLengthToDaysInDays,
+  getTimerangeLengthToDaysInMs,
+  timeRangesContainSameDays,
+} from "../utils/date";
 import { getDistanceFromLatLonInKm } from "../utils/coordinates";
 import Interrail from "./Interrail";
 import StepPlanner from "./StepPlanner";
 import JourneyStats from "./JourneyStats";
 import JourneyAi from "./JourneyAi";
+import Hostels from "./Hostels";
+import BackendApi from "./BackendApi";
+import Weather from "./Weather";
 
 export default class Planner extends EventEmitter {
   public interrail = new Interrail();
   public stepPlanner = new StepPlanner();
   public stats = new JourneyStats(this);
   public ai = new JourneyAi(this);
+  public hostels = new Hostels();
+  public api = new BackendApi();
+  public weather = new Weather();
 
   public isLoading = false;
 
@@ -55,6 +68,7 @@ export default class Planner extends EventEmitter {
       newJourneySteps,
       this.journey
     );
+    await Promise.all([this.findHostels(), this.getWeather()]);
   }
 
   /**
@@ -124,6 +138,7 @@ export default class Planner extends EventEmitter {
       type: "stay",
       id: uuidv4(),
       location,
+      locationName: await this.api.getNeutralCityName(location.name),
       timerange: timerange ?? {
         start: travelEndTime,
         end: endDate,
@@ -152,6 +167,8 @@ export default class Planner extends EventEmitter {
     const newJourney = this.journey.steps.filter(
       (journeyStep) => "id" in journeyStep && journeyStep.id !== step.id
     );
+    this.journey.steps = newJourney; // Allow immediately updating the UI
+    this.emit("change");
     await this.recalculateJourneySteps(newJourney);
     this.emit("change");
   }
@@ -202,5 +219,57 @@ export default class Planner extends EventEmitter {
 
     const nextStay = this.journey.steps[rideIndex + 1] as JourneyStay;
     return nextStay ?? null;
+  }
+
+  setJourney(journey: Journey) {
+    this.journey = journey;
+    this.emit("change");
+  }
+
+  async chooseAlternativeRide(
+    ride: JourneyRide,
+    alternativeRide: InterrailTimetableEntry
+  ) {
+    this.journey.steps = this.stepPlanner.chooseAlternativeRide(
+      ride,
+      alternativeRide,
+      this.journey.steps
+    );
+    await this.recalculateJourneySteps(this.journey.steps);
+    this.emit("change");
+  }
+
+  async findHostels() {
+    const stays = this.journey.steps.filter(
+      (step) => step.type === "stay"
+    ) as JourneyStay[];
+
+    for (const stay of stays) {
+      if (
+        (!stay.hostels ||
+          !timeRangesContainSameDays(stay.hostels.timerange, stay.timerange)) &&
+        getTimerangeLengthToDaysInDays(stay.timerange) > 0
+      ) {
+        stay.hostels = await this.hostels.getHostelsForStay(stay);
+        this.emit("change");
+      }
+    }
+  }
+
+  async getWeather() {
+    const stays = this.journey.steps.filter(
+      (step) => step.type === "stay"
+    ) as JourneyStay[];
+
+    for (const stay of stays) {
+      if (
+        (!stay.weather ||
+          !timeRangesContainSameDays(stay.weather.timerange, stay.timerange)) &&
+        getTimerangeLengthToDaysInDays(stay.timerange) > 0
+      ) {
+        stay.weather = await this.weather.getWeatherForStay(stay);
+        this.emit("change");
+      }
+    }
   }
 }

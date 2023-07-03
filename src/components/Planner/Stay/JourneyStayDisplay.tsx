@@ -3,21 +3,19 @@ import { Card, CardDescription, CardHeader, CardTitle } from "../../ui/card";
 import { getTimerangeLengthToDaysInMs } from "@/lib/utils/date";
 import Planner from "@/lib/Journey/Planner";
 import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
-import { Calendar, GripVertical, MapPin, Settings2, Trash } from "lucide-react";
+import { Calendar, GripVertical, MapPin, Trash } from "lucide-react";
 import { Button } from "../../ui/button";
 import { JourneyStay } from "@/lib/types";
 import { Input } from "../../ui/input";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import HostelInformation from "./HostelInformation";
+import WeatherInformation from "./WeatherInformation";
 
 function JourneyStayDisplay({
   stay,
@@ -41,6 +39,7 @@ function JourneyStayDisplay({
   return (
     <div className="relative">
       <div className="absolute inset-0 w-full h-full z-0 opacity-20 bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] blur-lg filter" />
+
       <Card className="relative z-10">
         <div className="flex">
           <div className="flex flex-col items-center justify-center pl-6">
@@ -51,85 +50,73 @@ function JourneyStayDisplay({
 
           <div className="flex items-center text-zinc-600 w-full">
             <CardHeader className="w-full">
-              <Collapsible>
-                <div className="flex lg:justify-between gap-2 xl:items-center ">
-                  <CardTitle className="text-zinc-200 flex items-center font-bold text-lg">
-                    <MapPin className="mr-2 text-zinc-400" size={16} />
-                    {stay.location.name}
-                  </CardTitle>
+              <div className="flex lg:justify-between gap-2 xl:items-center ">
+                <CardTitle className="text-zinc-200 flex items-center font-bold text-lg">
+                  <MapPin className="mr-2 text-zinc-400" size={16} />
+                  {stay.locationName ?? stay.location.name}
+                </CardTitle>
 
-                  <div className="flex gap-2 ml-auto">
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Button
-                          onClick={() => planner.removeStep(stay)}
-                          variant="secondary"
-                          size="sm"
-                          disabled={isReadOnly}
-                        >
-                          <Trash className="" size={16} />
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent>Remove</TooltipContent>
-                    </Tooltip>
-
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <CollapsibleTrigger asChild>
-                          <Button variant="secondary" size="sm">
-                            <Settings2 className="" size={16} />
-                          </Button>
-                        </CollapsibleTrigger>
-                      </TooltipTrigger>
-                      <TooltipContent>Settings</TooltipContent>
-                    </Tooltip>
-                  </div>
-                </div>
-
-                <CollapsibleContent>
-                  <CardDescription className="flex flex-col xl:flex-row justify-between text-zinc-400 xl:items-center gap-2 pt-1">
-                    <span className="flex items-center gap-2">
-                      <Input
-                        className="w-14 h-8"
-                        type="number"
-                        value={changedDays}
-                        onChange={(e) => {
-                          const value = parseInt(e.target.value);
-                          if (isNaN(value)) return;
-                          setChangedDays(value);
-                        }}
+                <div className="flex gap-2 ml-auto">
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Button
+                        onClick={() => planner.removeStep(stay)}
+                        variant="secondary"
+                        size="sm"
                         disabled={isReadOnly}
-                      />{" "}
-                      {changedDays !== 1 ? "days" : "day"}
-                    </span>
+                      >
+                        <Trash className="" size={16} />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>Remove</TooltipContent>
+                  </Tooltip>
+                </div>
+              </div>
 
-                    <span
-                      className="font-medium text-zinc-600"
-                      suppressHydrationWarning
-                    >
-                      {isStartEndDateEqual
-                        ? stay.timerange.start.toLocaleDateString()
-                        : stay.timerange.start.toLocaleDateString() +
-                          " - " +
-                          stay.timerange.end.toLocaleDateString()}
-                    </span>
-                  </CardDescription>
+              <CardDescription className="flex flex-col xl:flex-row justify-between text-zinc-300 xl:items-center gap-2 pt-1">
+                <span className="flex items-center gap-2">
+                  <Input
+                    className="w-14 h-8"
+                    type="number"
+                    value={changedDays}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value);
+                      if (isNaN(value)) return;
+                      setChangedDays(value);
+                    }}
+                    disabled={isReadOnly}
+                  />{" "}
+                  {changedDays !== 1 ? "days" : "day"}
+                </span>
 
-                  {changedDays !== days && (
-                    <Button
-                      onClick={() => {
-                        planner.changeStayDuration(stay, changedDays);
-                      }}
-                      variant="secondary"
-                      size="sm"
-                      disabled={isReadOnly}
-                    >
-                      <Calendar className="inline-block mr-2" size={14} />
-                      Update
-                    </Button>
-                  )}
-                </CollapsibleContent>
-              </Collapsible>
+                <span
+                  className="font-medium text-zinc-400"
+                  suppressHydrationWarning
+                >
+                  {isStartEndDateEqual
+                    ? stay.timerange.start.toLocaleDateString()
+                    : stay.timerange.start.toLocaleDateString() +
+                      " - " +
+                      stay.timerange.end.toLocaleDateString()}
+                </span>
+              </CardDescription>
+
+              {changedDays !== days && (
+                <Button
+                  onClick={() => {
+                    planner.changeStayDuration(stay, changedDays);
+                  }}
+                  variant="secondary"
+                  size="sm"
+                  disabled={isReadOnly}
+                >
+                  <Calendar className="inline-block mr-2" size={14} />
+                  Update
+                </Button>
+              )}
+
+              <HostelInformation stay={stay} />
+              <WeatherInformation stay={stay} />
             </CardHeader>
             <div className="mr-2 flex flex-col gap-2 mt-2"></div>
           </div>

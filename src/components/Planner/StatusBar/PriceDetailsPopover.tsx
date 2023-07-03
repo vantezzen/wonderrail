@@ -19,6 +19,7 @@ import Planner from "@/lib/Journey/Planner";
 import { ChevronDown } from "lucide-react";
 import Dot from "@/components/Various/Dot";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
+import { round } from "@/lib/utils/number";
 
 function CustomizableAmount({
   amount,
@@ -56,7 +57,7 @@ function PriceDetailsPopover({ planner }: { planner: Planner }) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button className="flex gap-3 hover:bg-zinc-900 rounded px-2 items-center text-left">
+        <button className="flex gap-3 hover:bg-zinc-800 rounded px-2 items-center text-left">
           <div className="flex flex-col gap-1">
             <p className="text-xs text-zinc-600">Price</p>
             <p
@@ -121,17 +122,13 @@ function PriceDetailsPopover({ planner }: { planner: Planner }) {
                     <div className="flex items-center gap-1">
                       <Dot className="bg-purple-500" />
                       Accommodation
+                      <div className="span text-zinc-500">*</div>
                     </div>
                   </TableCell>
-                  <CustomizableAmount
-                    amount={stats.journeyLength}
-                    value={planner.journey.priceForAccommodationPerDay}
-                    setValue={(value) =>
-                      (planner.journey.priceForAccommodationPerDay = value)
-                    }
-                    planner={planner}
-                  />
-                  <TableCell>{stats.cost.totalAccommodationPrice}€</TableCell>
+                  <TableCell>{stats.journeyLength}x</TableCell>
+                  <TableCell>
+                    {round(stats.cost.totalAccommodationPrice, 2)}€
+                  </TableCell>
                 </TableRow>
 
                 <TableRow>
@@ -153,6 +150,10 @@ function PriceDetailsPopover({ planner }: { planner: Planner }) {
                 </TableRow>
               </TableBody>
             </Table>
+
+            <span className="text-zinc-500 text-sm">
+              *Based on the lowest hostel price available on Hostelworld
+            </span>
           </div>
 
           <PieChart

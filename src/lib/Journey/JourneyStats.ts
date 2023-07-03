@@ -80,8 +80,17 @@ export default class JourneyStats {
     );
     const totalFoodPrice =
       journeyLength * this.planner.journey.priceForFoodPerDay;
-    const totalAccommodationPrice =
-      journeyLength * this.planner.journey.priceForAccommodationPerDay;
+    const totalAccommodationPrice = this.planner.journey.steps.reduce(
+      (total, step) => {
+        if (step.type === "stay") {
+          const pricePerNight = step.hostels?.lowestPricePerNight || 30;
+          const duration = getTimerangeLengthToDaysInDays(step.timerange);
+          return total + pricePerNight * duration;
+        }
+        return total;
+      },
+      0
+    );
 
     const priceForInterrailTicket =
       this.planner.journey.priceForInterrailTicket;
@@ -97,7 +106,6 @@ export default class JourneyStats {
         totalAccommodationPrice +
         priceForInterrailTicket,
     };
-    console.log(cost);
     return cost;
   }
 

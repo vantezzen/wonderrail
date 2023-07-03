@@ -1,4 +1,8 @@
-import { InterrailLocation, InterrailTimetableEntry } from "../types";
+import {
+  InterrailLocation,
+  InterrailTimetableEntry,
+  JourneyRide,
+} from "../types";
 
 export type InterrailTimetableRequest = {
   origin: string; // station id
@@ -8,6 +12,7 @@ export type InterrailTimetableRequest = {
   arrival: boolean;
   currency: string;
   travellers: number;
+  minChangeTime?: number;
 };
 
 export default class Interrail {
@@ -24,5 +29,36 @@ export default class Interrail {
     const apiEndpoint = `/api/interrail/timetable?${params.toString()}`;
     const response = await fetch(apiEndpoint);
     return await response.json();
+  }
+
+  getBookingUrl(ride: JourneyRide) {
+    if (!ride.details) {
+      return "";
+    }
+
+    const sourceStation = ride.details.legs[0].start;
+    const destinationStation =
+      ride.details.legs[ride.details.legs.length - 1].end;
+
+    const sourceStationName = `${sourceStation.station} (${sourceStation.country})`;
+    const destinationStationName = `${destinationStation.station} (${destinationStation.country})`;
+
+    const bookingParams = {
+      ol: sourceStationName,
+      ov: sourceStation.id,
+      dl: destinationStationName,
+      dv: destinationStation.id,
+      vl: "",
+      vv: "",
+      t: new Date(ride.details.departure).getTime(),
+      ar: false,
+      rt: "",
+      tt: "",
+      mc: "",
+      mct: 0,
+    };
+    const params = new URLSearchParams(bookingParams as any);
+    const url = `https://www.interrail.eu/de/book-reservations#/?${params.toString()}`;
+    return url;
   }
 }

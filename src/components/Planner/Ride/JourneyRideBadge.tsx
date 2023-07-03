@@ -8,7 +8,7 @@ function JourneyRideBadge({
   className,
 }: {
   icon: React.ReactNode;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
 }) {
   return (
