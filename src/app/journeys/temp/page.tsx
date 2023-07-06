@@ -2,7 +2,6 @@
 import PlannerComponent from "@/components/Planner";
 import LoadingScreen from "@/components/Various/LoadingScreen";
 import Storage from "@/lib/Journey/Storage";
-import { useTrackEvent } from "@/lib/analytics";
 import { Journey } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
@@ -23,8 +22,6 @@ function TemporarySavedJourney() {
       router.push("/journeys/new");
     }
   }, []);
-
-  useTrackEvent("planner_open_temporary");
 
   if (!journey) {
     return <LoadingScreen text="Loading journey..." />;
