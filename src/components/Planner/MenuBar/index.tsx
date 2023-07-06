@@ -23,6 +23,7 @@ import { getFileContents } from "@/lib/utils/file";
 import { useToast } from "@/components/ui/use-toast";
 import ImportJsonMenu from "./ImportJsonMenu";
 import LoadingToast from "@/components/Various/LoadingToast";
+import { trackEvent } from "@/lib/analytics";
 
 function MenuBar() {
   const plannerStore = usePlannerStore();
@@ -74,10 +75,12 @@ function MenuBar() {
           }
         },
         exportJson: () => {
+          trackEvent("planner_export_json");
           const storage = new Storage();
           storage.downloadAsJson(plannerStore.planner.journey);
         },
         importJson: async (file: File) => {
+          trackEvent("planner_import_json");
           const storage = new Storage();
 
           let json;
@@ -89,6 +92,7 @@ function MenuBar() {
               description: "Could not read file contents",
               variant: "destructive",
             });
+            trackEvent("planner_import_json_error");
             return;
           }
 
@@ -101,24 +105,29 @@ function MenuBar() {
               description: "The file you uploaded is not a valid journey",
               variant: "destructive",
             });
+            trackEvent("planner_import_json_invalid");
             return;
           }
           plannerStore.planner.setJourney(journey);
+          trackEvent("planner_import_json_success");
         },
       },
       itinerary: {
         addLocation: () => {
+          trackEvent("menubar_add_location");
           plannerStore.setPopupState("addLocation", true);
         },
       },
       view: {
         toggleStatusBar: () => {
+          trackEvent("menubar_toggle_statusbar");
           plannerStore.setView(
             "showStatusBar",
             !plannerStore.view.showStatusBar
           );
         },
         showCalendar: () => {
+          trackEvent("menubar_show_calendar");
           plannerStore.setView("showCalendar", true);
         },
       },

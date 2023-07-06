@@ -12,6 +12,7 @@ import { InterrailLocation } from "@/lib/types";
 import { useDebounce } from "use-debounce";
 import usePlannerStore from "../plannerStore";
 import CategoriesSelector from "./CategoriesSelector";
+import { trackEvent } from "@/lib/analytics";
 
 function AddLocationModal() {
   const planner = usePlannerStore((state) => state.planner);
@@ -48,7 +49,10 @@ function AddLocationModal() {
     <>
       <div className="relative mt-6">
         <Button
-          onClick={() => setIsOpen(true)}
+          onClick={() => {
+            setIsOpen(true);
+            trackEvent("add_location_modal_button_click");
+          }}
           variant="secondary"
           className="w-full relative z-10"
         >

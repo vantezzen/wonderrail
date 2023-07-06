@@ -10,6 +10,7 @@ import { Button } from "../ui/button";
 import usePlannerStore from "./plannerStore";
 import Image from "next/image";
 import logoImage from "@/assets/logo.png";
+import { trackEvent } from "@/lib/analytics";
 
 function WelcomePopup() {
   const isOpen = usePlannerStore((state) => state.popups.welcome);
@@ -46,6 +47,7 @@ function WelcomePopup() {
             onClick={() => {
               setIsWelcomePopupOpen(false);
               updatePopupState("addLocation", true);
+              trackEvent("welcome_popup_start_planning_button_click");
             }}
           >
             Start planning

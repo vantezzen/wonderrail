@@ -1,3 +1,4 @@
+import { trackEvent } from "../analytics";
 import {
   InterrailLocation,
   InterrailTimetableEntry,
@@ -17,6 +18,7 @@ export type InterrailTimetableRequest = {
 
 export default class Interrail {
   async searchStations(query: string): Promise<InterrailLocation[]> {
+    trackEvent("interrail_search_stations");
     const apiEndpoint = `/api/interrail/stations/${encodeURIComponent(query)}`;
     const response = await fetch(apiEndpoint);
     return await response.json();
@@ -25,6 +27,7 @@ export default class Interrail {
   async getTimetable(
     request: InterrailTimetableRequest
   ): Promise<InterrailTimetableEntry[]> {
+    trackEvent("interrail_get_timetable");
     const params = new URLSearchParams(request as any);
     const apiEndpoint = `/api/interrail/timetable?${params.toString()}`;
     const response = await fetch(apiEndpoint);
@@ -35,6 +38,7 @@ export default class Interrail {
     if (!ride.details) {
       return "";
     }
+    trackEvent("interrail_get_booking_url");
 
     const sourceStation = ride.details.legs[0].start;
     const destinationStation =

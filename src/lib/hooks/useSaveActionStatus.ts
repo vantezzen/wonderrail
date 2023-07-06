@@ -1,6 +1,7 @@
 import useJourneyIdStore from "@/components/Planner/journeyIdStore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { firebaseAuth } from "../firebase/clientApp";
+import { useTrackEvent } from "../analytics";
 
 export enum SaveActionStatus {
   LOGIN,
@@ -13,17 +14,21 @@ export default function useSaveActionStatus() {
   const [user] = useAuthState(firebaseAuth);
   const userId = useJourneyIdStore((store) => store.userId);
 
+  let saveActionStatus = SaveActionStatus.SAVE;
+
   if (!user && !userId) {
-    return SaveActionStatus.LOGIN;
+    saveActionStatus = SaveActionStatus.LOGIN;
   }
   if (!userId) {
-    return SaveActionStatus.NEW;
+    saveActionStatus = SaveActionStatus.NEW;
   }
   if (userId && (!user || userId !== user.uid)) {
-    return SaveActionStatus.READ_ONLY;
+    saveActionStatus = SaveActionStatus.READ_ONLY;
   }
 
-  return SaveActionStatus.SAVE;
+  useTrackEvent(`save_action_status_${saveActionStatus}`);
+
+  return saveActionStatus;
 }
 
 export function useIsReadOnly() {

@@ -1,5 +1,5 @@
 import { Calendar } from "@/components/ui/calendar";
-import React from "react";
+import React, { useEffect } from "react";
 import usePlannerStore from "../plannerStore";
 import {
   Dialog,
@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { JourneyRide, JourneyStay } from "@/lib/types";
+import { trackEvent } from "@/lib/analytics";
 
 const tripColors = [
   "#F87171",
@@ -74,6 +75,12 @@ function CalendarView() {
       color,
     });
   }
+
+  useEffect(() => {
+    if (showCalendar) {
+      trackEvent("planner_open_calendar");
+    }
+  }, [showCalendar]);
 
   return (
     <Dialog open={showCalendar} onOpenChange={setShowCalendar}>

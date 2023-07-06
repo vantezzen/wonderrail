@@ -8,6 +8,7 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import InputDescription from "../Various/InputDescription";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { trackEvent } from "@/lib/analytics";
 
 function Profile() {
   const [user] = useAuthState(firebaseAuth);
@@ -47,7 +48,12 @@ function Profile() {
           </InputDescription>
         </div>
 
-        <Link href="/auth/logout">
+        <Link
+          href="/auth/logout"
+          onClick={() => {
+            trackEvent("profile_logout_click");
+          }}
+        >
           <Button variant="destructive" className="w-full">
             Logout
           </Button>

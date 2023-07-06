@@ -16,6 +16,7 @@ import { Input } from "../ui/input";
 import { Checkbox } from "../ui/checkbox";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 import usePlannerStore from "./plannerStore";
+import { trackEvent } from "@/lib/analytics";
 
 function GeneralJourneySettings() {
   const planner = usePlannerStore((state) => state.planner);
@@ -83,6 +84,7 @@ function GeneralJourneySettings() {
               onCheckedChange={(checked) => {
                 planner.journey.isPublic = Boolean(checked);
                 planner.emit("change");
+                trackEvent(`planner_public_toggle_${checked ? "on" : "off"}`);
               }}
               disabled={isReadOnly}
             />

@@ -15,6 +15,7 @@ import {
 } from "../utils/date";
 import { getDistanceFromLatLonInKm } from "../utils/coordinates";
 import Interrail from "./Interrail";
+import { trackEvent } from "../analytics";
 
 export default class StepPlanner extends EventEmitter {
   public interrail = new Interrail();
@@ -147,6 +148,10 @@ export default class StepPlanner extends EventEmitter {
     } catch (error) {
       console.log(
         `Could not find ride between ${currentLocation.location.name} and ${nextLocation.location.name}`
+      );
+      trackEvent("step_planner_invalid_ride");
+      trackEvent(
+        `step_planner_invalid_ride_${currentLocation.location.name}_${nextLocation.location.name}`
       );
 
       return {

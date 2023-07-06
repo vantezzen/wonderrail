@@ -12,6 +12,7 @@ import data from "@/data/categories.json";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import RatingPills from "./RatingPills";
 import usePlannerStore from "../plannerStore";
+import { trackEvent } from "@/lib/analytics";
 
 const categories = Object.keys(data);
 
@@ -54,6 +55,10 @@ function CategoriesSelector() {
                         interrailId: place.interrailId,
                       });
                       setIsOpen(false);
+                      trackEvent("add_location_suggestions_click");
+                      trackEvent(
+                        `add_location_suggestions_click_${place.name}`
+                      );
                     }}
                   >
                     <Card className="p-1 hover:bg-zinc-900 duration-100">

@@ -25,6 +25,7 @@ import JourneyAi from "./JourneyAi";
 import Hostels from "./Hostels";
 import BackendApi from "./BackendApi";
 import Weather from "./Weather";
+import { trackEvent } from "../analytics";
 
 export default class Planner extends EventEmitter {
   public interrail = new Interrail();
@@ -48,6 +49,7 @@ export default class Planner extends EventEmitter {
 
   async moveStayPosition(fromIndex: number, toIndex: number) {
     const stay = this.journey.steps.splice(fromIndex, 1)[0];
+    trackEvent("planner_move_stay");
 
     if (stay.type !== "stay") {
       throw new Error("Can only move stays");
@@ -64,6 +66,7 @@ export default class Planner extends EventEmitter {
   }
 
   private async recalculateJourneySteps(newJourneySteps: JourneyStep[]) {
+    trackEvent("planner_recalculate_journey_steps");
     this.journey.steps = await this.stepPlanner.recalculateJourneySteps(
       newJourneySteps,
       this.journey
@@ -110,6 +113,7 @@ export default class Planner extends EventEmitter {
     timerange?: JourneyTimerange,
     beforeLocation?: JourneyStay | null
   ) {
+    trackEvent("planner_add_location");
     let travelEndTime = this.journey.startDate;
     if (!beforeLocation) {
       // Dont add if last step is this location to avoid duplicates
@@ -164,6 +168,7 @@ export default class Planner extends EventEmitter {
    * needed and recalculating the journey steps
    */
   async removeStep(step: JourneyStay) {
+    trackEvent("planner_remove_step");
     const newJourney = this.journey.steps.filter(
       (journeyStep) => "id" in journeyStep && journeyStep.id !== step.id
     );
@@ -174,6 +179,7 @@ export default class Planner extends EventEmitter {
   }
 
   async changeStayDuration(stay: JourneyStay, changedDays: number) {
+    trackEvent("planner_change_stay_duration");
     stay.timerange.end = new Date(
       stay.timerange.start.getTime() + changedDays * 1000 * 60 * 60 * 24
     );
@@ -183,6 +189,7 @@ export default class Planner extends EventEmitter {
   }
 
   async setStartDate(startDate?: Date) {
+    trackEvent("planner_set_start_date");
     if (!startDate) {
       return;
     }
@@ -204,6 +211,10 @@ export default class Planner extends EventEmitter {
   }
 
   async setPreferredDepartureTime(preferredDepartureTime: number) {
+    trackEvent("planner_set_preferred_departure_time");
+    trackEvent(
+      `planner_set_preferred_departure_time_${preferredDepartureTime}`
+    );
     this.journey.preferredDepartureTime = preferredDepartureTime;
     await this.recalculateJourneySteps(this.journey.steps);
   }
@@ -230,6 +241,7 @@ export default class Planner extends EventEmitter {
     ride: JourneyRide,
     alternativeRide: InterrailTimetableEntry
   ) {
+    trackEvent("planner_choose_alternative_ride");
     this.journey.steps = this.stepPlanner.chooseAlternativeRide(
       ride,
       alternativeRide,

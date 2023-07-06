@@ -8,6 +8,7 @@ import interfaceImage from "@/assets/landing/interface.png";
 import style from "./Hero.module.css";
 import { cn } from "@/lib/utils";
 import { ChevronRight, Train } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 function Hero() {
   return (
@@ -31,13 +32,23 @@ function Hero() {
             </div>
 
             <div className="flex items-center gap-6 mt-12">
-              <Link href="/journeys/new">
+              <Link
+                href="/journeys/new"
+                onClick={() => {
+                  trackEvent("landing_hero_plan_journey");
+                }}
+              >
                 <Button>
                   Plan your journey now
                   <Train size={16} className="ml-2" />
                 </Button>
               </Link>
-              <Link href="/journeys/0LBSAcyZgIQgVdasJ2L1o1jJ1MC2/5a9bd144-0865-49de-b444-ddda6e319bfc">
+              <Link
+                href="/journeys/0LBSAcyZgIQgVdasJ2L1o1jJ1MC2/5a9bd144-0865-49de-b444-ddda6e319bfc"
+                onClick={() => {
+                  trackEvent("landing_hero_example_journey");
+                }}
+              >
                 <Button variant="secondary">
                   See an example <ChevronRight size={16} className="ml-2" />
                 </Button>

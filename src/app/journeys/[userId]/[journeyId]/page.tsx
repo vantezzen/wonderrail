@@ -3,6 +3,7 @@ import PlannerComponent from "@/components/Planner";
 import useJourneyIdStore from "@/components/Planner/journeyIdStore";
 import LoadingScreen from "@/components/Various/LoadingScreen";
 import Storage from "@/lib/Journey/Storage";
+import { useTrackEvent } from "@/lib/analytics";
 import { Journey } from "@/lib/types";
 import React from "react";
 
@@ -22,6 +23,8 @@ function JourneyPage({
       setJourney(journey);
     });
   }, [userId, journeyId]);
+
+  useTrackEvent("planner_open_saved");
 
   if (!userIdState) {
     return <LoadingScreen text="Loading user" />;

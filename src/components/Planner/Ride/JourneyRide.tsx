@@ -13,6 +13,7 @@ import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 import usePlannerStore from "../plannerStore";
 import JourneyRideBadges from "./JourneyRideBadges";
 import AlternativeRideSelector from "../AlternativeRideSelector";
+import { trackEvent } from "@/lib/analytics";
 
 function JourneyRide({
   ride,
@@ -75,7 +76,10 @@ function JourneyRide({
               size="sm"
               className="w-full md:w-auto"
               disabled={isReadonly}
-              onClick={addLocationBeforeThisRide}
+              onClick={() => {
+                addLocationBeforeThisRide?.();
+                trackEvent("planner_add_location_between");
+              }}
             >
               <Plus size={16} />
 
@@ -100,6 +104,9 @@ function JourneyRide({
                 href={planner.interrail.getBookingUrl(ride)}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => {
+                  trackEvent("planner_book_reservation");
+                }}
               >
                 <ShoppingCart size={16} />
                 <div className="md:hidden ml-2">Book reservations</div>

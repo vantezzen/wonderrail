@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/tooltip";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import usePlannerStore from "../plannerStore";
+import { trackEvent, useTrackEvent } from "@/lib/analytics";
 
 function JourneyRideDetailsModal({
   ride,
@@ -29,6 +30,7 @@ function JourneyRideDetailsModal({
   setIsOpen: (open: boolean) => void;
 }) {
   const planner = usePlannerStore((state) => state.planner);
+  useTrackEvent("planner_open_ride_details", open);
 
   return (
     <Dialog open={open} onOpenChange={setIsOpen}>
@@ -65,6 +67,9 @@ function JourneyRideDetailsModal({
             href={planner.interrail.getBookingUrl(ride)}
             target="_blank"
             rel="noreferrer"
+            onClick={() => {
+              trackEvent("journey_details_book_ride_click");
+            }}
           >
             <ExternalLink size={16} />
             Book this ride

@@ -12,10 +12,13 @@ import { Button } from "@/components/ui/button";
 import { Replace } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import usePlannerStore from "../plannerStore";
+import { useTrackEvent } from "@/lib/analytics";
 
 function AlternativeRideSelector({ ride }: { ride: JourneyRide }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const planner = usePlannerStore((state) => state.planner);
+
+  useTrackEvent("planner_open_alternative_ride_selector", isOpen);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
