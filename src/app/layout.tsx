@@ -40,6 +40,20 @@ export default function RootLayout({
             referrerPolicy="no-referrer-when-downgrade"
           />
         </noscript>
+
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-945571393"
+          strategy="afterInteractive"
+        />
+        <Script strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag("js", new Date());
+            gtag("config", "AW-945571393");
+            gtag('event', 'conversion', {'send_to': 'AW-945571393/CjrqCLC6irgYEMGM8cID'});
+          `}
+        </Script>
       </body>
     </html>
   );
