@@ -14,7 +14,7 @@ function HostelInformation({ stay }: { stay: JourneyStay }) {
   return (
     <div className="mt-3">
       <Separator className="my-3" />
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center gap-3 flex-col md:flex-row mb-3">
         <p className="text-zinc-500 text-sm">
           Hostels cost{" "}
           <span className="font-bold">{stay.hostels.lowestPricePerNight}€</span>{" "}
@@ -25,7 +25,7 @@ function HostelInformation({ stay }: { stay: JourneyStay }) {
           per night.
         </p>
 
-        <Button asChild>
+        <Button asChild className="w-full">
           <a
             href={planner.hostels.getBookingLink(stay)}
             target="_blank"

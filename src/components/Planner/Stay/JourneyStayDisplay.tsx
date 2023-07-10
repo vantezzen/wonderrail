@@ -73,7 +73,7 @@ function JourneyStayDisplay({
                 </div>
               </div>
 
-              <CardDescription className="flex flex-col xl:flex-row justify-between text-zinc-300 xl:items-center gap-2 pt-1">
+              <CardDescription className="flex xl:flex-row justify-between text-zinc-300 items-center gap-2 pt-1">
                 <span className="flex items-center gap-2">
                   <Input
                     className="w-14 h-8"
@@ -90,7 +90,7 @@ function JourneyStayDisplay({
                 </span>
 
                 <span
-                  className="font-medium text-zinc-400"
+                  className="font-medium text-zinc-400 text-right"
                   suppressHydrationWarning
                 >
                   {isStartEndDateEqual

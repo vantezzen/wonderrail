@@ -20,6 +20,8 @@ interface PlannerState {
   view: {
     showStatusBar: boolean;
     showCalendar: boolean;
+    showMapModal: boolean;
+    showMobileStatus: boolean;
   };
   setView: (view: keyof PlannerState["view"], state: boolean) => void;
 }
@@ -49,6 +51,8 @@ const usePlannerStore = create<PlannerState>()(
       view: {
         showStatusBar: true,
         showCalendar: false,
+        showMapModal: false,
+        showMobileStatus: false,
       },
       setView: (view, newState) =>
         set((state) => ({

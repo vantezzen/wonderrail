@@ -17,7 +17,9 @@ import LoadingScreen from "../Various/LoadingScreen";
 import MenuBar from "./MenuBar";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { Loader2 } from "lucide-react";
-import CalendarView from "./CalendarView";
+import CalendarView from "./Modals/CalendarView";
+import MobileMapModal from "./Modals/MobileMapModal";
+import MobileStatusModal from "./Modals/MobileStatusModal";
 
 function PlannerComponent({ journey }: { journey: Journey }) {
   const plannerStore = usePlannerStore();
@@ -57,7 +59,10 @@ function PlannerComponent({ journey }: { journey: Journey }) {
       {planner.isLoading && <JourneyLoading />}
       <WelcomePopup />
       <AiPopup />
+
       <CalendarView />
+      <MobileMapModal />
+      <MobileStatusModal />
 
       <MenuBar />
 
@@ -67,7 +72,7 @@ function PlannerComponent({ journey }: { journey: Journey }) {
           height: "calc(100vh - 4rem)",
         }}
       >
-        <div className="xl:col-span-2 relative">
+        <div className="xl:col-span-2 relative hidden md:block">
           <PlannerMap />
           <StatusBar />
         </div>

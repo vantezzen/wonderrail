@@ -1,6 +1,6 @@
 import { Calendar } from "@/components/ui/calendar";
 import React, { useEffect } from "react";
-import usePlannerStore from "../plannerStore";
+import usePlannerStore from "../../plannerStore";
 import {
   Dialog,
   DialogContent,

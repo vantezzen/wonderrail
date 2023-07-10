@@ -130,6 +130,14 @@ function MenuBar() {
           trackEvent("menubar_show_calendar");
           plannerStore.setView("showCalendar", true);
         },
+        showMapModal: () => {
+          trackEvent("menubar_show_map_modal");
+          plannerStore.setView("showMapModal", true);
+        },
+        showStatusModal: () => {
+          trackEvent("menubar_show_status_modal");
+          plannerStore.setView("showMobileStatus", true);
+        },
       },
     }),
     [plannerStore, router, saveStatus]
@@ -218,7 +226,10 @@ function MenuBar() {
         <MenubarMenu>
           <MenubarTrigger>View</MenubarTrigger>
           <MenubarContent>
-            <MenubarItem onClick={actions.view.toggleStatusBar}>
+            <MenubarItem
+              onClick={actions.view.toggleStatusBar}
+              className="hidden md:flex"
+            >
               {plannerStore.view.showStatusBar ? (
                 <Check size={12} className="mr-2" />
               ) : (
@@ -228,6 +239,18 @@ function MenuBar() {
             </MenubarItem>
             <MenubarItem onClick={actions.view.showCalendar}>
               Show calendar
+            </MenubarItem>
+            <MenubarItem
+              onClick={actions.view.showMapModal}
+              className="md:hidden"
+            >
+              Show map
+            </MenubarItem>
+            <MenubarItem
+              onClick={actions.view.showStatusModal}
+              className="md:hidden"
+            >
+              Show status
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>

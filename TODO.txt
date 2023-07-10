@@ -1,10 +1,9 @@
 Next: 
-- Show progress during trip
-- Better mobile interface (Map only optional?)
 - Mobile PWA
-- Allow checking off things you booked (trips, reservations, etc)
 - Refresh Hostel + Weather data on demand + frequently
   - Track Hostel data changes
+- Show progress during trip
+- Allow checking off things you booked (trips, reservations, etc)
 - Add notes to trips
 - Suggestions
   - Too many trips with short stays can be annoying
