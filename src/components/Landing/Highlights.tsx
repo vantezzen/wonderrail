@@ -3,7 +3,7 @@ import React from "react";
 import Highlight from "./Elements/Highlight";
 import itineraryImage from "@/assets/landing/itinerary.png";
 import timetableImage from "@/assets/landing/timetable.png";
-import priceTagImage from "@/assets/landing/price-tags.png";
+import priceChangesImage from "@/assets/landing/price-changes.png";
 import threedImage from "@/assets/landing/3d.png";
 import shareImage from "@/assets/landing/share.png";
 
@@ -62,13 +62,13 @@ function Highlights() {
           size={6}
           top={
             <Image
-              src={priceTagImage}
-              alt="price tags"
+              src={priceChangesImage}
+              alt="price changes"
               className="rounded mx-auto w-full max-w-xl"
             />
           }
-          title="Adventure on a Budget"
-          description="Make your Interrail tour budget-friendly with WonderRail's intelligent, cost-effective suggestions and train selection algorithms."
+          title="Keep Your Budget in Check"
+          description="Keep your Interrail tour budget-friendly with WonderRail's train selection algorithms and hostel price history."
         />
         <Highlight
           size={4}
