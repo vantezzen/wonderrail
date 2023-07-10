@@ -1,5 +1,4 @@
 Next: 
-- Mobile PWA
 - Refresh Hostel + Weather data on demand + frequently
   - Track Hostel data changes
 - Show progress during trip

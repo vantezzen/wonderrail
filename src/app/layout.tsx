@@ -5,6 +5,8 @@ import { FirebaseConnectionStoreProvider } from "@/lib/firebase/FirebaseConnecti
 import Script from "next/script";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
+import Head from "next/head";
+import Icons from "@/components/Various/Seo/Icons";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +22,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Head>
+        <Icons />
+      </Head>
+
       <body className={cn(inter.className, "dark bg-zinc-900")}>
         <FirebaseConnectionStoreProvider>
           <TooltipProvider>
