@@ -230,6 +230,9 @@ function MenuBar() {
             <MenubarItem onClick={actions.itinerary.addLocation}>
               New stop <MenubarShortcut>⌘K</MenubarShortcut>
             </MenubarItem>
+            <MenubarItem onClick={actions.itinerary.updateAllHostelPrices}>
+              Update all hostel prices
+            </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
 
