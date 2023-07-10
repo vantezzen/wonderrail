@@ -32,6 +32,7 @@ export default class Hostels {
         veryPopular: hostel.veryPopular,
         starRating: round(hostel.ratingBreakdown.average / 20, 1),
       })),
+      updatedAt: new Date(),
     };
   }
 

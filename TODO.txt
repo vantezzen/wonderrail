@@ -1,6 +1,4 @@
 Next: 
-- Refresh Hostel + Weather data on demand + frequently
-  - Track Hostel data changes
 - Show progress during trip
 - Allow checking off things you booked (trips, reservations, etc)
 - Add notes to trips

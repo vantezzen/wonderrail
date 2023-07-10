@@ -24,6 +24,7 @@ import { useToast } from "@/components/ui/use-toast";
 import ImportJsonMenu from "./ImportJsonMenu";
 import LoadingToast from "@/components/Various/LoadingToast";
 import { trackEvent } from "@/lib/analytics";
+import { JourneyStay } from "@/lib/types";
 
 function MenuBar() {
   const plannerStore = usePlannerStore();
@@ -116,6 +117,15 @@ function MenuBar() {
         addLocation: () => {
           trackEvent("menubar_add_location");
           plannerStore.setPopupState("addLocation", true);
+        },
+        updateAllHostelPrices: () => {
+          trackEvent("menubar_update_all_hostel_prices");
+          const allStays = plannerStore.planner.journey.steps.filter(
+            (step) => step.type === "stay"
+          ) as JourneyStay[];
+          for (const stay of allStays) {
+            plannerStore.planner.updateHostelData(stay);
+          }
         },
       },
       view: {

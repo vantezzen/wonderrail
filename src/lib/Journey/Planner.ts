@@ -36,15 +36,30 @@ export default class Planner extends EventEmitter {
   public api = new BackendApi();
   public weather = new Weather();
 
-  public isLoading = false;
+  private isLoadingInternal = false;
+  private loadingSemaphore = 0;
 
   constructor(public journey: Journey) {
     super();
 
-    this.stepPlanner.on("loadingState", (isLoading) => {
-      this.isLoading = isLoading;
+    this.stepPlanner.on("loadingState", () => {
       this.emit("change");
     });
+  }
+
+  get isLoading() {
+    return this.stepPlanner.isLoading || this.isLoadingInternal;
+  }
+
+  private updateLoading(change = 1) {
+    this.loadingSemaphore += change;
+    this.isLoadingInternal = this.loadingSemaphore > 0;
+    this.emit("change");
+  }
+
+  private withLoading<T>(fn: () => Promise<T>) {
+    this.updateLoading(1);
+    return fn().finally(() => this.updateLoading(-1));
   }
 
   async moveStayPosition(fromIndex: number, toIndex: number) {
@@ -147,6 +162,8 @@ export default class Planner extends EventEmitter {
         start: travelEndTime,
         end: endDate,
       },
+
+      previousHostelData: [],
     };
 
     if (beforeLocation) {
@@ -257,15 +274,40 @@ export default class Planner extends EventEmitter {
     ) as JourneyStay[];
 
     for (const stay of stays) {
+      const hasHostelsForCurrentTimeRange =
+        stay.hostels &&
+        timeRangesContainSameDays(stay.hostels.timerange, stay.timerange);
+      const hasOvernightStay =
+        getTimerangeLengthToDaysInDays(stay.timerange) > 0;
+      const isHostelDataUpToDate =
+        stay.hostels &&
+        +stay.hostels.updatedAt > Date.now() - 1000 * 60 * 60 * 24; // Hostel data is updated every 24 hours
+
       if (
-        (!stay.hostels ||
-          !timeRangesContainSameDays(stay.hostels.timerange, stay.timerange)) &&
-        getTimerangeLengthToDaysInDays(stay.timerange) > 0
+        (!hasHostelsForCurrentTimeRange || !isHostelDataUpToDate) &&
+        hasOvernightStay
       ) {
-        stay.hostels = await this.hostels.getHostelsForStay(stay);
-        this.emit("change");
+        await this.updateHostelData(stay);
       }
     }
+  }
+
+  async updateHostelData(stay: JourneyStay) {
+    if (!stay.previousHostelData) stay.previousHostelData = [];
+    if (stay.hostels) {
+      const hasHostelsForCurrentTimeRange =
+        stay.hostels &&
+        timeRangesContainSameDays(stay.hostels.timerange, stay.timerange);
+
+      if (hasHostelsForCurrentTimeRange) {
+        stay.previousHostelData.push(stay.hostels);
+      }
+    }
+
+    stay.hostels = await this.withLoading(() =>
+      this.hostels.getHostelsForStay(stay)
+    );
+    this.emit("change");
   }
 
   async getWeather() {
@@ -279,7 +321,9 @@ export default class Planner extends EventEmitter {
           !timeRangesContainSameDays(stay.weather.timerange, stay.timerange)) &&
         getTimerangeLengthToDaysInDays(stay.timerange) > 0
       ) {
-        stay.weather = await this.weather.getWeatherForStay(stay);
+        stay.weather = await this.withLoading(() =>
+          this.weather.getWeatherForStay(stay)
+        );
         this.emit("change");
       }
     }

@@ -119,6 +119,7 @@ export const HostelDataSchema = z.object({
   highestPricePerNight: z.coerce.number(),
   locationId: z.coerce.number(),
   hostels: z.array(HostelSchema),
+  updatedAt: z.coerce.date().default(() => new Date()),
 });
 
 export const JourneyStaySchema = z.object({
@@ -127,7 +128,9 @@ export const JourneyStaySchema = z.object({
   locationName: z.string().optional(), // Neutral city name (e.g. "Hamburg, Germany") as location.name is the station name (e.g. "Hamburg Hbf")
   location: InterrailLocationSchema,
   timerange: JourneyTimerangeSchema,
+
   hostels: HostelDataSchema.optional(),
+  previousHostelData: z.array(HostelDataSchema).default(() => []),
   weather: WeatherSchema.optional(),
 });
 
