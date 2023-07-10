@@ -4,9 +4,10 @@ import { formatDateTime } from "@/lib/utils/date";
 import React from "react";
 import {
   ResponsiveContainer,
-  AreaChart,
-  Area,
   Tooltip,
+  YAxis,
+  Line,
+  LineChart,
 } from "recharts";
 
 function HostelPriceChangeInformation({
@@ -17,9 +18,9 @@ function HostelPriceChangeInformation({
   if (datapoints.length < 2) return null;
 
   return (
-    <div style={{ width: "100%", height: 50 }}>
+    <div style={{ width: "100%", height: 30 }}>
       <ResponsiveContainer>
-        <AreaChart data={datapoints}>
+        <LineChart data={datapoints}>
           <Tooltip
             content={({ active, payload, label }) => {
               if (active && payload && payload.length) {
@@ -38,8 +39,14 @@ function HostelPriceChangeInformation({
             }}
             allowEscapeViewBox={{ x: false, y: true }}
           />
-          <Area dataKey="lowestPricePerNight" fill="#e7e7e7" stroke="#e7e7e7" />
-        </AreaChart>
+          <Line dataKey="lowestPricePerNight" fill="#e7e7e7" stroke="#e7e7e7" />
+          <YAxis
+            type="number"
+            domain={["dataMin - 2", "dataMax"]}
+            hide
+            dataKey="lowestPricePerNight"
+          />
+        </LineChart>
       </ResponsiveContainer>
     </div>
   );
