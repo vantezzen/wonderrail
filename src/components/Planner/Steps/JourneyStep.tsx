@@ -1,11 +1,12 @@
 import Planner from "@/lib/Journey/Planner";
 import { JourneyStep } from "@/lib/types";
 import React from "react";
-import JourneyRide from "./Ride/JourneyRide";
-import JourneyStayDisplay from "./Stay/JourneyStayDisplay";
+import JourneyRide from "../Ride/JourneyRide";
+import JourneyStayDisplay from "../Stay/JourneyStayDisplay";
 import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
-import InvalidJourneyStep from "./InvalidJourneyStep";
-import usePlannerStore from "./plannerStore";
+import InvalidJourneyStep from "../InvalidJourneyStep";
+import usePlannerStore from "../plannerStore";
+import StepProgressIndicator from "./StepProgressIndicator";
 
 function JourneyStep({
   step,
@@ -23,9 +24,11 @@ function JourneyStep({
   );
   const setPopupState = usePlannerStore((state) => state.setPopupState);
 
+  let item = null;
+
   if (step.type === "ride") {
     if (isDragging) return null;
-    return (
+    item = (
       <JourneyRide
         key={step.id}
         ride={step}
@@ -39,7 +42,7 @@ function JourneyStep({
       />
     );
   } else if (step.type === "stay") {
-    return (
+    item = (
       <JourneyStayDisplay
         key={step.id}
         stay={step}
@@ -49,9 +52,18 @@ function JourneyStep({
     );
   } else if (step.type === "invalid") {
     if (isDragging) return null;
-    return <InvalidJourneyStep />;
+    item = <InvalidJourneyStep />;
   }
-  return null;
+
+  if (isDragging) return item;
+
+  return (
+    <div className="relative">
+      <StepProgressIndicator step={step} />
+
+      <div className="ml-6">{item}</div>
+    </div>
+  );
 }
 
 export default JourneyStep;

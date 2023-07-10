@@ -5,7 +5,6 @@ import { JourneyStay } from "@/lib/types";
 import { ExternalLink, RotateCw } from "lucide-react";
 import React from "react";
 import usePlannerStore from "../plannerStore";
-import HostelPriceChangeInformation from "./HostelPriceChangeInformation";
 import { formatDateTime } from "@/lib/utils/date";
 
 function HostelInformation({ stay }: { stay: JourneyStay }) {
@@ -35,9 +34,9 @@ function HostelInformation({ stay }: { stay: JourneyStay }) {
           </p>
         </div>
 
-        <HostelPriceChangeInformation
+        {/* <HostelPriceChangeInformation
           datapoints={[...stay.previousHostelData, stay.hostels]}
-        />
+        /> */}
 
         <Button asChild className="w-full">
           <a

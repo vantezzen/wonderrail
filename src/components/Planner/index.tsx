@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import PlannerMap from "./PlannerMap";
 import Heading from "../Various/Heading";
-import JourneySteps from "./JourneySteps";
+import JourneySteps from "./Steps/JourneySteps";
 import { Journey } from "@/lib/types";
 import Planner from "@/lib/Journey/Planner";
 import AddLocationModal from "./AddLocationModal";

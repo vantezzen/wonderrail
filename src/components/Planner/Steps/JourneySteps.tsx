@@ -2,7 +2,7 @@ import React from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import JourneyStep from "./JourneyStep";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
-import usePlannerStore from "./plannerStore";
+import usePlannerStore from "../plannerStore";
 
 function JourneySteps() {
   const planner = usePlannerStore((state) => state.planner);
