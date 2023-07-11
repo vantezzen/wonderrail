@@ -20,6 +20,7 @@ import { Loader2 } from "lucide-react";
 import CalendarView from "./Modals/CalendarView";
 import MobileMapModal from "./Modals/MobileMapModal";
 import MobileStatusModal from "./Modals/MobileStatusModal";
+import PassEditor from "./Pass/PassEditor";
 
 function PlannerComponent({ journey }: { journey: Journey }) {
   const plannerStore = usePlannerStore();
@@ -81,6 +82,7 @@ function PlannerComponent({ journey }: { journey: Journey }) {
           suppressHydrationWarning
         >
           <GeneralJourneySettings />
+          <PassEditor />
 
           <Heading className="mt-6">Itinerary</Heading>
           <JourneySteps />

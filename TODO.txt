@@ -1,11 +1,23 @@
 Next: 
 - Allow checking off things you booked (trips, reservations, etc)
-- Add notes to trips
 - Suggestions
   - Too many trips with short stays can be annoying
-  - 
+- 
+
+Local Attraction Recommendations: The system could use freely available tourist data from Wikitravel/Wikipedia to suggest must-see attractions and points of interest at each location.
+
+Language Assistance: Include common phrases and basic vocabulary in the local language of each destination. You can use free language datasets or libraries like T2T (Tensor2Tensor) from Google.
+
+Travel Journal: A feature that allows users to document their journey, upload photos, write thoughts, and experiences. This can be shared with others if the user chooses.
+
+Train Station Amenities Information: Information about what amenities are available at each train station (WiFi, food, restrooms, etc). OpenStreetMap could be a potential source for such data.
+
+Offline Access: Allow users to download their itinerary and important information for offline use.
+
+Integration with Health Apps: Allow users to sync their travel with health apps to show how much they walked or how many stairs they climbed during their trip.
 
 Backlog:
+- Add notes to trips
 - Different currency 
 - "include optional reservations for more than N hour long trains" button
 - highlight reservation free alternatives

@@ -12,7 +12,7 @@ const geocoder = NodeGeocoder({
   },
 });
 
-export default async function getNeutralCityName(name: string) {
+export default async function getCityInfo(name: string) {
   const geocode = await geocoder.geocode({
     // @ts-ignore
     q: name,
@@ -24,5 +24,8 @@ export default async function getNeutralCityName(name: string) {
   }
 
   const location = geocode[0];
-  return `${location.city}, ${location.country}`;
+  return {
+    name: `${location.city}, ${location.country}`,
+    countryCode: location.countryCode,
+  };
 }

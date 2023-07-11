@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/tooltip";
 import HostelInformation from "./HostelInformation";
 import WeatherInformation from "./WeatherInformation";
+import PassInvalidInfos from "./PassInvalidInfos";
 
 function JourneyStayDisplay({
   stay,
@@ -114,6 +115,8 @@ function JourneyStayDisplay({
                   Update
                 </Button>
               )}
+
+              <PassInvalidInfos stay={stay} />
 
               <HostelInformation stay={stay} />
               <WeatherInformation stay={stay} />

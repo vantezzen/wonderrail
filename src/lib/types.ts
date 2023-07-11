@@ -126,6 +126,7 @@ export const JourneyStaySchema = z.object({
   type: z.literal("stay"),
   id: z.string(),
   locationName: z.string().optional(), // Neutral city name (e.g. "Hamburg, Germany") as location.name is the station name (e.g. "Hamburg Hbf")
+  countryCode: z.string().optional(),
   location: InterrailLocationSchema,
   timerange: JourneyTimerangeSchema,
 
@@ -169,18 +170,30 @@ export const JourneyStepSchema = z.union([
   InvalidRideSchema,
 ]);
 
+export const InterrailPassSchema = z.object({
+  scope: z.enum(["GLOBAL", "ONE_COUNTRY"]),
+  country: z.string().optional(),
+  originCountry: z.string().optional(),
+  totalValidity: z.number().optional(),
+  travelDays: z.number().optional(),
+});
+
 export const JourneySchema = z.object({
   id: z.string(),
   name: z.string(),
   description: z.string().optional(),
   steps: z.array(JourneyStepSchema),
-
   startDate: z.coerce.date(),
   preferredDepartureTime: z.number(), // 0-24
   isPublic: z.boolean(),
   priceForFoodPerDay: z.number().default(20),
   priceForAccommodationPerDay: z.number().default(30),
   priceForInterrailTicket: z.number().default(264),
+  pass: InterrailPassSchema.default({
+    scope: "GLOBAL",
+    totalValidity: 31,
+    travelDays: 7,
+  }),
 });
 
 export const EMPTY_JOURNEY: Journey = {
@@ -195,6 +208,12 @@ export const EMPTY_JOURNEY: Journey = {
   priceForFoodPerDay: 20,
   priceForAccommodationPerDay: 30,
   priceForInterrailTicket: 264,
+
+  pass: {
+    scope: "GLOBAL",
+    totalValidity: 31,
+    travelDays: 7,
+  },
 };
 
 export type InterrailTimetableLeg = z.infer<typeof InterrailTimetableLegSchema>;
@@ -211,6 +230,7 @@ export type JourneyStay = z.infer<typeof JourneyStaySchema>;
 export type InterrailLine = z.infer<typeof InterrailLineSchema>;
 export type JourneyRide = z.infer<typeof JourneyRideSchema>;
 export type JourneyStep = z.infer<typeof JourneyStepSchema>;
+export type InterrailPass = z.infer<typeof InterrailPassSchema>;
 export type Journey = z.infer<typeof JourneySchema>;
 export type InvalidRide = z.infer<typeof InvalidRideSchema>;
 

@@ -6,6 +6,12 @@ import PriceDetailsPopover from "./PriceDetailsPopover";
 import { humanReadableDurationFromMinutes } from "@/lib/utils/date";
 import { padLeft } from "@/lib/utils/number";
 import usePlannerStore from "../plannerStore";
+import { AlertTriangle } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 function StatusBar() {
   const planner = usePlannerStore((state) => state.planner);
@@ -24,7 +30,21 @@ function StatusBar() {
       <StatusBarDivider />
 
       <StatusBarElement title="Travel days">
-        <AutoCount value={stats.travelDays} />
+        <div className="flex items-center">
+          <AutoCount value={stats.travelDays} />
+          {planner.journey.pass.travelDays &&
+            stats.travelDays > planner.journey.pass.travelDays && (
+              <Tooltip>
+                <TooltipTrigger>
+                  <AlertTriangle className="text-red-500 ml-2" size={16} />
+                </TooltipTrigger>
+
+                <TooltipContent>
+                  You have exceeded the number of travel days for your pass.
+                </TooltipContent>
+              </Tooltip>
+            )}
+        </div>
       </StatusBarElement>
 
       <StatusBarDivider />

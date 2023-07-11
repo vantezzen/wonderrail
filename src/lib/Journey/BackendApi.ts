@@ -1,9 +1,11 @@
 export default class BackendApi {
-  async getNeutralCityName(name: string): Promise<string | undefined> {
+  async getCityInfo(
+    name: string
+  ): Promise<{ name: string; countryCode: string }> {
     const backendResponse = await fetch(
-      `/api/geocode/cityName/${encodeURIComponent(name)}`
+      `/api/geocode/city/${encodeURIComponent(name)}`
     );
     const cityData = await backendResponse.json();
-    return cityData.cityName ?? undefined;
+    return cityData;
   }
 }

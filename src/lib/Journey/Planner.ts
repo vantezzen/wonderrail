@@ -26,6 +26,7 @@ import Hostels from "./Hostels";
 import BackendApi from "./BackendApi";
 import Weather from "./Weather";
 import { trackEvent } from "../analytics";
+import MigrationManager from "./MigrationManager";
 
 export default class Planner extends EventEmitter {
   public interrail = new Interrail();
@@ -36,12 +37,15 @@ export default class Planner extends EventEmitter {
   public api = new BackendApi();
   public weather = new Weather();
 
+  private migrations = new MigrationManager();
+
   private isLoadingInternal = false;
   private loadingSemaphore = 0;
 
   constructor(public journey: Journey) {
     super();
 
+    this.migrations.migrate(this);
     this.stepPlanner.on("loadingState", () => {
       this.emit("change");
     });
@@ -57,7 +61,7 @@ export default class Planner extends EventEmitter {
     this.emit("change");
   }
 
-  private withLoading<T>(fn: () => Promise<T>) {
+  public withLoading<T>(fn: () => Promise<T>) {
     this.updateLoading(1);
     return fn().finally(() => this.updateLoading(-1));
   }
@@ -153,11 +157,14 @@ export default class Planner extends EventEmitter {
         ? new Date(travelEndTime.getTime() + 1000 * 60 * 60 * 24 * 2) // Stay is 2 days long by default
         : travelEndTime; // The first stay should be 0 days long as we expect it to be where the person lives
 
+    const cityInfo = await this.api.getCityInfo(location.name);
+
     const stay: JourneyStay = {
       type: "stay",
       id: uuidv4(),
       location,
-      locationName: await this.api.getNeutralCityName(location.name),
+      locationName: cityInfo.name,
+      countryCode: cityInfo.countryCode,
       timerange: timerange ?? {
         start: travelEndTime,
         end: endDate,

@@ -1,4 +1,4 @@
-import getNeutralCityName from "@/lib/api/getNeutralCityName";
+import getCityInfo from "@/lib/api/getCityInfo";
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
@@ -15,7 +15,7 @@ export async function GET(request: Request) {
       },
     });
   }
-  const cityName = await getNeutralCityName(params.get("location")!);
+  const cityName = (await getCityInfo(params.get("location")!))?.name;
 
   const findCityUrl = `https://www.hostelworld.com/find/autocomplete?term=${cityName}`;
   const findCityResponse = await fetch(findCityUrl);

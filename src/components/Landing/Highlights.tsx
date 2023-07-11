@@ -6,6 +6,7 @@ import timetableImage from "@/assets/landing/timetable.png";
 import priceChangesImage from "@/assets/landing/price-changes.png";
 import threedImage from "@/assets/landing/3d.png";
 import shareImage from "@/assets/landing/share.png";
+import notCoveredImage from "@/assets/landing/not-covered.png";
 
 function Highlights() {
   return (
@@ -85,7 +86,21 @@ function Highlights() {
         />
 
         <Highlight
-          size={8}
+          size={4}
+          top={
+            <Image
+              src={notCoveredImage}
+              alt="not covered alert"
+              className="rounded mx-auto w-full max-w-xl max-h-64"
+              style={{ objectFit: "contain" }}
+            />
+          }
+          title="Stay within your Interrail limits"
+          description="WonderRail keeps track of your Interrail pass limits, so you don't have to. Get notified when you are about to exceed your travel days or plan to travel outside of your Interrail zone."
+        />
+
+        <Highlight
+          size={4}
           top={
             <Image
               src={itineraryImage}
