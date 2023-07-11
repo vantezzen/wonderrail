@@ -1,6 +1,11 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import {
+  getFirestore,
+  initializeFirestore,
+  persistentLocalCache,
+  persistentMultipleTabManager,
+} from "firebase/firestore";
 import { getPerformance } from "firebase/performance";
 import { getFunctions } from "firebase/functions";
 
@@ -20,6 +25,11 @@ export const firebaseAuth = getAuth(firebaseApp);
 const firebaseFunctions = getFunctions(firebaseApp, "europe-west3");
 export { firebaseFunctions };
 
+initializeFirestore(firebaseApp, {
+  localCache: persistentLocalCache({
+    tabManager: persistentMultipleTabManager(),
+  }),
+});
 const firestore = getFirestore(firebaseApp);
 if (typeof window !== "undefined") {
   getPerformance(firebaseApp);

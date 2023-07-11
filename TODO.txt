@@ -12,8 +12,6 @@ Travel Journal: A feature that allows users to document their journey, upload ph
 
 Train Station Amenities Information: Information about what amenities are available at each train station (WiFi, food, restrooms, etc). OpenStreetMap could be a potential source for such data.
 
-Offline Access: Allow users to download their itinerary and important information for offline use.
-
 Integration with Health Apps: Allow users to sync their travel with health apps to show how much they walked or how many stairs they climbed during their trip.
 
 Backlog:
