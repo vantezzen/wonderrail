@@ -22,9 +22,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Head>
+      <head>
         <Icons />
-      </Head>
+      </head>
 
       <body className={cn(inter.className, "dark bg-zinc-900")}>
         <FirebaseConnectionStoreProvider>
