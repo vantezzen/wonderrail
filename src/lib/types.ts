@@ -132,6 +132,8 @@ export const JourneyStaySchema = z.object({
 
   hostels: HostelDataSchema.optional(),
   previousHostelData: z.array(HostelDataSchema).default(() => []),
+  isAccommodationReserved: z.boolean().default(false),
+
   weather: WeatherSchema.optional(),
 });
 
@@ -150,6 +152,7 @@ export const JourneyRideSchema = z.object({
   end: CoordinateSchema,
   timerange: JourneyTimerangeSchema,
   needsReservation: z.boolean(),
+  isReserved: z.boolean().default(false),
   details: InterrailTimetableEntrySchema.optional(),
   alternatives: z.array(InterrailTimetableEntrySchema).optional(),
   price: z.number().optional(),

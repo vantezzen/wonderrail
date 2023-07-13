@@ -21,6 +21,7 @@ import CalendarView from "./Modals/CalendarView";
 import MobileMapModal from "./Modals/MobileMapModal";
 import MobileStatusModal from "./Modals/MobileStatusModal";
 import PassEditor from "./Pass/PassEditor";
+import TodoList from "./Modals/TodoList";
 
 function PlannerComponent({ journey }: { journey: Journey }) {
   const plannerStore = usePlannerStore();
@@ -64,6 +65,7 @@ function PlannerComponent({ journey }: { journey: Journey }) {
       <CalendarView />
       <MobileMapModal />
       <MobileStatusModal />
+      <TodoList />
 
       <MenuBar />
 

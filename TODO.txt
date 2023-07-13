@@ -1,5 +1,11 @@
 Next: 
-- Allow checking off things you booked (trips, reservations, etc)
+=> TODO List
+  - Allow checking off things you booked (trips, reservations, etc)
+  - Buy interrail pass
+  - Reservations
+  - Hostel
+  - Packing list?
+  - 
 - Suggestions
   - Too many trips with short stays can be annoying
 - 

@@ -27,6 +27,7 @@ import BackendApi from "./BackendApi";
 import Weather from "./Weather";
 import { trackEvent } from "../analytics";
 import MigrationManager from "./MigrationManager";
+import Todo from "./Todo";
 
 export default class Planner extends EventEmitter {
   public interrail = new Interrail();
@@ -36,6 +37,7 @@ export default class Planner extends EventEmitter {
   public hostels = new Hostels();
   public api = new BackendApi();
   public weather = new Weather();
+  public todo = new Todo(this);
 
   private migrations = new MigrationManager();
 
@@ -171,6 +173,7 @@ export default class Planner extends EventEmitter {
       },
 
       previousHostelData: [],
+      isAccommodationReserved: false,
     };
 
     if (beforeLocation) {

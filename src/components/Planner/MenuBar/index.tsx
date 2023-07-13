@@ -127,6 +127,10 @@ function MenuBar() {
             plannerStore.planner.updateHostelData(stay);
           }
         },
+        showTodo: () => {
+          trackEvent("menubar_show_todo");
+          plannerStore.setView("showTodoList", true);
+        },
       },
       view: {
         toggleStatusBar: () => {
@@ -232,6 +236,9 @@ function MenuBar() {
             </MenubarItem>
             <MenubarItem onClick={actions.itinerary.updateAllHostelPrices}>
               Update all hostel prices
+            </MenubarItem>
+            <MenubarItem onClick={actions.itinerary.showTodo}>
+              Show ToDo-list
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>

@@ -213,6 +213,7 @@ export default class StepPlanner extends EventEmitter {
       needsReservation: rides.bestRide.status === "REQUIRED",
       price: rides.bestRide.price,
       changes,
+      isReserved: false,
     };
   }
 

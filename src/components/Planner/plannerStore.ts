@@ -22,6 +22,7 @@ interface PlannerState {
     showCalendar: boolean;
     showMapModal: boolean;
     showMobileStatus: boolean;
+    showTodoList: boolean;
   };
   setView: (view: keyof PlannerState["view"], state: boolean) => void;
 }
@@ -53,6 +54,7 @@ const usePlannerStore = create<PlannerState>()(
         showCalendar: false,
         showMapModal: false,
         showMobileStatus: false,
+        showTodoList: false,
       },
       setView: (view, newState) =>
         set((state) => ({
