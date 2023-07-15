@@ -18,6 +18,7 @@ import HostelInformation from "./HostelInformation";
 import WeatherInformation from "./WeatherInformation";
 import PassInvalidInfos from "./PassInvalidInfos";
 import LanguageAssistance from "./LanguageAssistance";
+import CurrencyInformation from "./CurrencyInformation";
 
 function JourneyStayDisplay({
   stay,
@@ -122,6 +123,7 @@ function JourneyStayDisplay({
               <HostelInformation stay={stay} />
               <WeatherInformation stay={stay} />
               <LanguageAssistance stay={stay} />
+              <CurrencyInformation stay={stay} />
             </CardHeader>
             <div className="mr-2 flex flex-col gap-2 mt-2"></div>
           </div>
