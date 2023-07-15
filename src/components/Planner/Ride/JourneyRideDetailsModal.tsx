@@ -48,7 +48,7 @@ function JourneyRideDetailsModal({
 
       <DialogContent className="min-w-[70vw] p-12">
         <ScrollArea className="max-h-[70vh] pr-3">
-          <DialogHeader className="text-zinc-300">
+          <DialogHeader className="dark:text-zinc-300 text-zinc-600">
             <DialogTitle>{ride.name}</DialogTitle>
 
             <DialogDescription></DialogDescription>

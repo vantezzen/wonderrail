@@ -38,7 +38,9 @@ function JourneyRide({
       <Train className="hidden xl:block" size={16} />
 
       <div className="mr-auto">
-        <div className=" font-bold text-sm text-zinc-200">{ride.name}</div>
+        <div className=" font-bold text-sm dark:text-zinc-200 text-zinc-800">
+          {ride.name}
+        </div>
         <div className=" text-sm">
           {duration}h (
           <span suppressHydrationWarning>

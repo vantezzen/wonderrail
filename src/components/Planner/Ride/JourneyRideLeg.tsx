@@ -20,7 +20,7 @@ function JourneyRideLeg({ leg }: { leg: InterrailTimetableLeg }) {
       <div key={leg.id} className="flex gap-4 text-zinc-500 items-center">
         <ReplaceAll className="" size={16} />
         <div>
-          <div className="text-zinc-200 font-medium flex gap-2 items-center">
+          <div className="dark:text-zinc-200 text-zinc-600 font-medium flex gap-2 items-center">
             Change platform ({leg.duration.hours}h {leg.duration.minutes}m)
           </div>
         </div>
@@ -32,7 +32,7 @@ function JourneyRideLeg({ leg }: { leg: InterrailTimetableLeg }) {
       <div key={leg.id} className="flex gap-4 text-zinc-500 items-center">
         <School2 className="" size={16} />
         <div>
-          <div className="text-zinc-200 font-medium flex gap-2 items-center">
+          <div className="dark:text-zinc-200 text-zinc-600 font-medium flex gap-2 items-center">
             Change station ({leg.duration.hours}h {leg.duration.minutes}m)
           </div>
         </div>
@@ -44,7 +44,7 @@ function JourneyRideLeg({ leg }: { leg: InterrailTimetableLeg }) {
       <div key={leg.id} className="flex gap-4 text-zinc-500 items-center">
         <Bus className="" size={16} />
         <div>
-          <div className="text-zinc-200 font-medium flex gap-2 items-center">
+          <div className="dark:text-zinc-200 text-zinc-600 font-medium flex gap-2 items-center">
             Station change by public transport ({leg.duration.hours}h{" "}
             {leg.duration.minutes}m)
           </div>
@@ -65,7 +65,7 @@ function JourneyRideLeg({ leg }: { leg: InterrailTimetableLeg }) {
     <div key={leg.id} className="flex gap-4 text-zinc-500 items-center">
       <Train className="" size={16} />
       <div>
-        <div className="text-zinc-200 font-medium flex gap-2 items-center">
+        <div className="dark:text-zinc-200 text-zinc-600 font-medium flex gap-2 items-center">
           {leg.start.station} <ArrowRight size={14} /> {leg.end.station}
         </div>
 

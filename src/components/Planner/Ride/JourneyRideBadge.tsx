@@ -15,7 +15,7 @@ function JourneyRideBadge({
     <Badge
       variant="secondary"
       className={cn(
-        "text-xs font-normal flex items-center gap-2 px-2 py-1",
+        "text-xs font-normal flex items-center gap-2 px-2 py-1 text-zinc-50",
         className
       )}
     >

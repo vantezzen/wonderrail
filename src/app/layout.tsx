@@ -6,6 +6,7 @@ import Script from "next/script";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import Icons from "@/components/Various/Seo/Icons";
+import { DarkModeProvider } from "@/components/Various/DarkMode";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,13 +26,15 @@ export default function RootLayout({
         <Icons />
       </head>
 
-      <body className={cn(inter.className, "dark bg-zinc-900")}>
-        <FirebaseConnectionStoreProvider>
-          <TooltipProvider>
-            <Toaster />
-            {children}
-          </TooltipProvider>
-        </FirebaseConnectionStoreProvider>
+      <body className={cn(inter.className)}>
+        <DarkModeProvider>
+          <FirebaseConnectionStoreProvider>
+            <TooltipProvider>
+              <Toaster />
+              {children}
+            </TooltipProvider>
+          </FirebaseConnectionStoreProvider>
+        </DarkModeProvider>
 
         <Script
           src="https://scripts.simpleanalyticscdn.com/latest.js"

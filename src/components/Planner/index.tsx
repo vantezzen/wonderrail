@@ -57,7 +57,7 @@ function PlannerComponent({ journey }: { journey: Journey }) {
   console.log(planner.journey);
 
   return (
-    <div className="bg-zinc-900">
+    <div className="dark:bg-zinc-900 bg-zinc-100">
       {planner.isLoading && <JourneyLoading />}
       <WelcomePopup />
       <AiPopup />
@@ -80,7 +80,7 @@ function PlannerComponent({ journey }: { journey: Journey }) {
           <StatusBar />
         </div>
         <div
-          className="p-6 pt-0 bg-zinc-900 h-full lg:overflow-y-auto"
+          className="p-6 pt-0 dark:bg-zinc-900 bg-zinc-100 h-full lg:overflow-y-auto"
           suppressHydrationWarning
         >
           <GeneralJourneySettings />

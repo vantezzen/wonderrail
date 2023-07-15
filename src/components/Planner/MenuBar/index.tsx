@@ -185,7 +185,7 @@ function MenuBar() {
   }, [shortcuts, actions]);
 
   return (
-    <div className="bg-zinc-900">
+    <div className="dark:bg-zinc-900 bg-zinc-100">
       {isLoading && <LoadingToast title="Saving journey" />}
 
       <Menubar className="m-3">

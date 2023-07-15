@@ -18,7 +18,9 @@ function RatingPills({
             <div
               key={i}
               className={`w-3 h-3 rounded-full ${
-                i < score ? "bg-zinc-200" : "bg-zinc-700"
+                i < score
+                  ? "dark:bg-zinc-200 bg-zinc-700"
+                  : "dark:bg-zinc-700 bg-zinc-200"
               }`}
             />
           );

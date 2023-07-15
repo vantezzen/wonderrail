@@ -22,7 +22,7 @@ function CategoriesSelector() {
   const planner = usePlannerStore((state) => state.planner);
 
   return (
-    <div className="p-4 text-zinc-400 text-sm">
+    <div className="p-4 dark:text-zinc-400 text-zinc-600 text-sm">
       <h4 className="text-base font-medium mb-1">
         Find intersting places to visit
       </h4>
@@ -61,7 +61,7 @@ function CategoriesSelector() {
                       );
                     }}
                   >
-                    <Card className="p-1 hover:bg-zinc-900 duration-100">
+                    <Card className="p-1 dark:hover:bg-zinc-900 hover:bg-zinc-200 duration-100">
                       <CardHeader className="p-2">
                         <CardTitle className="text-base">
                           {place.name}

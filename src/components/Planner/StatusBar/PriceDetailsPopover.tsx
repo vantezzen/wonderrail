@@ -57,11 +57,11 @@ function PriceDetailsPopover({ planner }: { planner: Planner }) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button className="flex gap-3 hover:bg-zinc-800 rounded px-2 items-center text-left">
+        <button className="flex gap-3 dark:hover:bg-zinc-800 hover:bg-zinc-100 rounded px-2 items-center text-left">
           <div className="flex flex-col gap-1">
             <p className="text-xs text-zinc-600">Price</p>
             <p
-              className="text-lg font-bold text-zinc-300"
+              className="text-lg font-bold dark:text-zinc-300 text-zinc-800"
               suppressHydrationWarning
             >
               <AutoCount value={stats.cost.total} />€
@@ -71,12 +71,14 @@ function PriceDetailsPopover({ planner }: { planner: Planner }) {
           <ChevronDown size={16} className="" />
         </button>
       </PopoverTrigger>
-      <PopoverContent className="w-[600px] border-2 border-zinc-500">
+      <PopoverContent className="w-[600px] border-2 dark:border-zinc-500 border-zinc-300">
         <div className="flex gap-3 items-center">
           <div className="">
-            <h2 className="text-lg font-bold text-zinc-300">Price details</h2>
+            <h2 className="text-lg font-bold dark:text-zinc-300 text-zinc-800">
+              Price details
+            </h2>
 
-            <Table className="text-zinc-400">
+            <Table className="dark:text-zinc-400 text-zinc-700">
               <TableHeader>
                 <TableRow>
                   <TableHead>Type</TableHead>
