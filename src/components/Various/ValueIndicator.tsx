@@ -39,7 +39,7 @@ function ValueIndicator({
         <div className="w-1/3 bg-red-400 h-full rounded-r-lg" />
       </div>
 
-      {values.map((value) => {
+      {values.map((value, index) => {
         let indicatorPosition = 0; // 0-100% based on price
         if (value > steps.low && value < steps.medium) {
           // Place at appropriate position between low and medium (0-33%)
@@ -55,6 +55,8 @@ function ValueIndicator({
             (value - steps.high) / (steps.end - steps.high) / 3 + 0.66;
         }
 
+        const isOdd = index % 2 == 1;
+
         return (
           <>
             <div
@@ -65,9 +67,10 @@ function ValueIndicator({
             />
 
             <div
-              className="absolute top-0 transform -translate-x-1/2 -translate-y-1/2 text-zinc-600 text-sm font-bold"
+              className="absolute top-0 transform -translate-x-1/2 -translate-y-1/2 text-zinc-500 text-sm font-bold"
               style={{
                 left: `${indicatorPosition * 100}%`,
+                top: isOdd ? "160%" : undefined,
               }}
             >
               {round(value, 2)}
