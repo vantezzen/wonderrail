@@ -135,6 +135,7 @@ export const JourneyStaySchema = z.object({
   isAccommodationReserved: z.boolean().default(false),
 
   weather: WeatherSchema.optional(),
+  notes: z.string().optional(),
 });
 
 export const InterrailLineSchema = z.object({
