@@ -11,7 +11,7 @@ interface DarkModeState {
   setIsDarkMode: (isDarkMode: boolean) => void;
 }
 
-const useDarkModeStoreRaw = create<DarkModeState>()(
+export const useDarkModeStoreRaw = create<DarkModeState>()(
   persist(
     (set, get) => ({
       isDarkMode: true,

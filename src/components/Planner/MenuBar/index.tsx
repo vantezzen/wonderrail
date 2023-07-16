@@ -25,7 +25,9 @@ import ImportJsonMenu from "./ImportJsonMenu";
 import LoadingToast from "@/components/Various/LoadingToast";
 import { trackEvent } from "@/lib/analytics";
 import { JourneyStay } from "@/lib/types";
-import useDarkModeStoreRaw from "@/components/Various/DarkMode";
+import useDarkModeStore, {
+  useDarkModeStoreRaw,
+} from "@/components/Various/DarkMode";
 
 function MenuBar() {
   const plannerStore = usePlannerStore();
@@ -39,7 +41,7 @@ function MenuBar() {
   const [user] = useAuthState();
   const [hasChanges, setHasChanges] = React.useState(false);
   const { toast } = useToast();
-  const isDarkMode = useDarkModeStoreRaw((store) => store.isDarkMode);
+  const isDarkMode = useDarkModeStore((store) => store.isDarkMode);
   const setDarkMode = useDarkModeStoreRaw((store) => store.setIsDarkMode);
 
   React.useEffect(() => {
