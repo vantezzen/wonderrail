@@ -48,10 +48,15 @@ function MenuBar() {
     const onUpdate = () => {
       setHasChanges(true);
     };
+    const onSaved = () => {
+      setHasChanges(false);
+    };
 
     plannerStore.planner.on("change", onUpdate);
+    plannerStore.planner.on("saved", onSaved);
     return () => {
       plannerStore.planner.off("change", onUpdate);
+      plannerStore.planner.off("saved", onSaved);
     };
   }, [plannerStore.planner]);
 

@@ -18,8 +18,6 @@ Train Station Amenities Information: Information about what amenities are availa
 
 Integration with Health Apps: Allow users to sync their travel with health apps to show how much they walked or how many stairs they climbed during their trip.
 
-- Autosave changes
-
 Backlog:
 - Add notes to trips
 - Different currency 

@@ -28,6 +28,7 @@ import Weather from "./Weather";
 import { trackEvent } from "../analytics";
 import MigrationManager from "./MigrationManager";
 import Todo from "./Todo";
+import Autosaver from "./Autosaver";
 
 export default class Planner extends EventEmitter {
   public interrail = new Interrail();
@@ -40,6 +41,7 @@ export default class Planner extends EventEmitter {
   public todo = new Todo(this);
 
   private migrations = new MigrationManager();
+  private autosaver = new Autosaver(this);
 
   private isLoadingInternal = false;
   private loadingSemaphore = 0;
