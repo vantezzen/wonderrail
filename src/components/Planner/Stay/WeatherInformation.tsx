@@ -13,7 +13,7 @@ function WeatherInformation({ stay }: { stay: JourneyStay }) {
     <div className="mt-3">
       <Separator className="my-3" />
       <div className="flex justify-between items-center">
-        <p className="text-zinc-500 text-sm">
+        <p className="dark:text-zinc-400 text-zinc-600 text-sm">
           Expect an average temperature of{" "}
           <span className="font-bold">{stay.weather?.avgTemperature}°C</span>{" "}
           with a minimum of{" "}

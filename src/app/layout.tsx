@@ -6,7 +6,7 @@ import Script from "next/script";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import Icons from "@/components/Various/Seo/Icons";
-import { DarkModeProvider } from "@/components/Various/DarkMode";
+import { DarkModeBodyProvider } from "@/components/Various/DarkMode";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,15 +26,13 @@ export default function RootLayout({
         <Icons />
       </head>
 
-      <body className={cn(inter.className)}>
-        <DarkModeProvider>
-          <FirebaseConnectionStoreProvider>
-            <TooltipProvider>
-              <Toaster />
-              {children}
-            </TooltipProvider>
-          </FirebaseConnectionStoreProvider>
-        </DarkModeProvider>
+      <DarkModeBodyProvider className={cn(inter.className)}>
+        <FirebaseConnectionStoreProvider>
+          <TooltipProvider>
+            <Toaster />
+            {children}
+          </TooltipProvider>
+        </FirebaseConnectionStoreProvider>
 
         <Script
           src="https://scripts.simpleanalyticscdn.com/latest.js"
@@ -62,7 +60,7 @@ export default function RootLayout({
             gtag('event', 'conversion', {'send_to': 'AW-945571393/CjrqCLC6irgYEMGM8cID'});
           `}
         </Script>
-      </body>
+      </DarkModeBodyProvider>
     </html>
   );
 }

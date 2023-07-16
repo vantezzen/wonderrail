@@ -28,7 +28,7 @@ function TodoList() {
         </DialogHeader>
 
         <ScrollArea className="h-[500px]">
-          <div className="grid gap-3">
+          <div className="grid gap-3 mr-4">
             {planner.todo.getTodoItems().map((todo) => {
               return (
                 <button onClick={todo.toggleDone} key={todo.step.id}>

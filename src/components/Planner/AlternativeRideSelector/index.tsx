@@ -34,12 +34,16 @@ function AlternativeRideSelector({ ride }: { ride: JourneyRide }) {
         </DialogHeader>
         <div>
           <ScrollArea className="h-[500px]">
-            <h4 className="text-zinc-400 font-medium mb-3">Current ride</h4>
+            <h4 className="dark:text-zinc-400 text-zinc-600 font-medium mb-3">
+              Current ride
+            </h4>
             <div className="max-w-lg mx-auto">
               <AlternativeRide entry={ride.details!} />
             </div>
 
-            <h4 className="text-zinc-400 font-medium my-3">Alternatives</h4>
+            <h4 className="dark:text-zinc-400 text-zinc-600 font-medium my-3">
+              Alternatives
+            </h4>
             <div className="grid md:grid-cols-2 gap-3">
               {ride.alternatives?.map((alternative) => (
                 <button

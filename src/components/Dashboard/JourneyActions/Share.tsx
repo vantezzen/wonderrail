@@ -1,6 +1,5 @@
 import SharePopup from "@/components/Various/SharePopup";
 
-
 import { Button } from "@/components/ui/button";
 import { ShareIcon } from "lucide-react";
 import React from "react";
@@ -17,7 +16,7 @@ function Share({
   return (
     <SharePopup journeyId={journeyId} userId={userId} isPublic={isPublic}>
       <Button variant="secondary">
-        <ShareIcon className="text-zinc-200" size={16} />
+        <ShareIcon className="dark:text-zinc-200" size={16} />
       </Button>
     </SharePopup>
   );

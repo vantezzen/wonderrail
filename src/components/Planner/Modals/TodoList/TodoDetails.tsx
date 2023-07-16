@@ -18,7 +18,9 @@ function TodoDetails({ todo }: { todo: TodoItem }) {
   }
   return (
     <div className={cn(todo.isDone ? "opacity-50" : "", "duration-100")}>
-      <AlertTitle className="font-bold">{title}</AlertTitle>
+      <AlertTitle className="font-medium dark:text-zinc-200 text-zinc-900 leading-relaxed">
+        {title}
+      </AlertTitle>
       <InputDescription>
         Until {todo.untilDate?.toLocaleDateString()}
       </InputDescription>

@@ -44,7 +44,7 @@ function LanguageAssistance({ stay }: { stay: JourneyStay }) {
     <div className="mt-3">
       <Separator className="my-3" />
       <div className="">
-        <p className="text-zinc-500 text-sm">
+        <p className="dark:text-zinc-400 text-zinc-600 text-sm">
           The main language in{" "}
           <span className="font-bold">{country?.name}</span> is{" "}
           <span className="font-bold">{languageData.language}</span> and{" "}

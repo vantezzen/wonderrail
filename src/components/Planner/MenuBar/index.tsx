@@ -18,13 +18,14 @@ import useSaveActionStatus, {
 import { useRouter } from "next/navigation";
 import Storage from "@/lib/Journey/Storage";
 import ShortcutManager from "@/lib/Journey/ShortcutManager";
-import { Check } from "lucide-react";
+import { Check, Moon, Sun } from "lucide-react";
 import { getFileContents } from "@/lib/utils/file";
 import { useToast } from "@/components/ui/use-toast";
 import ImportJsonMenu from "./ImportJsonMenu";
 import LoadingToast from "@/components/Various/LoadingToast";
 import { trackEvent } from "@/lib/analytics";
 import { JourneyStay } from "@/lib/types";
+import useDarkModeStoreRaw from "@/components/Various/DarkMode";
 
 function MenuBar() {
   const plannerStore = usePlannerStore();
@@ -38,6 +39,8 @@ function MenuBar() {
   const [user] = useAuthState();
   const [hasChanges, setHasChanges] = React.useState(false);
   const { toast } = useToast();
+  const isDarkMode = useDarkModeStoreRaw((store) => store.isDarkMode);
+  const setDarkMode = useDarkModeStoreRaw((store) => store.setIsDarkMode);
 
   React.useEffect(() => {
     const onUpdate = () => {
@@ -152,6 +155,10 @@ function MenuBar() {
           trackEvent("menubar_show_status_modal");
           plannerStore.setView("showMobileStatus", true);
         },
+        toggleDarkMode: () => {
+          trackEvent("menubar_toggle_dark_mode");
+          setDarkMode(!isDarkMode);
+        },
       },
     }),
     [plannerStore, router, saveStatus]
@@ -185,10 +192,10 @@ function MenuBar() {
   }, [shortcuts, actions]);
 
   return (
-    <div className="dark:bg-zinc-900 bg-zinc-100">
+    <div className="p-3">
       {isLoading && <LoadingToast title="Saving journey" />}
 
-      <Menubar className="m-3">
+      <Menubar>
         <MenubarMenu>
           <MenubarTrigger>File</MenubarTrigger>
           <MenubarContent>
@@ -271,6 +278,22 @@ function MenuBar() {
               className="md:hidden"
             >
               Show status
+            </MenubarItem>
+            <MenubarItem
+              onClick={actions.view.toggleDarkMode}
+              className="hidden md:flex"
+            >
+              {isDarkMode ? (
+                <>
+                  <Sun size={12} className="mr-2" />
+                  Switch to light mode
+                </>
+              ) : (
+                <>
+                  <Moon size={12} className="mr-2" />
+                  Switch to dark mode
+                </>
+              )}
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>

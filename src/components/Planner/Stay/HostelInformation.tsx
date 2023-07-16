@@ -18,7 +18,7 @@ function HostelInformation({ stay }: { stay: JourneyStay }) {
       <Separator className="my-3" />
       <div className="flex gap-3 flex-col">
         <div className="">
-          <p className="text-zinc-500 text-sm">
+          <p className="dark:text-zinc-400 text-zinc-600 text-sm">
             Hostels cost{" "}
             <span className="font-bold">
               {stay.hostels.lowestPricePerNight}€
@@ -29,7 +29,7 @@ function HostelInformation({ stay }: { stay: JourneyStay }) {
             </span>{" "}
             per night.
           </p>
-          <p className="text-zinc-600 text-xs mb-3">
+          <p className="dark:text-zinc-500 text-zinc-400 text-xs mb-3">
             Last updated {formatDateTime(stay.hostels.updatedAt)}.
           </p>
         </div>

@@ -14,6 +14,7 @@ import { ArcLayer } from "@deck.gl/layers/typed";
 import { getDistanceFromLatLonInKm } from "@/lib/utils/coordinates";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 import usePlannerStore from "./plannerStore";
+import { useIsDarkMode } from "../Various/DarkMode";
 
 function PlannerMap() {
   const planner = usePlannerStore((state) => state.planner);
@@ -77,6 +78,12 @@ function PlannerMap() {
     }, 1000);
   }, []);
 
+  const isDarkMode = useIsDarkMode();
+
+  const lineColor: [number, number, number] = isDarkMode
+    ? [230, 230, 230]
+    : [30, 30, 30];
+
   return (
     <div className="w-full relative h-[80vh] lg:h-[calc(100vh-4rem)]">
       <DeckGL
@@ -99,10 +106,8 @@ function PlannerMap() {
             getHeight: 0.5,
             getSourcePosition: (d) => d.from.coordinates,
             getTargetPosition: (d) => d.to.coordinates,
-            getSourceColor: (d) =>
-              d.isInvalid ? [230, 100, 100] : [230, 230, 230],
-            getTargetColor: (d) =>
-              d.isInvalid ? [230, 100, 100] : [230, 230, 230],
+            getSourceColor: (d) => (d.isInvalid ? [230, 100, 100] : lineColor),
+            getTargetColor: (d) => (d.isInvalid ? [230, 100, 100] : lineColor),
           }),
         ]}
         getTooltip={({ object }) => {
@@ -162,7 +167,9 @@ function PlannerMap() {
       >
         <Map
           mapLib={maplibregl}
-          mapStyle={`https://api.maptiler.com/maps/dataviz-dark/style.json?key=${process.env.NEXT_PUBLIC_MAPTILER_KEY}`}
+          mapStyle={`https://api.maptiler.com/maps/dataviz-${
+            isDarkMode ? "dark" : "light"
+          }/style.json?key=${process.env.NEXT_PUBLIC_MAPTILER_KEY}`}
         />
       </DeckGL>
     </div>

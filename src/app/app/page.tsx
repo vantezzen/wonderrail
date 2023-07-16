@@ -19,7 +19,7 @@ function AppPage() {
 
   return (
     <div className="p-6 md:p-12">
-      <div className="flex gap-3 items-center mb-6">
+      <div className="flex gap-3 items-center mb-6 rounded-lg bg-zinc-900 p-3 text-zinc-200">
         <div>
           <Image
             src={logoImage}
@@ -68,7 +68,7 @@ function AppPage() {
                       key={journey.id}
                       className="w-full"
                     >
-                      <button className="rounded bg-zinc-900 hover:bg-zinc-800 p-4 w-full text-left duration-100 flex justify-between items-center">
+                      <button className="rounded dark:bg-zinc-900 dark:hover:bg-zinc-800 bg-zinc-100 hover:bg-zinc-200 p-4 w-full text-left duration-100 flex justify-between items-center">
                         <div>
                           <h3 className="text-lg font-bold">{journey.name}</h3>
 

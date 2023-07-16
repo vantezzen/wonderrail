@@ -1,48 +1,62 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import usePersistentStoreSecure from "@/lib/utils/zustand";
+import { usePathname } from "next/navigation";
+import React from "react";
 import { create } from "zustand";
-import { devtools, persist } from "zustand/middleware";
+import { persist } from "zustand/middleware";
 
-interface JourneyIdState {
+interface DarkModeState {
   isDarkMode: boolean;
   setIsDarkMode: (isDarkMode: boolean) => void;
 }
 
-const useDarkModeStore = create<JourneyIdState>()(
+const useDarkModeStoreRaw = create<DarkModeState>()(
   persist(
-    devtools((set) => ({
-      isDarkMode: false,
+    (set, get) => ({
+      isDarkMode: true,
       setIsDarkMode: (isDarkMode) => set({ isDarkMode }),
-    })),
+    }),
     {
       name: "dark-mode",
     }
   )
 );
+
+const useDarkModeStore = (selector: (state: DarkModeState) => any) => {
+  return usePersistentStoreSecure(useDarkModeStoreRaw, selector);
+};
 export default useDarkModeStore;
 
 export const useIsDarkMode = () => {
   const pathname = usePathname();
-  const isPlanner = pathname.startsWith("/journeys/");
-  const isDarkMode = useDarkModeStore((store) => store.isDarkMode);
+  const isPlanner =
+    pathname.startsWith("/journeys/") || pathname.startsWith("/app");
 
-  console.log(isPlanner, pathname);
+  const isDarkMode = useDarkModeStore((store) => store.isDarkMode);
 
   return !isPlanner || isDarkMode;
 };
 
-export function DarkModeProvider({ children }: { children: React.ReactNode }) {
+export function DarkModeBodyProvider({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   const isDarkMode = useIsDarkMode();
   return (
-    <div
+    <body
       className={cn(
-        isDarkMode ? "dark bg-zinc-900" : "bg-zinc-100",
-        "m-0 p-0 w-full h-full"
+        isDarkMode
+          ? "dark bg-zinc-900 text-zinc-100"
+          : "bg-zinc-100 text-zinc-900",
+        "m-0 p-0 w-full h-full min-h-screen",
+        className
       )}
     >
       {children}
-    </div>
+    </body>
   );
 }

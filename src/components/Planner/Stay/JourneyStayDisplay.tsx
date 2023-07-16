@@ -54,7 +54,7 @@ function JourneyStayDisplay({
           <div className="flex items-center text-zinc-600 w-full">
             <CardHeader className="w-full">
               <div className="flex lg:justify-between gap-2 xl:items-center ">
-                <CardTitle className="dark:text-zinc-400 text-zinc-700 flex items-center font-bold text-lg">
+                <CardTitle className="dark:text-zinc-200 text-zinc-700 flex items-center font-bold text-lg">
                   <MapPin className="mr-2 " size={16} />
                   {stay.locationName ?? stay.location.name}
                 </CardTitle>

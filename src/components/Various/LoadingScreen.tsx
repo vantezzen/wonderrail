@@ -14,7 +14,7 @@ function LoadingScreen({ text }: { text?: string }) {
       />
 
       {text && (
-        <span className="text-zinc-600 text-sm font-medium">{text}</span>
+        <span className="text-zinc-400 text-sm font-medium">{text}</span>
       )}
     </div>
   );

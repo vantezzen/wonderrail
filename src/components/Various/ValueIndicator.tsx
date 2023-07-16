@@ -21,8 +21,8 @@ function ValueIndicator({
   postfix?: string;
 }) {
   return (
-    <div className="relative mt-3">
-      <div className="flex justify-between items-center text-zinc-600 text-sm font-bold">
+    <div className="relative my-3">
+      <div className="flex justify-between items-center text-zinc-500 text-sm font-bold">
         <div>
           {steps.low}
           {postfix}
