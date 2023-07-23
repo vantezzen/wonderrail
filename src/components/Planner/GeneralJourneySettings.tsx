@@ -35,7 +35,7 @@ function GeneralJourneySettings() {
   }, [planner.journey.name]);
 
   return (
-    <div>
+    <div id="planner-general-settings">
       <Card>
         <Collapsible
           open={generalSettingsOpen}

@@ -25,5 +25,4 @@ Backlog:
 - highlight reservation free alternatives
 - clearer option on who actually runs the train you are looking at
 
-- Better flow when creating new journey
 - Better findability for calendar and todo list

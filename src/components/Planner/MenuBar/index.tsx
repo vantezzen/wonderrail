@@ -217,7 +217,7 @@ function MenuBar() {
   }, [shortcuts, actions]);
 
   return (
-    <div className="p-3">
+    <div className="p-3" id="planner-menubar">
       {isLoading && <LoadingToast title="Saving journey" />}
 
       <Menubar>
@@ -267,7 +267,9 @@ function MenuBar() {
         </MenubarMenu>
 
         <MenubarMenu>
-          <MenubarTrigger>Itinerary</MenubarTrigger>
+          <MenubarTrigger id="planner-menubar-itinerary">
+            Itinerary
+          </MenubarTrigger>
           <MenubarContent>
             <MenubarItem onClick={actions.itinerary.addLocation}>
               <Plus size={12} className="mr-2" />

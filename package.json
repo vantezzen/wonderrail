@@ -75,6 +75,7 @@
     "react-hook-form": "^7.45.0",
     "react-map-gl": "^7.0.25",
     "react-minimal-pie-chart": "^8.4.0",
+    "react-shepherd": "^4.2.0",
     "react-wrap-balancer": "^1.0.0",
     "recharts": "^2.7.2",
     "tailwind-merge": "^1.13.2",

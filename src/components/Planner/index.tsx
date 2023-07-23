@@ -23,6 +23,7 @@ import MobileStatusModal from "./Modals/MobileStatusModal";
 import PassEditor from "./Pass/PassEditor";
 import TodoList from "./Modals/TodoList";
 import ReoderStaysModal from "./Modals/ReorderStaysModal";
+import TourProvider from "./TourProvider";
 
 function PlannerComponent({ journey }: { journey: Journey }) {
   const plannerStore = usePlannerStore();
@@ -58,68 +59,71 @@ function PlannerComponent({ journey }: { journey: Journey }) {
   console.log(planner.journey);
 
   return (
-    <div className="dark:bg-zinc-900 bg-zinc-100">
-      {planner.isLoading && <JourneyLoading />}
-      <WelcomePopup />
-      <AiPopup />
+    <TourProvider>
+      <div className="dark:bg-zinc-900 bg-zinc-100">
+        {planner.isLoading && <JourneyLoading />}
+        <WelcomePopup />
+        <AiPopup />
 
-      <CalendarView />
-      <MobileMapModal />
-      <MobileStatusModal />
-      <TodoList />
-      <ReoderStaysModal />
+        <CalendarView />
+        <MobileMapModal />
+        <MobileStatusModal />
+        <TodoList />
+        <ReoderStaysModal />
 
-      <MenuBar />
+        <MenuBar />
 
-      <div
-        className="grid lg:grid-cols-2 xl:grid-cols-3 w-screen"
-        style={{
-          height: "calc(100vh - 4rem)",
-        }}
-      >
-        <div className="xl:col-span-2 relative hidden md:block">
-          <PlannerMap />
-          <StatusBar />
-        </div>
         <div
-          className="p-6 pt-0 dark:bg-zinc-900 bg-zinc-100 h-full lg:overflow-y-auto"
-          suppressHydrationWarning
+          className="grid lg:grid-cols-2 xl:grid-cols-3 w-screen"
+          style={{
+            height: "calc(100vh - 4rem)",
+          }}
         >
-          <GeneralJourneySettings />
-          <PassEditor />
+          <div className="xl:col-span-2 relative hidden md:block">
+            <PlannerMap />
+            <StatusBar />
+          </div>
+          <div
+            className="p-6 pt-0 dark:bg-zinc-900 bg-zinc-100 h-full lg:overflow-y-auto"
+            suppressHydrationWarning
+            id="planner-right-side"
+          >
+            <GeneralJourneySettings />
+            <PassEditor />
 
-          <Heading className="mt-6 flex gap-3 items-center">
-            <CalendarRange size={20} />
-            Itinerary
-          </Heading>
-          <JourneySteps />
+            <Heading className="mt-6 flex gap-3 items-center">
+              <CalendarRange size={20} />
+              Itinerary
+            </Heading>
+            <JourneySteps />
 
-          {planner.isLoading && (
-            <Alert className="mt-3">
-              <Loader2 className="mr-2 animate-spin" size={16} />
-              <AlertTitle>Your journey being planned</AlertTitle>
-              <AlertDescription>
-                We are currently planning your journey in the background. During
-                this, information shown might be inaccurate. You can still
-                continue editing your journey.
-              </AlertDescription>
-            </Alert>
-          )}
+            {planner.isLoading && (
+              <Alert className="mt-3">
+                <Loader2 className="mr-2 animate-spin" size={16} />
+                <AlertTitle>Your journey being planned</AlertTitle>
+                <AlertDescription>
+                  We are currently planning your journey in the background.
+                  During this, information shown might be inaccurate. You can
+                  still continue editing your journey.
+                </AlertDescription>
+              </Alert>
+            )}
 
-          {planner.journey.steps.length === 0 && (
-            <div className="mt-6 text-center">
-              <h3 className="font-medium text-zinc-400">No stops yet</h3>
-              <p className="text-zinc-500 font-medium text-sm">
-                Add your first stop by clicking the button below or choosing a
-                city on the map.
-              </p>
-            </div>
-          )}
+            {planner.journey.steps.length === 0 && (
+              <div className="mt-6 text-center">
+                <h3 className="font-medium text-zinc-400">No stops yet</h3>
+                <p className="text-zinc-500 font-medium text-sm">
+                  Add your first stop by clicking the button below or choosing a
+                  city on the map.
+                </p>
+              </div>
+            )}
 
-          {!isReadOnly && <AddLocationModal />}
+            {!isReadOnly && <AddLocationModal />}
+          </div>
         </div>
       </div>
-    </div>
+    </TourProvider>
   );
 }
 

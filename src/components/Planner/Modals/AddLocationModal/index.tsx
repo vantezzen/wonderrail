@@ -45,6 +45,8 @@ function AddLocationModal() {
       });
   }, [search]);
 
+  const hasNoLocations = planner.journey.steps.length === 0;
+
   return (
     <>
       <div className="relative mt-6">
@@ -55,12 +57,13 @@ function AddLocationModal() {
           }}
           variant="secondary"
           className="w-full relative z-10"
+          id="planner-add-location-button"
         >
           <Plus size={16} className="mr-2" />
           Add location
         </Button>
 
-        {planner.journey.steps.length === 0 && (
+        {hasNoLocations && (
           <span className="animate-ping-sm absolute inline-flex h-full w-full inset-0 rounded-lg bg-orange-200 opacity-75"></span>
         )}
       </div>
@@ -72,11 +75,16 @@ function AddLocationModal() {
           setBeforeLocation(null);
         }}
       >
-        {planner.journey.steps.length === 0 && (
+        {hasNoLocations && (
           <div className="p-5 text-center">
             <h3 className="text-xl font-medium">Welcome to WonderRail!</h3>
             <p className="text-zinc-500 font-medium">
-              Start by adding the location you want to start from
+              Start by adding the location you want to start from.
+              <br />
+              <span className="text-sm">
+                If you live outside of Europe, choose the city you will arrive
+                in first.
+              </span>
             </p>
           </div>
         )}
@@ -88,7 +96,7 @@ function AddLocationModal() {
         {isLoadingLocations && (
           <Loader2 className="animate-spin my-6 mx-auto" size={32} />
         )}
-        {searchRaw.length === 0 && <CategoriesSelector />}
+        {searchRaw.length === 0 && !hasNoLocations && <CategoriesSelector />}
 
         <CommandList>
           {interrailLocations.length > 0 && searchRaw.length > 0 && (

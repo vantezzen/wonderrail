@@ -43,7 +43,7 @@ function PassEditor() {
   }
 
   return (
-    <div className="mt-3">
+    <div className="mt-3" id="planner-pass-editor">
       <Card>
         <Collapsible open={open} onOpenChange={setOpen}>
           <CollapsibleTrigger asChild>

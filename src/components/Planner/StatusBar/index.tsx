@@ -24,7 +24,10 @@ function StatusBar() {
   if (!showStatusBar) return null;
 
   return (
-    <div className="w-full py-3 px-12 dark:bg-zinc-900 bg-zinc-100 lg:absolute bottom-0 left-0 flex flex-col lg:flex-row gap-3 lg:gap-6 xl:gap-12 overflow-x-hidden">
+    <div
+      className="w-full py-3 px-12 dark:bg-zinc-900 bg-zinc-100 lg:absolute bottom-0 left-0 flex flex-col lg:flex-row gap-3 lg:gap-6 xl:gap-12 overflow-x-hidden"
+      id="planner-status-bar"
+    >
       <PriceDetailsPopover planner={planner} />
 
       <StatusBarDivider />

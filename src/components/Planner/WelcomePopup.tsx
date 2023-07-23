@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -11,12 +11,14 @@ import usePlannerStore from "./plannerStore";
 import Image from "next/image";
 import logoImage from "@/assets/logo.png";
 import { trackEvent } from "@/lib/analytics";
+import { ShepherdTourContext } from "react-shepherd";
 
 function WelcomePopup() {
   const isOpen = usePlannerStore((state) => state.popups.welcome);
   const updatePopupState = usePlannerStore((state) => state.setPopupState);
   const setIsWelcomePopupOpen = (open: boolean) =>
     updatePopupState("welcome", open);
+  const tour = useContext(ShepherdTourContext);
 
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsWelcomePopupOpen}>
@@ -46,9 +48,19 @@ function WelcomePopup() {
           <Button
             onClick={() => {
               setIsWelcomePopupOpen(false);
+              tour?.start();
+            }}
+          >
+            Give me a quick tour
+          </Button>
+
+          <Button
+            onClick={() => {
+              setIsWelcomePopupOpen(false);
               updatePopupState("addLocation", true);
               trackEvent("welcome_popup_start_planning_button_click");
             }}
+            variant="secondary"
           >
             Start planning
           </Button>
