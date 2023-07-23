@@ -24,3 +24,6 @@ Backlog:
 - "include optional reservations for more than N hour long trains" button
 - highlight reservation free alternatives
 - clearer option on who actually runs the train you are looking at
+
+- Bug: Shortcuts should prevent default
+- Improve reordering items

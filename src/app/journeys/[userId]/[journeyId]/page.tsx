@@ -11,7 +11,7 @@ function JourneyPage({
 }: {
   params: { userId: string; journeyId: string };
 }) {
-  const userIdState = useJourneyIdStore((state) => state.userId);
+  const journeyIdState = useJourneyIdStore((state) => state.journeyId);
   const setIds = useJourneyIdStore((state) => state.setIds);
   const [journey, setJourney] = React.useState<Journey>();
   React.useEffect(() => {
@@ -23,8 +23,8 @@ function JourneyPage({
     });
   }, [userId, journeyId]);
 
-  if (!userIdState) {
-    return <LoadingScreen text="Loading user" />;
+  if (!journeyIdState) {
+    return <LoadingScreen text="Updating interface" />;
   }
 
   if (!journey) {
