@@ -11,7 +11,7 @@ import {
 import data from "@/data/categories.json";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import RatingPills from "./RatingPills";
-import usePlannerStore from "../plannerStore";
+import usePlannerStore from "../../plannerStore";
 import { trackEvent } from "@/lib/analytics";
 
 const categories = Object.keys(data);

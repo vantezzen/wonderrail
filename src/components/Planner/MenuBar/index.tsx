@@ -141,6 +141,10 @@ function MenuBar() {
           trackEvent("menubar_show_todo");
           plannerStore.setView("showTodoList", true);
         },
+        showReorderStays: () => {
+          trackEvent("menubar_show_reorder_stays");
+          plannerStore.setView("showReorderStays", true);
+        },
       },
       view: {
         toggleStatusBar: () => {
@@ -247,6 +251,9 @@ function MenuBar() {
           <MenubarContent>
             <MenubarItem onClick={actions.itinerary.addLocation}>
               New stop <MenubarShortcut>⌘K</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem onClick={actions.itinerary.showReorderStays}>
+              Reorder locations
             </MenubarItem>
             <MenubarItem onClick={actions.itinerary.updateAllHostelPrices}>
               Update all hostel prices

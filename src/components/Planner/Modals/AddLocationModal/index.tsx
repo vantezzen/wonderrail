@@ -5,12 +5,12 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "../../ui/command";
-import { Button } from "../../ui/button";
+} from "../../../ui/command";
+import { Button } from "../../../ui/button";
 import { Loader2, Plus } from "lucide-react";
 import { InterrailLocation } from "@/lib/types";
 import { useDebounce } from "use-debounce";
-import usePlannerStore from "../plannerStore";
+import usePlannerStore from "../../plannerStore";
 import CategoriesSelector from "./CategoriesSelector";
 import { trackEvent } from "@/lib/analytics";
 

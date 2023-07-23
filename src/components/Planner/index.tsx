@@ -5,7 +5,7 @@ import Heading from "../Various/Heading";
 import JourneySteps from "./Steps/JourneySteps";
 import { Journey } from "@/lib/types";
 import Planner from "@/lib/Journey/Planner";
-import AddLocationModal from "./AddLocationModal";
+import AddLocationModal from "./Modals/AddLocationModal";
 import JourneyLoading from "./JourneyLoading";
 import GeneralJourneySettings from "./GeneralJourneySettings";
 import StatusBar from "./StatusBar";
@@ -22,6 +22,7 @@ import MobileMapModal from "./Modals/MobileMapModal";
 import MobileStatusModal from "./Modals/MobileStatusModal";
 import PassEditor from "./Pass/PassEditor";
 import TodoList from "./Modals/TodoList";
+import ReoderStaysModal from "./Modals/ReorderStaysModal";
 
 function PlannerComponent({ journey }: { journey: Journey }) {
   const plannerStore = usePlannerStore();
@@ -66,6 +67,7 @@ function PlannerComponent({ journey }: { journey: Journey }) {
       <MobileMapModal />
       <MobileStatusModal />
       <TodoList />
+      <ReoderStaysModal />
 
       <MenuBar />
 
