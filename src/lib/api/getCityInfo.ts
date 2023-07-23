@@ -16,7 +16,7 @@ export default async function getCityInfo(name: string) {
   const geocode = await geocoder.geocode({
     // @ts-ignore
     q: name,
-    limit: 1,
+    limit: 10,
   });
 
   if (geocode.length === 0) {
