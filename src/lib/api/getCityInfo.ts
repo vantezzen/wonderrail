@@ -23,7 +23,8 @@ export default async function getCityInfo(name: string) {
     return null;
   }
 
-  const location = geocode[0];
+  const location =
+    geocode.find((location) => location.country && location.city) || geocode[0];
   return {
     name: `${location.city}, ${location.country}`,
     countryCode: location.countryCode,
