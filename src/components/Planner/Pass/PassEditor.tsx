@@ -17,7 +17,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { ChevronsUpDown } from "lucide-react";
+import { ChevronsUpDown, Ticket } from "lucide-react";
 import { InterrailPass } from "@/lib/types";
 import CountrySelector from "./CountrySelector";
 import InputDescription from "@/components/Various/InputDescription";
@@ -49,7 +49,10 @@ function PassEditor() {
           <CollapsibleTrigger asChild>
             <CardHeader className="w-full">
               <CardTitle className="flex items-center justify-between text-lg">
-                My Interrail Pass
+                <div className="flex items-center">
+                  <Ticket size={20} className="mr-3" />
+                  My Interrail Pass
+                </div>
                 <ChevronsUpDown size={16} />
               </CardTitle>
             </CardHeader>

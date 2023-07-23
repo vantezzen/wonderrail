@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, UploadCloud } from "lucide-react";
 
 function ImportJsonMenu({
   onImport,
@@ -27,6 +27,7 @@ function ImportJsonMenu({
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <MenubarItem onSelect={(e) => e.preventDefault()}>
+          <UploadCloud size={12} className="mr-2" />
           Import journey from file
         </MenubarItem>
       </DialogTrigger>

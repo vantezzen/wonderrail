@@ -22,7 +22,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { ChevronsUpDown } from "lucide-react";
+import { ChevronsUpDown, Cog } from "lucide-react";
 
 function GeneralJourneySettings() {
   const planner = usePlannerStore((state) => state.planner);
@@ -44,7 +44,10 @@ function GeneralJourneySettings() {
           <CollapsibleTrigger asChild>
             <CardHeader className="w-full">
               <CardTitle className="flex items-center justify-between text-lg">
-                General settings
+                <div className="flex items-center">
+                  <Cog size={20} className="mr-3" />
+                  General settings
+                </div>
                 <ChevronsUpDown size={16} />
               </CardTitle>
             </CardHeader>

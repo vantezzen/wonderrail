@@ -18,7 +18,21 @@ import useSaveActionStatus, {
 import { useRouter } from "next/navigation";
 import Storage from "@/lib/Journey/Storage";
 import ShortcutManager from "@/lib/Journey/ShortcutManager";
-import { Check, Moon, Sun } from "lucide-react";
+import {
+  Calendar,
+  ClipboardList,
+  DownloadCloud,
+  Home,
+  IterationCcw,
+  Moon,
+  PanelBottomInactive,
+  PanelBottomOpen,
+  Plus,
+  Save,
+  Share,
+  Shuffle,
+  Sun,
+} from "lucide-react";
 import { getFileContents } from "@/lib/utils/file";
 import { useToast } from "@/components/ui/use-toast";
 import ImportJsonMenu from "./ImportJsonMenu";
@@ -214,6 +228,7 @@ function MenuBar() {
               disabled={saveStatus === SaveActionStatus.READ_ONLY}
               onSelect={() => actions.file.save()}
             >
+              <Save size={12} className="mr-2" />
               {saveStatus === SaveActionStatus.READ_ONLY && "Save"}
               {saveStatus === SaveActionStatus.NEW && "Create Journey"}
               {saveStatus === SaveActionStatus.SAVE && "Save"}
@@ -228,12 +243,14 @@ function MenuBar() {
                 isPublic={isPublic}
               >
                 <MenubarItem onSelect={(e) => e.preventDefault()}>
+                  <Share size={12} className="mr-2" />
                   Share
                 </MenubarItem>
               </SharePopup>
             )}
             <MenubarSeparator />
             <MenubarItem onSelect={() => actions.file.exportJson()}>
+              <DownloadCloud size={12} className="mr-2" />
               Export journey as file
             </MenubarItem>
             {saveStatus !== SaveActionStatus.READ_ONLY && (
@@ -241,7 +258,10 @@ function MenuBar() {
             )}
             <MenubarSeparator />
             <Link href="/app">
-              <MenubarItem>Back to dashboard</MenubarItem>
+              <MenubarItem>
+                <Home size={12} className="mr-2" />
+                Back to dashboard
+              </MenubarItem>
             </Link>
           </MenubarContent>
         </MenubarMenu>
@@ -250,16 +270,20 @@ function MenuBar() {
           <MenubarTrigger>Itinerary</MenubarTrigger>
           <MenubarContent>
             <MenubarItem onClick={actions.itinerary.addLocation}>
+              <Plus size={12} className="mr-2" />
               New stop <MenubarShortcut>⌘K</MenubarShortcut>
             </MenubarItem>
             <MenubarItem onClick={actions.itinerary.showReorderStays}>
+              <Shuffle size={12} className="mr-2" />
               Reorder locations
             </MenubarItem>
             <MenubarItem onClick={actions.itinerary.updateAllHostelPrices}>
+              <IterationCcw size={12} className="mr-2" />
               Update all hostel prices
             </MenubarItem>
             <MenubarItem onClick={actions.itinerary.showTodo}>
-              Show ToDo-list
+              <ClipboardList size={12} className="mr-2" />
+              Show Todo-list
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
@@ -272,13 +296,14 @@ function MenuBar() {
               className="hidden md:flex"
             >
               {plannerStore.view.showStatusBar ? (
-                <Check size={12} className="mr-2" />
+                <PanelBottomOpen size={12} className="mr-2" />
               ) : (
-                ""
+                <PanelBottomInactive size={12} className="mr-2" />
               )}
               Show status bar <MenubarShortcut>⌘⇧G</MenubarShortcut>
             </MenubarItem>
             <MenubarItem onClick={actions.view.showCalendar}>
+              <Calendar size={12} className="mr-2" />
               Show calendar
             </MenubarItem>
             <MenubarItem

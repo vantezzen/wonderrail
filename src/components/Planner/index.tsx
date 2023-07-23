@@ -16,7 +16,7 @@ import usePlannerStore from "./plannerStore";
 import LoadingScreen from "../Various/LoadingScreen";
 import MenuBar from "./MenuBar";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
-import { Loader2 } from "lucide-react";
+import { CalendarRange, Loader2 } from "lucide-react";
 import CalendarView from "./Modals/CalendarView";
 import MobileMapModal from "./Modals/MobileMapModal";
 import MobileStatusModal from "./Modals/MobileStatusModal";
@@ -88,7 +88,10 @@ function PlannerComponent({ journey }: { journey: Journey }) {
           <GeneralJourneySettings />
           <PassEditor />
 
-          <Heading className="mt-6">Itinerary</Heading>
+          <Heading className="mt-6 flex gap-3 items-center">
+            <CalendarRange size={20} />
+            Itinerary
+          </Heading>
           <JourneySteps />
 
           {planner.isLoading && (
