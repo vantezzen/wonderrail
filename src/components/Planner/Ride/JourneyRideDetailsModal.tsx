@@ -19,6 +19,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import usePlannerStore from "../plannerStore";
 import { trackEvent, useTrackEvent } from "@/lib/analytics";
+import LayoverChecker from "@/lib/Journey/LayoverChecker";
 
 function JourneyRideDetailsModal({
   ride,
@@ -31,6 +32,9 @@ function JourneyRideDetailsModal({
 }) {
   const planner = usePlannerStore((state) => state.planner);
   useTrackEvent("planner_open_ride_details", open);
+
+  const [layoverChecker] = React.useState(() => new LayoverChecker());
+  const alerts = layoverChecker.checkRide(ride);
 
   return (
     <Dialog open={open} onOpenChange={setIsOpen}>
@@ -57,7 +61,7 @@ function JourneyRideDetailsModal({
           {ride.details?.legs.map((leg) => (
             <div className="py-2" key={leg.id}>
               <hr className="pb-4" />
-              <JourneyRideLeg leg={leg} />
+              <JourneyRideLeg leg={leg} alerts={alerts} />
             </div>
           ))}
         </ScrollArea>

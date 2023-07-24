@@ -20,7 +20,7 @@ function CurrencyInformation({ stay }: { stay: JourneyStay }) {
     <div className="mt-3">
       <Separator className="my-3" />
       <div className="">
-        <p className="text-zinc-500 text-sm">
+        <p className="dark:text-zinc-400 text-zinc-600 text-sm">
           The currency in {country?.name} is{" "}
           <span className="font-bold">
             {currency.currencyName} ({currency.currencyCode})

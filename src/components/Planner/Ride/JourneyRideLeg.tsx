@@ -1,6 +1,17 @@
+import { LayoverType, LayoversAlert } from "@/lib/Journey/LayoverChecker";
 import { InterrailTimetableLeg } from "@/lib/types";
 import { lookup } from "@/lib/utils/number";
-import { ArrowRight, Bus, Dot, ReplaceAll, School2, Train } from "lucide-react";
+import {
+  ArrowRight,
+  Bus,
+  Clock1,
+  Clock8,
+  Dot,
+  MoonStar,
+  ReplaceAll,
+  School2,
+  Train,
+} from "lucide-react";
 import React from "react";
 
 const statusTexts = {
@@ -12,8 +23,45 @@ const statusTexts = {
   OUTDATED: "Train already left",
 };
 
-function JourneyRideLeg({ leg }: { leg: InterrailTimetableLeg }) {
+function JourneyRideLeg({
+  leg,
+  alerts,
+}: {
+  leg: InterrailTimetableLeg;
+  alerts: LayoversAlert[];
+}) {
   const legType = leg.type;
+  const legAlerts = (
+    <>
+      {alerts
+        .filter((alert) => alert.leg.id === leg.id)
+        .map((alert) => (
+          <div
+            className="flex gap-2 items-center text-red-500"
+            key={alert.leg.id}
+          >
+            {alert.type === LayoverType.OvernightLayover && (
+              <>
+                <MoonStar size={16} />
+                You have an overnight layover here.
+              </>
+            )}
+            {alert.type === LayoverType.LongLayovers && (
+              <>
+                <Clock8 size={16} />
+                You have a long layover here.
+              </>
+            )}
+            {alert.type === LayoverType.ShortLayovers && (
+              <>
+                <Clock1 size={16} />
+                You have a short layover here.
+              </>
+            )}
+          </div>
+        ))}
+    </>
+  );
 
   if (legType === "PLATFORM_CHANGE") {
     return (
@@ -24,6 +72,7 @@ function JourneyRideLeg({ leg }: { leg: InterrailTimetableLeg }) {
             Change platform ({leg.duration.hours}h {leg.duration.minutes}m)
           </div>
         </div>
+        {legAlerts}
       </div>
     );
   }
@@ -36,6 +85,7 @@ function JourneyRideLeg({ leg }: { leg: InterrailTimetableLeg }) {
             Change station ({leg.duration.hours}h {leg.duration.minutes}m)
           </div>
         </div>
+        {legAlerts}
       </div>
     );
   }
@@ -49,6 +99,7 @@ function JourneyRideLeg({ leg }: { leg: InterrailTimetableLeg }) {
             {leg.duration.minutes}m)
           </div>
         </div>
+        {legAlerts}
       </div>
     );
   }

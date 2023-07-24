@@ -8,6 +8,7 @@ import { JourneyRide } from "@/lib/types";
 import JourneyRideBadge from "./JourneyRideBadge";
 import { FileCheck, Receipt, ReplaceAll, Ticket } from "lucide-react";
 import { lookup } from "@/lib/utils/number";
+import JourneyRideLayoversCheck from "./JourneyRideLayoversCheck";
 
 function JourneyRideBadges({ ride }: { ride: JourneyRide }) {
   return (
@@ -75,6 +76,7 @@ function JourneyRideBadges({ ride }: { ride: JourneyRide }) {
           </TooltipContent>
         </Tooltip>
       )}
+      <JourneyRideLayoversCheck ride={ride} />
     </>
   );
 }

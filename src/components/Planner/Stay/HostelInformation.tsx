@@ -19,13 +19,9 @@ function HostelInformation({ stay }: { stay: JourneyStay }) {
       <div className="flex gap-3 flex-col">
         <div className="">
           <p className="dark:text-zinc-400 text-zinc-600 text-sm">
-            Hostels cost{" "}
+            Hostels start at{" "}
             <span className="font-bold">
               {stay.hostels.lowestPricePerNight}€
-            </span>{" "}
-            to{" "}
-            <span className="font-bold">
-              {stay.hostels.highestPricePerNight}€
             </span>{" "}
             per night.
           </p>

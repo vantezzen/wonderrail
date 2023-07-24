@@ -26,3 +26,11 @@ Backlog:
 - clearer option on who actually runs the train you are looking at
 
 - Better findability for calendar and todo list
+- Info about long layovers
+  - "You will spend a night in X", "You will stay in X for 8 hours"
+- Make sure travel days get calculated correctly
+- For long train rides:
+  - Recommend splitting trip and staying somewhere in between
+  - Recommend looking at buying a separate train instead or flying
+- Check if the train station is far away from city center
+- Night train support?
