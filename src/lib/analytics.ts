@@ -1,5 +1,7 @@
 "use client";
+import { logEvent } from "firebase/analytics";
 import { useEffect } from "react";
+import { firebaseAnalytics } from "./firebase/clientApp";
 
 export function trackEvent(name: string) {
   if (typeof window !== "undefined" && window.sa_event) {
@@ -9,6 +11,7 @@ export function trackEvent(name: string) {
       console.error(e);
     }
   }
+  logEvent(firebaseAnalytics, name);
 }
 
 export function useTrackEvent(name: string, track = true) {
