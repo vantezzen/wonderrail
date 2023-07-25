@@ -10,8 +10,8 @@ export function trackEvent(name: string) {
     } catch (e) {
       console.error(e);
     }
+    logEvent(firebaseAnalytics!, name);
   }
-  logEvent(firebaseAnalytics, name);
 }
 
 export function useTrackEvent(name: string, track = true) {

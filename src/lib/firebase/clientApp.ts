@@ -8,7 +8,7 @@ import {
 } from "firebase/firestore";
 import { getPerformance } from "firebase/performance";
 import { getFunctions } from "firebase/functions";
-import { getAnalytics } from "firebase/analytics";
+import { Analytics, getAnalytics } from "firebase/analytics";
 
 export const clientCredentials = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -22,7 +22,6 @@ export const clientCredentials = {
 
 const firebaseApp = initializeApp(clientCredentials);
 export const firebaseAuth = getAuth(firebaseApp);
-export const firebaseAnalytics = getAnalytics(firebaseApp);
 
 const firebaseFunctions = getFunctions(firebaseApp, "europe-west3");
 export { firebaseFunctions };
@@ -33,9 +32,12 @@ initializeFirestore(firebaseApp, {
   }),
 });
 const firestore = getFirestore(firebaseApp);
+
+let firebaseAnalytics: Analytics | null = null;
 if (typeof window !== "undefined") {
   getPerformance(firebaseApp);
+  firebaseAnalytics = getAnalytics(firebaseApp);
 }
-export { firestore };
+export { firestore, firebaseAnalytics };
 
 export default firebaseApp;
