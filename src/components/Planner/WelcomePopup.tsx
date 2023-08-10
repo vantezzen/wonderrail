@@ -29,9 +29,9 @@ function WelcomePopup() {
             alt="logo"
             width={100}
             height={100}
-            className="mb-6"
+            className="mb-6 bg-zinc-900 p-3 rounded"
           />
-          <AlertDialogTitle className="text-zinc-300">
+          <AlertDialogTitle className="dark:text-zinc-300">
             Welcome to WonderRail!
           </AlertDialogTitle>
           <AlertDialogDescription>
