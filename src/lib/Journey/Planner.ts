@@ -169,6 +169,7 @@ export default class Planner extends EventEmitter {
       location,
       locationName: cityInfo.name,
       countryCode: cityInfo.countryCode,
+      cityCenterCoordinates: cityInfo.cityCenterCoordinates,
       timerange: timerange ?? {
         start: travelEndTime,
         end: endDate,

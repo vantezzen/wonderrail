@@ -1,3 +1,4 @@
+import CityCenterCoordinateMigration from "./Migrations/CityCenterCoordinateMigration";
 import CountryCodeMigration from "./Migrations/CountryCodeMigration";
 import HostelWeatherDataMigration from "./Migrations/HostelWeatherDataMigration";
 import Planner from "./Planner";
@@ -9,6 +10,7 @@ export default class MigrationManager {
   static migrations = [
     new HostelWeatherDataMigration(),
     new CountryCodeMigration(),
+    new CityCenterCoordinateMigration(),
   ];
 
   async migrate(planner: Planner) {

@@ -5,9 +5,13 @@ export function deg2rad(deg: number) {
 }
 
 export function getDistanceFromLatLonInKm(
-  coordinates1: Coordinate,
-  coordinates2: Coordinate
+  coordinates1?: Coordinate,
+  coordinates2?: Coordinate
 ) {
+  if (!coordinates1 || !coordinates2) {
+    return 0;
+  }
+
   const R = 6371; // Radius of the earth in km
   const dLat = deg2rad(coordinates2.lat - coordinates1.lat); // deg2rad below
   const dLon = deg2rad(coordinates2.lng - coordinates1.lng);

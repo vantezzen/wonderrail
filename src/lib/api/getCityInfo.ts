@@ -25,8 +25,23 @@ export default async function getCityInfo(name: string) {
 
   const location =
     geocode.find((location) => location.country && location.city) || geocode[0];
+  const cityName = `${location.city}, ${location.country}`;
+
+  const cityCenterGeocode = await geocoder.geocode({
+    // @ts-ignore
+    q: cityName,
+    limit: 10,
+  });
+  const cityCenter =
+    cityCenterGeocode.find((location) => location.country && location.city) ||
+    cityCenterGeocode[0];
+
   return {
-    name: `${location.city}, ${location.country}`,
+    name: cityName,
     countryCode: location.countryCode,
+    cityCenterCoordinates: {
+      lat: cityCenter.latitude,
+      lng: cityCenter.longitude,
+    },
   };
 }
