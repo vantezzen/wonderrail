@@ -31,10 +31,14 @@ function ReorderStaysList() {
         onDragEnd={(result) => {
           setIsDragging(false);
           if (!result.destination) return;
-          planner.moveStayPosition(
-            result.source.index,
-            result.destination.index
+
+          const stayIndex = planner.journey.steps.findIndex(
+            (step) => step.id === result.draggableId
           );
+          // Destination index includes journeys and stays
+          const destinationIndex = result.destination.index * 2 - 1;
+
+          planner.moveStayPosition(stayIndex, destinationIndex);
         }}
       >
         <Droppable
@@ -61,7 +65,7 @@ function ReorderStaysList() {
               {stays.map((step, index) => (
                 <Draggable
                   key={step.id}
-                  draggableId={step.type + step.id}
+                  draggableId={step.id}
                   index={index}
                   isDragDisabled={isReadOnly || step.type !== "stay"}
                 >
