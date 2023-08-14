@@ -1,12 +1,4 @@
-import Image from "next/image";
 import React from "react";
-import Highlight from "./Elements/Highlight";
-import itineraryImage from "@/assets/landing/itinerary.png";
-import timetableImage from "@/assets/landing/timetable.png";
-import priceChangesImage from "@/assets/landing/price-changes.png";
-import threedImage from "@/assets/landing/3d.png";
-import shareImage from "@/assets/landing/share.png";
-import notCoveredImage from "@/assets/landing/not-covered.png";
 
 function Video() {
   return (
