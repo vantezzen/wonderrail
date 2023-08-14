@@ -72,7 +72,7 @@ function JourneyRide({
             <Button
               variant="secondary"
               size="sm"
-              className="w-full md:w-auto"
+              className="w-fit"
               onClick={() => {
                 setContext({
                   type: "rideDetails",
@@ -81,7 +81,7 @@ function JourneyRide({
                 trackEvent("planner_set_context_ride_details");
               }}
             >
-              <Info size={16} />
+              <Info size={16} className="w-5 h-5" />
               <div className="md:hidden ml-2">Ride details</div>
             </Button>
           </TooltipTrigger>
@@ -93,7 +93,7 @@ function JourneyRide({
             <Button
               variant="secondary"
               size="sm"
-              className="w-full md:w-auto"
+              className="w-fit"
               disabled={isReadonly}
               onClick={() => {
                 addLocationBeforeThisRide?.();
@@ -113,12 +113,7 @@ function JourneyRide({
 
         <Tooltip>
           <TooltipTrigger>
-            <Button
-              variant="secondary"
-              size="sm"
-              asChild
-              className="w-full md:w-auto"
-            >
+            <Button variant="secondary" size="sm" asChild className="w-fit">
               <a
                 href={planner.interrail.getBookingUrl(ride)}
                 target="_blank"
