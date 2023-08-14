@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, CardDescription, CardHeader, CardTitle } from "../../ui/card";
 import { getTimerangeLengthToDaysInMs } from "@/lib/utils/date";
-import Planner from "@/lib/Journey/Planner";
 import { Calendar, MapPin, Trash } from "lucide-react";
 import { Button } from "../../ui/button";
 import { JourneyStay } from "@/lib/types";
@@ -30,6 +29,9 @@ function ContextSectionStay({ stayId }: { stayId: string }) {
   const days =
     getTimerangeLengthToDaysInMs(stay.timerange) / 1000 / 60 / 60 / 24;
   const [changedDays, setChangedDays] = React.useState(days);
+  useEffect(() => {
+    setChangedDays(days);
+  }, [days]);
 
   const isStartEndDateEqual =
     stay.timerange.start.toLocaleDateString() ===

@@ -1,6 +1,5 @@
-import LayoverChecker, { LayoverType } from "@/lib/Journey/LayoverChecker";
 import { JourneyRide, JourneyStay } from "@/lib/types";
-import { Clock8, Footprints, MoonStar } from "lucide-react";
+import { Footprints } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import JourneyRideBadge from "./JourneyRideBadge";
 import {
@@ -8,7 +7,6 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip";
-import { Clock1 } from "lucide-react";
 import usePlannerStore from "../plannerStore";
 import { getDistanceFromLatLonInKm } from "@/lib/utils/coordinates";
 

@@ -10,10 +10,15 @@ type ContextSectionGeneralSettings = {
   type: "generalSettings";
 };
 
+type ContextSectionPassEditor = {
+  type: "passEditor";
+};
+
 type ContextSectionState =
   | null
   | ContextSectionStay
-  | ContextSectionGeneralSettings;
+  | ContextSectionGeneralSettings
+  | ContextSectionPassEditor;
 
 interface ContextState {
   context: ContextSectionState;

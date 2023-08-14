@@ -7,7 +7,6 @@ import { Journey } from "@/lib/types";
 import Planner from "@/lib/Journey/Planner";
 import AddLocationModal from "./Modals/AddLocationModal";
 import JourneyLoading from "./JourneyLoading";
-import GeneralJourneySettings from "./GeneralJourneySettings";
 import StatusBar from "./StatusBar";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 import AiPopup from "./Ai";
@@ -20,11 +19,14 @@ import { CalendarRange, Loader2 } from "lucide-react";
 import CalendarView from "./Modals/CalendarView";
 import MobileMapModal from "./Modals/MobileMapModal";
 import MobileStatusModal from "./Modals/MobileStatusModal";
-import PassEditor from "./Pass/PassEditor";
 import TodoList from "./Modals/TodoList";
 import ReoderStaysModal from "./Modals/ReorderStaysModal";
 import TourProvider from "./TourProvider";
 import ContextSection from "./ContextSection";
+import useContextSectionStore from "./ContextSection/contextState";
+import { cn } from "@/lib/utils";
+import GeneralSettingsOpener from "./GeneralSettings/GeneralSettingsOpener";
+import PassEditorOpener from "./Pass/PassEditorOpener";
 
 function PlannerComponent({ journey }: { journey: Journey }) {
   const plannerStore = usePlannerStore();
@@ -36,6 +38,7 @@ function PlannerComponent({ journey }: { journey: Journey }) {
   const [hasShownWelcomePopup, setHasShownWelcomePopup] = React.useState(false);
   const [, forceUpdate] = React.useState({});
   const isReadOnly = useIsReadOnly();
+  const context = useContextSectionStore((store) => store.context);
 
   useEffect(() => {
     if (!planner) return;
@@ -75,22 +78,30 @@ function PlannerComponent({ journey }: { journey: Journey }) {
         <MenuBar />
 
         <div
-          className="grid lg:grid-cols-3 xl:grid-cols-4 w-screen"
+          className="grid lg:grid-cols-3 xl:grid-cols-3 w-screen"
           style={{
             height: "calc(100vh - 4rem)",
           }}
         >
-          <div className="xl:col-span-2 relative hidden md:block">
+          <div
+            className={cn(
+              "relative hidden md:block",
+              !context && "xl:col-span-2"
+            )}
+          >
             <PlannerMap />
             <StatusBar />
           </div>
           <div
-            className="p-6 pt-0 dark:bg-zinc-900 bg-zinc-100 h-full lg:overflow-y-auto"
+            className={cn(
+              "p-6 pt-0 dark:bg-zinc-900 bg-zinc-100 h-full lg:overflow-y-auto",
+              context && "hidden md:block"
+            )}
             suppressHydrationWarning
             id="planner-right-side"
           >
-            <GeneralJourneySettings />
-            <PassEditor />
+            <GeneralSettingsOpener />
+            <PassEditorOpener />
 
             <Heading className="mt-6 flex gap-3 items-center">
               <CalendarRange size={20} />
