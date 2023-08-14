@@ -24,6 +24,7 @@ import PassEditor from "./Pass/PassEditor";
 import TodoList from "./Modals/TodoList";
 import ReoderStaysModal from "./Modals/ReorderStaysModal";
 import TourProvider from "./TourProvider";
+import ContextSection from "./ContextSection";
 
 function PlannerComponent({ journey }: { journey: Journey }) {
   const plannerStore = usePlannerStore();
@@ -74,7 +75,7 @@ function PlannerComponent({ journey }: { journey: Journey }) {
         <MenuBar />
 
         <div
-          className="grid lg:grid-cols-2 xl:grid-cols-3 w-screen"
+          className="grid lg:grid-cols-3 xl:grid-cols-4 w-screen"
           style={{
             height: "calc(100vh - 4rem)",
           }}
@@ -120,6 +121,14 @@ function PlannerComponent({ journey }: { journey: Journey }) {
             )}
 
             {!isReadOnly && <AddLocationModal />}
+          </div>
+
+          <div
+            className="p-6 pt-0 dark:bg-zinc-900 bg-zinc-100 h-full lg:overflow-y-auto"
+            suppressHydrationWarning
+            id="planner-context"
+          >
+            <ContextSection />
           </div>
         </div>
       </div>
