@@ -2,6 +2,7 @@ import FinalCta from "@/components/Landing/FinalCta";
 import Hero from "@/components/Landing/Hero";
 import Highlights from "@/components/Landing/Highlights";
 import Navbar from "@/components/Landing/Navbar";
+import Video from "@/components/Landing/Video";
 import Footer from "@/components/Layout/Footer/Footer";
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
     >
       <Navbar />
       <Hero />
+      <Video />
       <Highlights />
       <FinalCta />
       <Footer />
