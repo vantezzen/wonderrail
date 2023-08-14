@@ -1,5 +1,6 @@
 import { LayoverType, LayoversAlert } from "@/lib/Journey/LayoverChecker";
 import { InterrailTimetableLeg } from "@/lib/types";
+import { formatDateTime, formatTime } from "@/lib/utils/date";
 import { lookup } from "@/lib/utils/number";
 import {
   ArrowRight,
@@ -26,10 +27,19 @@ const statusTexts = {
 function JourneyRideLeg({
   leg,
   alerts,
+  currentTime,
 }: {
   leg: InterrailTimetableLeg;
   alerts: LayoversAlert[];
+  currentTime: Date;
 }) {
+  const startTime = new Date(currentTime);
+  currentTime.setHours(currentTime.getHours() + leg.duration.hours);
+  currentTime.setMinutes(currentTime.getMinutes() + leg.duration.minutes);
+  const endTime = new Date(currentTime);
+  const isStartEndDateEqual =
+    startTime.toLocaleDateString() === endTime.toLocaleDateString();
+
   const legType = leg.type;
   const legAlerts = (
     <>
@@ -116,8 +126,24 @@ function JourneyRideLeg({
     <div key={leg.id} className="flex gap-4 text-zinc-500 items-center">
       <Train className="" size={16} />
       <div>
-        <div className="dark:text-zinc-200 text-zinc-600 font-medium flex gap-2 items-center">
+        <div className="dark:text-zinc-200 text-zinc-600 flex gap-2 items-center font-bold">
           {leg.start.station} <ArrowRight size={14} /> {leg.end.station}
+        </div>
+
+        <div className="flex gap-1 items-center font-medium">
+          {isStartEndDateEqual ? (
+            <>
+              {formatDateTime(startTime)}
+              <ArrowRight size={14} />
+              {formatTime(endTime)}
+            </>
+          ) : (
+            <>
+              {formatDateTime(startTime)}
+              <ArrowRight size={14} />
+              {formatDateTime(endTime)}
+            </>
+          )}
         </div>
 
         <div className="flex gap-1 items-center text-zinc-400">

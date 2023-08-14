@@ -14,11 +14,17 @@ type ContextSectionPassEditor = {
   type: "passEditor";
 };
 
+type ContextSectionRideDetails = {
+  type: "rideDetails";
+  rideId: string;
+};
+
 type ContextSectionState =
   | null
   | ContextSectionStay
   | ContextSectionGeneralSettings
-  | ContextSectionPassEditor;
+  | ContextSectionPassEditor
+  | ContextSectionRideDetails;
 
 interface ContextState {
   context: ContextSectionState;

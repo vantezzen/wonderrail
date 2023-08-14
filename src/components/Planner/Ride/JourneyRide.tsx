@@ -1,8 +1,7 @@
 import { JourneyRide } from "@/lib/types";
 import { durationBetween, formatDateTime, formatTime } from "@/lib/utils/date";
-import { ExternalLink, Plus, ShoppingCart, Train } from "lucide-react";
+import { ExternalLink, Info, Plus, ShoppingCart, Train } from "lucide-react";
 import React, { useState } from "react";
-import JourneyRideDetailsModal from "./JourneyRideDetailsModal";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -14,6 +13,7 @@ import usePlannerStore from "../plannerStore";
 import JourneyRideBadges from "./JourneyRideBadges";
 import AlternativeRideSelector from "../AlternativeRideSelector";
 import { trackEvent } from "@/lib/analytics";
+import useContextSectionStore from "../ContextSection/contextState";
 
 function JourneyRide({
   ride,
@@ -32,6 +32,8 @@ function JourneyRide({
   const isReadonly = useIsReadOnly();
 
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+
+  const setContext = useContextSectionStore((state) => state.setContext);
 
   return (
     <div className="flex xl:items-center gap-4 text-zinc-600 w-full flex-col xl:flex-row">
@@ -65,11 +67,26 @@ function JourneyRide({
       </div>
 
       <div className="grid grid-cols-2 gap-2">
-        <JourneyRideDetailsModal
-          ride={ride}
-          open={isDetailsOpen}
-          setIsOpen={setIsDetailsOpen}
-        />
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="secondary"
+              size="sm"
+              className="w-full md:w-auto"
+              onClick={() => {
+                setContext({
+                  type: "rideDetails",
+                  rideId: ride.id,
+                });
+                trackEvent("planner_set_context_ride_details");
+              }}
+            >
+              <Info size={16} />
+              <div className="md:hidden ml-2">Ride details</div>
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Ride details</TooltipContent>
+        </Tooltip>
 
         <Tooltip>
           <TooltipTrigger>

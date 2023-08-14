@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import GeneralJourneySettings from "../GeneralSettings/GeneralJourneySettings";
 import PassEditor from "../Pass/PassEditor";
+import JourneyRideDetails from "../Ride/JourneyRideDetails";
 
 function ContextSection() {
   const context = useContextSectionStore((state) => state.context);
@@ -16,6 +17,7 @@ function ContextSection() {
   if (context.type === "stay") title = "Stay";
   if (context.type === "generalSettings") title = "General Settings";
   if (context.type === "passEditor") title = "My Interrail Pass";
+  if (context.type === "rideDetails") title = "Ride details";
 
   return (
     <div className="w-full">
@@ -31,6 +33,9 @@ function ContextSection() {
       )}
       {context.type === "generalSettings" && <GeneralJourneySettings />}
       {context.type === "passEditor" && <PassEditor />}
+      {context.type === "rideDetails" && (
+        <JourneyRideDetails rideId={context.rideId} />
+      )}
     </div>
   );
 }

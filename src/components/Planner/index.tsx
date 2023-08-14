@@ -134,13 +134,15 @@ function PlannerComponent({ journey }: { journey: Journey }) {
             {!isReadOnly && <AddLocationModal />}
           </div>
 
-          <div
-            className="p-6 pt-0 dark:bg-zinc-900 bg-zinc-100 h-full lg:overflow-y-auto"
-            suppressHydrationWarning
-            id="planner-context"
-          >
-            <ContextSection />
-          </div>
+          {context && (
+            <div
+              className="p-6 pt-0 dark:bg-zinc-900 bg-zinc-100 h-full lg:overflow-y-auto"
+              suppressHydrationWarning
+              id="planner-context"
+            >
+              <ContextSection />
+            </div>
+          )}
         </div>
       </div>
     </TourProvider>
