@@ -11,6 +11,7 @@ import {
 import EventEmitter from "events";
 
 import eurailData from "@/data/eurail.json";
+import colors from "@/data/colors.js";
 
 import {
   getTimerangeLengthToDaysInDays,
@@ -340,5 +341,14 @@ export default class Planner extends EventEmitter {
         this.emit("change");
       }
     }
+  }
+
+  getStepColor(step: JourneyStep) {
+    const index =
+      this.journey.steps.findIndex(
+        (journeyStep) => "id" in journeyStep && journeyStep.id === step.id
+      ) || 0;
+
+    return colors[index % colors.length];
   }
 }

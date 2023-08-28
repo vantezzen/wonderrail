@@ -1,17 +1,9 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
-type ContextSectionStay = {
-  type: "stay";
+export type ContextSectionStandalonePages = {
+  type: "stay" | "generalSettings" | "passEditor" | "itinerary";
   stayId: string;
-};
-
-type ContextSectionGeneralSettings = {
-  type: "generalSettings";
-};
-
-type ContextSectionPassEditor = {
-  type: "passEditor";
 };
 
 type ContextSectionRideDetails = {
@@ -21,9 +13,7 @@ type ContextSectionRideDetails = {
 
 type ContextSectionState =
   | null
-  | ContextSectionStay
-  | ContextSectionGeneralSettings
-  | ContextSectionPassEditor
+  | ContextSectionStandalonePages
   | ContextSectionRideDetails;
 
 interface ContextState {

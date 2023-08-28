@@ -45,7 +45,7 @@ export function DarkModeBodyProvider({
   children: React.ReactNode;
   className?: string;
 }) {
-  const isDarkMode = useIsDarkMode();
+  const isDarkMode = false;
   return (
     <body
       className={cn(

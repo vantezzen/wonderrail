@@ -21,24 +21,22 @@ function StepProgressIndicator({ step }: { step: JourneyStep }) {
   return (
     <div
       className={cn(
-        "w-3 h-full absolute top-0 left-0 rounded-lg",
-        currentStepStatus === CurrentStepStatus.current &&
-          "dark:bg-zinc-700 bg-zinc-200",
-        currentStepStatus === CurrentStepStatus.past && "bg-emerald-400",
-        currentStepStatus === CurrentStepStatus.upcoming &&
-          "dark:bg-zinc-700 bg-zinc-200"
+        "w-4 h-12 rounded-lg",
+        currentStepStatus === CurrentStepStatus.current && "bg-zinc-700",
+        currentStepStatus === CurrentStepStatus.past && "bg-brand-400",
+        currentStepStatus === CurrentStepStatus.upcoming && "bg-zinc-700"
       )}
     >
       {currentStepStatus === CurrentStepStatus.current && (
         <>
           <div
-            className="absolute top-1/2 left-1/2 w-7 h-7 bg-emerald-400 rounded-full transform -translate-x-1/2 -translate-y-1/2 flex justify-center items-center z-10
+            className="absolute top-1/2 left-1/2 w-7 h-7 bg-brand-400 rounded-full transform -translate-x-1/2 -translate-y-1/2 flex justify-center items-center z-10
           "
           >
             <Train className="text-zinc-100" size={14} />
           </div>
 
-          <div className="absolute top-0 left-0 h-1/2 bg-emerald-400 w-3 rounded-lg" />
+          <div className="absolute top-0 left-0 h-1/2 bg-brand-400 w-3 rounded-lg" />
         </>
       )}
     </div>

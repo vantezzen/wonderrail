@@ -217,7 +217,7 @@ function MenuBar() {
   }, [shortcuts, actions]);
 
   return (
-    <div className="p-3" id="planner-menubar">
+    <div className="p-3 pb-0 dark text-zinc-100" id="planner-menubar">
       {isLoading && <LoadingToast title="Saving journey" />}
 
       <Menubar>

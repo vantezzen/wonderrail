@@ -36,18 +36,12 @@ function JourneyStep({
       />
     );
   } else if (step.type === "stay") {
-    item = <JourneyStayDisplay key={step.id} stay={step} planner={planner} />;
+    item = <JourneyStayDisplay key={step.id} stay={step} />;
   } else if (step.type === "invalid") {
     item = <InvalidJourneyStep />;
   }
 
-  return (
-    <div className="relative">
-      <StepProgressIndicator step={step} />
-
-      <div className="ml-6">{item}</div>
-    </div>
-  );
+  return item;
 }
 
 export default JourneyStep;

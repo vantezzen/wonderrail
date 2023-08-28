@@ -1,73 +1,80 @@
 import React from "react";
 import { Card, CardHeader, CardTitle } from "../../ui/card";
 import Planner from "@/lib/Journey/Planner";
-import { MapPin } from "lucide-react";
+import { ChevronRight, MapPin } from "lucide-react";
 import { JourneyStay } from "@/lib/types";
 
 import useContextSectionStore from "../ContextSection/contextState";
-import { cn } from "@/lib/utils";
+import { cn, getHost } from "@/lib/utils";
+import StepProgressIndicator from "../Steps/StepProgressIndicator";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import usePlannerStore from "../plannerStore";
 
-function JourneyStayDisplay({
-  stay,
-  planner,
-}: {
-  stay: JourneyStay;
-  planner: Planner;
-}) {
+function JourneyStayDisplay({ stay }: { stay: JourneyStay }) {
   const context = useContextSectionStore((state) => state.context);
   const setContext = useContextSectionStore((state) => state.setContext);
+  const planner = usePlannerStore((state) => state.planner);
 
   const isStartEndDateEqual =
     stay.timerange.start.toLocaleDateString() ===
     stay.timerange.end.toLocaleDateString();
 
-  const isSelected =
-    context && context.type === "stay" && context.stayId === stay.id;
+  const color = planner.getStepColor(stay);
 
   return (
-    <div className="relative">
-      <div className="absolute inset-0 w-full h-full z-0 opacity-20 bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] blur-lg filter" />
-
-      <button
-        onClick={() => {
-          setContext({
-            type: "stay",
-            stayId: stay.id,
-          });
+    <button
+      onClick={() => {
+        setContext({
+          type: "stay",
+          stayId: stay.id,
+        });
+      }}
+      className="w-full bg-brand-50"
+    >
+      <Card
+        className="flex items-center p-3 gap-3 border-none rounded-xl"
+        style={{
+          background: `linear-gradient(90deg, ${color}00 40%, ${color})`,
         }}
-        className="w-full"
       >
-        <Card
-          className={cn(
-            "relative z-10 p-1",
-            isSelected
-              ? "border-2 border-zinc-700"
-              : "border-2 border-transparent"
-          )}
-        >
-          <div className="flex items-center text-zinc-600 w-full">
-            <CardHeader className="w-full">
-              <div className="flex lg:justify-between gap-2 xl:items-center ">
-                <CardTitle className="dark:text-zinc-200 text-zinc-700 flex items-center font-bold text-lg text-left">
-                  <MapPin className="mr-2 " size={16} />
-                  {stay.locationName ?? stay.location.name}
-                </CardTitle>
-                <span
-                  className="font-medium text-zinc-400 text-right"
-                  suppressHydrationWarning
-                >
-                  {isStartEndDateEqual
-                    ? stay.timerange.start.toLocaleDateString()
-                    : stay.timerange.start.toLocaleDateString() +
-                      " - " +
-                      stay.timerange.end.toLocaleDateString()}
-                </span>
-              </div>
-            </CardHeader>
-          </div>
-        </Card>
-      </button>
-    </div>
+        {/* Image */}
+        <img
+          src={`/api/splash/${encodeURIComponent(
+            stay.locationName ?? stay.location.name
+          )}`}
+          className="rounded-xl w-12 h-12 object-cover"
+          alt={stay.locationName ?? stay.location.name}
+        />
+
+        <div className="flex flex-col text-zinc-600 w-full">
+          <CardTitle className="text-zinc-700 font-bold text-lg text-left">
+            {stay.locationName ?? stay.location.name}
+          </CardTitle>
+
+          {/* Badges */}
+        </div>
+
+        <div className="bg-zinc-100 bg-opacity-20 rounded-lg p-2 flex items-center gap-3">
+          <span
+            className="font-bold text-zinc-700 text-xs text-right whitespace-nowrap"
+            suppressHydrationWarning
+          >
+            {isStartEndDateEqual
+              ? stay.timerange.start.toLocaleDateString()
+              : stay.timerange.start.toLocaleDateString() +
+                " - " +
+                stay.timerange.end.toLocaleDateString()}
+          </span>
+
+          <Button size="sm">
+            <ChevronRight className="w-4 h-4" />
+          </Button>
+        </div>
+
+        <StepProgressIndicator step={stay} />
+      </Card>
+    </button>
   );
 }
 

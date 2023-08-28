@@ -27,6 +27,7 @@ import useContextSectionStore from "./ContextSection/contextState";
 import { cn } from "@/lib/utils";
 import GeneralSettingsOpener from "./GeneralSettings/GeneralSettingsOpener";
 import PassEditorOpener from "./Pass/PassEditorOpener";
+import ContextSidebar from "./ContextSidebar";
 
 function PlannerComponent({ journey }: { journey: Journey }) {
   const plannerStore = usePlannerStore();
@@ -38,7 +39,9 @@ function PlannerComponent({ journey }: { journey: Journey }) {
   const [hasShownWelcomePopup, setHasShownWelcomePopup] = React.useState(false);
   const [, forceUpdate] = React.useState({});
   const isReadOnly = useIsReadOnly();
+
   const context = useContextSectionStore((store) => store.context);
+  const setContext = useContextSectionStore((store) => store.setContext);
 
   useEffect(() => {
     if (!planner) return;
@@ -64,85 +67,23 @@ function PlannerComponent({ journey }: { journey: Journey }) {
 
   return (
     <TourProvider>
-      <div className="dark:bg-zinc-900 bg-zinc-100">
+      <div className="bg-zinc-100">
         {planner.isLoading && <JourneyLoading />}
         <WelcomePopup />
         <AiPopup />
 
-        <CalendarView />
-        <MobileMapModal />
-        <MobileStatusModal />
-        <TodoList />
-        <ReoderStaysModal />
-
-        <MenuBar />
-
-        <div
-          className="grid lg:grid-cols-3 xl:grid-cols-3 w-screen"
-          style={{
-            height: "calc(100vh - 4rem)",
-          }}
-        >
-          <div
-            className={cn(
-              "relative hidden md:block",
-              !context && "xl:col-span-2"
-            )}
-          >
-            <PlannerMap />
-            <StatusBar />
+        <div className="flex w-screen h-screen">
+          <div id="planner-context-selectors">
+            <ContextSidebar />
           </div>
+
           <div
-            className={cn(
-              "p-6 pt-0 dark:bg-zinc-900 bg-zinc-100 h-full lg:overflow-y-auto",
-              context && "hidden md:block"
-            )}
             suppressHydrationWarning
-            id="planner-right-side"
+            id="planner-left-side"
+            className="flex-1"
           >
-            <GeneralSettingsOpener />
-            <PassEditorOpener />
-
-            <Heading className="mt-6 flex gap-3 items-center">
-              <CalendarRange size={20} />
-              Itinerary
-            </Heading>
-            <JourneySteps />
-
-            {planner.isLoading && (
-              <Alert className="mt-3">
-                <Loader2 className="mr-2 animate-spin" size={16} />
-                <AlertTitle>Your journey being planned</AlertTitle>
-                <AlertDescription>
-                  We are currently planning your journey in the background.
-                  During this, information shown might be inaccurate. You can
-                  still continue editing your journey.
-                </AlertDescription>
-              </Alert>
-            )}
-
-            {planner.journey.steps.length === 0 && (
-              <div className="mt-6 text-center">
-                <h3 className="font-medium text-zinc-400">No stops yet</h3>
-                <p className="text-zinc-500 font-medium text-sm">
-                  Add your first stop by clicking the button below or choosing a
-                  city on the map.
-                </p>
-              </div>
-            )}
-
-            {!isReadOnly && <AddLocationModal />}
+            <ContextSection />
           </div>
-
-          {context && (
-            <div
-              className="p-6 pt-0 dark:bg-zinc-900 bg-zinc-100 h-full lg:overflow-y-auto"
-              suppressHydrationWarning
-              id="planner-context"
-            >
-              <ContextSection />
-            </div>
-          )}
         </div>
       </div>
     </TourProvider>
