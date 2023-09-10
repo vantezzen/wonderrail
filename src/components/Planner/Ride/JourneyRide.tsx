@@ -1,10 +1,6 @@
 import { JourneyRide } from "@/lib/types";
 import { durationBetween, formatDateTime, formatTime } from "@/lib/utils/date";
-import {
-  ChevronRight,
-  Plus,
-  Train,
-} from "lucide-react";
+import { ChevronRight, Plus, Train } from "lucide-react";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -87,7 +83,10 @@ function JourneyRide({
           </span>
         </div>
 
-        <div className="flex gap-1" onClick={() => setIsDetailsOpen(true)}>
+        <div
+          className="flex gap-1 flex-wrap justify-end"
+          onClick={() => setIsDetailsOpen(true)}
+        >
           <JourneyRideBadges ride={ride} />
         </div>
       </div>

@@ -1,3 +1,11 @@
+New Design:
+- Calendar View
+- Todo List
+- "Add stop" button doesn't work when not on itiniery
+- Reorder locations (inline wiggle?)
+- Test readonly mode
+- Introduction
+
 Next: 
 => TODO List
   - Allow checking off things you booked (trips, reservations, etc)

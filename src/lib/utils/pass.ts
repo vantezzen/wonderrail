@@ -1,3 +1,4 @@
+import Planner from "../Journey/Planner";
 import { InterrailPass, JourneyStay, JourneyStep } from "../types";
 
 export function isLocationCoveredInPass(
@@ -37,4 +38,31 @@ export function startsOutsideTotalValidity(
 ) {
   const validUntilDate = getValidUntilDate(startDate, pass);
   return stay.timerange.start > validUntilDate;
+}
+
+export function getPassValidityStatus(stay: JourneyStay, planner: Planner) {
+  const locationIsCoveredByPass = isLocationCoveredInPass(
+    stay,
+    planner.journey.pass,
+    planner.journey.steps
+  );
+  const validUntil = getValidUntilDate(
+    planner.journey.startDate,
+    planner.journey.pass
+  );
+  const locationStartsOutsidePassValidity = validUntil < stay.timerange.start;
+
+  const isLastLocation =
+    planner.journey.steps[planner.journey.steps.length - 1] === stay;
+  const locationEndsOutsidePassValidity =
+    !isLastLocation &&
+    !locationStartsOutsidePassValidity &&
+    validUntil < stay.timerange.end;
+
+  return {
+    locationIsCoveredByPass,
+    locationStartsOutsidePassValidity,
+    locationEndsOutsidePassValidity,
+    validUntil,
+  };
 }

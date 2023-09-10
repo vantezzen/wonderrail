@@ -8,6 +8,7 @@ import StepProgressIndicator from "../Steps/StepProgressIndicator";
 import { Button } from "@/components/ui/button";
 import usePlannerStore from "../plannerStore";
 import Image from "next/image";
+import PassInvalidWarning from "./PassInvalidWarning";
 
 function JourneyStayDisplay({ stay }: { stay: JourneyStay }) {
   const context = useContextSectionStore((state) => state.context);
@@ -51,6 +52,8 @@ function JourneyStayDisplay({ stay }: { stay: JourneyStay }) {
         <div className="flex flex-col text-zinc-600 w-full">
           <CardTitle className="text-zinc-700 font-bold text-lg text-left">
             {stay.locationName ?? stay.location.name}
+
+            <PassInvalidWarning stay={stay} />
           </CardTitle>
 
           {/* Badges */}

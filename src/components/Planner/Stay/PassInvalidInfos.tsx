@@ -2,31 +2,19 @@ import { JourneyStay } from "@/lib/types";
 import React from "react";
 import usePlannerStore from "../plannerStore";
 import {
-  getValidUntilDate,
-  isLocationCoveredInPass,
+  getPassValidityStatus,
 } from "@/lib/utils/pass";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { CalendarOff, MapPin } from "lucide-react";
 
 function PassInvalidInfos({ stay }: { stay: JourneyStay }) {
   const planner = usePlannerStore((state) => state.planner);
-  const locationIsCoveredByPass = isLocationCoveredInPass(
-    stay,
-    planner.journey.pass,
-    planner.journey.steps
-  );
-  const validUntil = getValidUntilDate(
-    planner.journey.startDate,
-    planner.journey.pass
-  );
-  const locationStartsOutsidePassValidity = validUntil < stay.timerange.start;
-
-  const isLastLocation =
-    planner.journey.steps[planner.journey.steps.length - 1] === stay;
-  const locationEndsOutsidePassValidity =
-    !isLastLocation &&
-    !locationStartsOutsidePassValidity &&
-    validUntil < stay.timerange.end;
+  const {
+    locationIsCoveredByPass,
+    locationStartsOutsidePassValidity,
+    locationEndsOutsidePassValidity,
+    validUntil,
+  } = getPassValidityStatus(stay, planner);
 
   return (
     <div className="grid gap-3">
