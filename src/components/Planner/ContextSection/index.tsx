@@ -1,8 +1,6 @@
 import React from "react";
 import useContextSectionStore from "./contextState";
 import ContextSectionStay from "../Stay/ContextSectionStay";
-import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
 import GeneralJourneySettings from "../GeneralSettings/GeneralJourneySettings";
 import PassEditor from "../Pass/PassEditor";
 import JourneyRideDetails from "../Ride/JourneyRideDetails";

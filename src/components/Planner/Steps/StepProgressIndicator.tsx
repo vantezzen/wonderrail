@@ -21,7 +21,7 @@ function StepProgressIndicator({ step }: { step: JourneyStep }) {
   return (
     <div
       className={cn(
-        "w-4 h-12 rounded-lg",
+        "w-3 h-8 rounded-lg",
         currentStepStatus === CurrentStepStatus.current && "bg-zinc-700",
         currentStepStatus === CurrentStepStatus.past && "bg-brand-400",
         currentStepStatus === CurrentStepStatus.upcoming && "bg-zinc-700"

@@ -18,8 +18,6 @@ import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 import usePlannerStore from "../plannerStore";
 import { trackEvent } from "@/lib/analytics";
 
-
-
 function GeneralJourneySettings() {
   const planner = usePlannerStore((state) => state.planner);
   const isReadOnly = useIsReadOnly();

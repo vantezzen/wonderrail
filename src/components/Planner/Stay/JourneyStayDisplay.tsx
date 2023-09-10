@@ -1,14 +1,11 @@
 import React from "react";
-import { Card, CardHeader, CardTitle } from "../../ui/card";
-import Planner from "@/lib/Journey/Planner";
-import { ChevronRight, MapPin } from "lucide-react";
+import { Card, CardTitle } from "../../ui/card";
+import { ChevronRight } from "lucide-react";
 import { JourneyStay } from "@/lib/types";
 
 import useContextSectionStore from "../ContextSection/contextState";
-import { cn, getHost } from "@/lib/utils";
 import StepProgressIndicator from "../Steps/StepProgressIndicator";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import usePlannerStore from "../plannerStore";
 
 function JourneyStayDisplay({ stay }: { stay: JourneyStay }) {
@@ -33,7 +30,7 @@ function JourneyStayDisplay({ stay }: { stay: JourneyStay }) {
       className="w-full bg-brand-50"
     >
       <Card
-        className="flex items-center p-3 gap-3 border-none rounded-xl"
+        className="flex items-center p-4 gap-3 border-none rounded-xl"
         style={{
           background: `linear-gradient(90deg, ${color}00 40%, ${color})`,
         }}
@@ -72,7 +69,9 @@ function JourneyStayDisplay({ stay }: { stay: JourneyStay }) {
           </Button>
         </div>
 
-        <StepProgressIndicator step={stay} />
+        <div className="relative">
+          <StepProgressIndicator step={stay} />
+        </div>
       </Card>
     </button>
   );

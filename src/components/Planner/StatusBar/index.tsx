@@ -25,7 +25,13 @@ function StatusBar() {
 
   return (
     <div
-      className="w-full py-3 px-12 dark:bg-zinc-900 bg-zinc-100 lg:absolute bottom-0 left-0 flex flex-col lg:flex-row gap-3 lg:gap-6 xl:gap-12 overflow-x-hidden"
+      className="
+        w-[calc(100%-4rem)] h-16 
+        bg-zinc-100 rounded-lg p-3 shadow-lg
+        relative bottom-12 left-[2rem] right-[2rem]
+        flex gap-3 items-center justify-between
+        px-6
+      "
       id="planner-status-bar"
     >
       <PriceDetailsPopover planner={planner} />

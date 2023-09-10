@@ -5,7 +5,6 @@ import JourneyRide from "../Ride/JourneyRide";
 import JourneyStayDisplay from "../Stay/JourneyStayDisplay";
 import InvalidJourneyStep from "../InvalidJourneyStep";
 import usePlannerStore from "../plannerStore";
-import StepProgressIndicator from "./StepProgressIndicator";
 
 function JourneyStep({
   step,

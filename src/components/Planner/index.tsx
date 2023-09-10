@@ -1,11 +1,8 @@
 "use client";
 import React, { useEffect } from "react";
 import PlannerMap from "./PlannerMap";
-import Heading from "../Various/Heading";
-import JourneySteps from "./Steps/JourneySteps";
 import { Journey } from "@/lib/types";
 import Planner from "@/lib/Journey/Planner";
-import AddLocationModal from "./Modals/AddLocationModal";
 import JourneyLoading from "./JourneyLoading";
 import StatusBar from "./StatusBar";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
@@ -13,20 +10,9 @@ import AiPopup from "./Ai";
 import WelcomePopup from "./WelcomePopup";
 import usePlannerStore from "./plannerStore";
 import LoadingScreen from "../Various/LoadingScreen";
-import MenuBar from "./MenuBar";
-import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
-import { CalendarRange, Loader2 } from "lucide-react";
-import CalendarView from "./Modals/CalendarView";
-import MobileMapModal from "./Modals/MobileMapModal";
-import MobileStatusModal from "./Modals/MobileStatusModal";
-import TodoList from "./Modals/TodoList";
-import ReoderStaysModal from "./Modals/ReorderStaysModal";
 import TourProvider from "./TourProvider";
 import ContextSection from "./ContextSection";
 import useContextSectionStore from "./ContextSection/contextState";
-import { cn } from "@/lib/utils";
-import GeneralSettingsOpener from "./GeneralSettings/GeneralSettingsOpener";
-import PassEditorOpener from "./Pass/PassEditorOpener";
 import ContextSidebar from "./ContextSidebar";
 
 function PlannerComponent({ journey }: { journey: Journey }) {
@@ -80,9 +66,18 @@ function PlannerComponent({ journey }: { journey: Journey }) {
           <div
             suppressHydrationWarning
             id="planner-left-side"
-            className="flex-1"
+            className="flex-1 h-full overflow-scroll"
           >
             <ContextSection />
+          </div>
+
+          <div
+            suppressHydrationWarning
+            id="planner-right-side"
+            className="flex-1"
+          >
+            <PlannerMap />
+            <StatusBar />
           </div>
         </div>
       </div>

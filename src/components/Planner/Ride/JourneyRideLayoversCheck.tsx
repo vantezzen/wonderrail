@@ -29,10 +29,7 @@ function JourneyRideLayoversCheck({ ride }: { ride: JourneyRide }) {
       {overnightLayovers.length > 0 && (
         <Tooltip>
           <TooltipTrigger>
-            <JourneyRideBadge
-              icon={<MoonStar className="" size={16} />}
-              className="bg-pink-700 hover:bg-pink-700"
-            />
+            <JourneyRideBadge icon={<MoonStar className="" size={16} />} />
           </TooltipTrigger>
 
           <TooltipContent>
@@ -47,10 +44,7 @@ function JourneyRideLayoversCheck({ ride }: { ride: JourneyRide }) {
       {longLayovers.length > 0 && (
         <Tooltip>
           <TooltipTrigger>
-            <JourneyRideBadge
-              icon={<Clock8 className="" size={16} />}
-              className="bg-pink-700 hover:bg-pink-700"
-            />
+            <JourneyRideBadge icon={<Clock8 className="" size={16} />} />
           </TooltipTrigger>
 
           <TooltipContent>
@@ -63,10 +57,7 @@ function JourneyRideLayoversCheck({ ride }: { ride: JourneyRide }) {
       {shortLayovers.length > 0 && (
         <Tooltip>
           <TooltipTrigger>
-            <JourneyRideBadge
-              icon={<Clock1 className="" size={16} />}
-              className="bg-pink-700 hover:bg-pink-700"
-            />
+            <JourneyRideBadge icon={<Clock1 className="" size={16} />} />
           </TooltipTrigger>
 
           <TooltipContent>

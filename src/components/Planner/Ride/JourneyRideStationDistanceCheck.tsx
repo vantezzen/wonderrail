@@ -43,10 +43,7 @@ function JourneyRideStationDistanceCheck({ ride }: { ride: JourneyRide }) {
       {departureStationDistance > 5 && (
         <Tooltip>
           <TooltipTrigger>
-            <JourneyRideBadge
-              icon={<Footprints className="" size={16} />}
-              className="bg-pink-700 hover:bg-pink-700"
-            />
+            <JourneyRideBadge icon={<Footprints className="" size={16} />} />
           </TooltipTrigger>
 
           <TooltipContent>
@@ -58,10 +55,7 @@ function JourneyRideStationDistanceCheck({ ride }: { ride: JourneyRide }) {
       {destinationStationDistance > 5 && (
         <Tooltip>
           <TooltipTrigger>
-            <JourneyRideBadge
-              icon={<Footprints className="" size={16} />}
-              className="bg-pink-700 hover:bg-pink-700"
-            />
+            <JourneyRideBadge icon={<Footprints className="" size={16} />} />
           </TooltipTrigger>
 
           <TooltipContent>
