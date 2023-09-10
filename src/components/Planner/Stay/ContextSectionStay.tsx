@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
 import { Card, CardDescription, CardHeader, CardTitle } from "../../ui/card";
 import { getTimerangeLengthToDaysInMs } from "@/lib/utils/date";
-import { Calendar, MapPin, Trash } from "lucide-react";
+import {
+  Calendar,
+  ChevronLeft,
+  Trash,
+} from "lucide-react";
 import { Button } from "../../ui/button";
 import { JourneyStay } from "@/lib/types";
 import { Input } from "../../ui/input";
@@ -19,6 +23,7 @@ import LanguageAssistance from "./LanguageAssistance";
 import CurrencyInformation from "./CurrencyInformation";
 import StayNotes from "./StayNotest";
 import usePlannerStore from "../plannerStore";
+import useContextSectionStore from "../ContextSection/contextState";
 
 function ContextSectionStay({ stayId }: { stayId: string }) {
   const planner = usePlannerStore((state) => state.planner);
@@ -38,17 +43,27 @@ function ContextSectionStay({ stayId }: { stayId: string }) {
     stay.timerange.end.toLocaleDateString();
 
   const isReadOnly = useIsReadOnly();
+  const setContext = useContextSectionStore((state) => state.setContext);
 
   return (
-    <div className="relative">
-      <div className="absolute inset-0 w-full h-full z-0 opacity-20 bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] blur-lg filter" />
+    <div className="p-3">
+      <Button onClick={() => setContext({ type: "itinerary" })} size="sm">
+        <ChevronLeft className="inline-block mr-2" size={14} />
+        Back to itinerary
+      </Button>
 
-      <Card className="relative z-10 p-1">
+      <Card className="p-1 mt-3">
         <div className="flex items-center text-zinc-600 w-full">
           <CardHeader className="w-full">
             <div className="flex lg:justify-between gap-2 xl:items-center ">
-              <CardTitle className="dark:text-zinc-200 text-zinc-700 flex items-center font-bold text-lg">
-                <MapPin className="mr-2 " size={16} />
+              <CardTitle className="text-zinc-700 flex items-center font-bold text-lg">
+                <img
+                  src={`/api/splash/${encodeURIComponent(
+                    stay.locationName ?? stay.location.name
+                  )}`}
+                  className="rounded-xl w-12 h-12 object-cover mr-3"
+                  alt={stay.locationName ?? stay.location.name}
+                />
                 {stay.locationName ?? stay.location.name}
               </CardTitle>
 

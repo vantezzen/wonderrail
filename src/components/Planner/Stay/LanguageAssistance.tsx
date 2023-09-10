@@ -21,11 +21,11 @@ import {
 import { Button } from "@/components/ui/button";
 
 const ENGLISH_SCORE_DESCRIPTIONS = {
-  1: "very few",
-  2: "few",
-  3: "some",
-  4: "most",
-  5: "nearly everyone",
+  1: "Very low",
+  2: "Low",
+  3: "Medium",
+  4: "Average",
+  5: "High",
 };
 
 function LanguageAssistance({ stay }: { stay: JourneyStay }) {
@@ -43,55 +43,62 @@ function LanguageAssistance({ stay }: { stay: JourneyStay }) {
   return (
     <div className="mt-3">
       <Separator className="my-3" />
-      <div className="">
-        <p className="dark:text-zinc-400 text-zinc-600 text-sm">
-          The main language in{" "}
-          <span className="font-bold">{country?.name}</span> is{" "}
-          <span className="font-bold">{languageData.language}</span> and{" "}
-          <span className="font-bold">
-            {
-              ENGLISH_SCORE_DESCRIPTIONS[
-                Number(
-                  languageData.englishScore
-                ) as keyof typeof ENGLISH_SCORE_DESCRIPTIONS
-              ]
-            }
-          </span>{" "}
-          people speak english.
-        </p>
 
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button className="mt-3 w-full" variant="secondary">
-              Show common phrases
-            </Button>
-          </DialogTrigger>
+      <div className="flex items-center justify-between">
+        <h3 className="dark:text-zinc-200 text-zinc-600 font-bold">Language</h3>
+        <div className="flex items-center gap-3">
+          <p className="text-sm">
+            Main language{" "}
+            <span className="font-bold">{languageData.language}</span>
+          </p>
+          <p className="text-sm">
+            English proficiency{" "}
+            <span className="font-bold">
+              {
+                ENGLISH_SCORE_DESCRIPTIONS[
+                  Number(
+                    languageData.englishScore
+                  ) as keyof typeof ENGLISH_SCORE_DESCRIPTIONS
+                ]
+              }
+            </span>
+          </p>
 
-          <DialogContent>
-            <DialogTitle>Common phrases in {languageData.language}</DialogTitle>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="brand" size="sm">
+                Common phrases
+              </Button>
+            </DialogTrigger>
 
-            <DialogDescription>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>English</TableHead>
-                    <TableHead>{languageData.language}</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {Object.entries(languageData.commonPhases).map(
-                    ([english, translation]) => (
-                      <TableRow key={english}>
-                        <TableCell>{english}</TableCell>
-                        <TableCell>{translation}</TableCell>
-                      </TableRow>
-                    )
-                  )}
-                </TableBody>
-              </Table>
-            </DialogDescription>
-          </DialogContent>
-        </Dialog>
+            <DialogContent>
+              <DialogTitle>
+                Common phrases in {languageData.language}
+              </DialogTitle>
+
+              <DialogDescription>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>English</TableHead>
+                      <TableHead>{languageData.language}</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {Object.entries(languageData.commonPhases).map(
+                      ([english, translation]) => (
+                        <TableRow key={english}>
+                          <TableCell>{english}</TableCell>
+                          <TableCell>{translation}</TableCell>
+                        </TableRow>
+                      )
+                    )}
+                  </TableBody>
+                </Table>
+              </DialogDescription>
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
     </div>
   );

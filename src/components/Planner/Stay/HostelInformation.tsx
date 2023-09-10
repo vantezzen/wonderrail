@@ -5,7 +5,6 @@ import { JourneyStay } from "@/lib/types";
 import { ExternalLink, RotateCw } from "lucide-react";
 import React from "react";
 import usePlannerStore from "../plannerStore";
-import { formatDateTime } from "@/lib/utils/date";
 
 function HostelInformation({ stay }: { stay: JourneyStay }) {
   const planner = usePlannerStore((state) => state.planner);
@@ -16,54 +15,49 @@ function HostelInformation({ stay }: { stay: JourneyStay }) {
   return (
     <div className="mt-3">
       <Separator className="my-3" />
-      <div className="flex gap-3 flex-col">
-        <div className="">
-          <p className="dark:text-zinc-400 text-zinc-600 text-sm">
-            Hostels start at{" "}
+
+      <div className="flex items-center justify-between">
+        <h3 className="dark:text-zinc-200 text-zinc-600 font-bold">Hostels</h3>
+        <div className="flex items-center gap-1">
+          <p className="text-sm">
+            starting at{" "}
             <span className="font-bold">
               {stay.hostels.lowestPricePerNight}€
-            </span>{" "}
-            per night.
+            </span>
           </p>
-          <p className="dark:text-zinc-500 text-zinc-400 text-xs mb-3">
-            Last updated {formatDateTime(stay.hostels.updatedAt)}.
-          </p>
-        </div>
 
-        {/* <HostelPriceChangeInformation
-          datapoints={[...stay.previousHostelData, stay.hostels]}
-        /> */}
-
-        <Button asChild className="w-full">
-          <a
-            href={planner.hostels.getBookingLink(stay)}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Button
+            variant="link"
+            onClick={async () => {
+              setIsRefreshing(true);
+              await planner.updateHostelData(stay);
+              setIsRefreshing(false);
+            }}
+            disabled={isRefreshing}
           >
-            <ExternalLink className="mr-2" size={16} />
-            See hostels
-          </a>
-        </Button>
+            <RotateCw
+              className={(isRefreshing ? "animate-spin" : "") + " mr-2"}
+              size={16}
+            />
+          </Button>
 
-        <Button
-          variant="secondary"
-          className="w-full"
-          onClick={async () => {
-            setIsRefreshing(true);
-            await planner.updateHostelData(stay);
-            setIsRefreshing(false);
-          }}
-          disabled={isRefreshing}
-        >
-          <RotateCw
-            className={(isRefreshing ? "animate-spin" : "") + " mr-2"}
-            size={16}
+          <ValueIndicator
+            values={[stay.hostels.lowestPricePerNight]}
+            postfix="€"
           />
-          Refresh data
-        </Button>
-      </div>
 
-      <ValueIndicator values={[stay.hostels.lowestPricePerNight]} postfix="€" />
+          <Button asChild size="sm" variant="brand" className="text-xs ml-1">
+            <a
+              href={planner.hostels.getBookingLink(stay)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Book now
+              <ExternalLink className="ml-2" size={16} />
+            </a>
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

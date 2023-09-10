@@ -2,8 +2,7 @@ import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
 export type ContextSectionStandalonePages = {
-  type: "stay" | "generalSettings" | "passEditor" | "itinerary";
-  stayId: string;
+  type: "generalSettings" | "passEditor" | "itinerary";
 };
 
 type ContextSectionRideDetails = {
@@ -11,10 +10,16 @@ type ContextSectionRideDetails = {
   rideId: string;
 };
 
+export type ContextSectionStayPage = {
+  type: "stay";
+  stayId: string;
+};
+
 type ContextSectionState =
   | null
   | ContextSectionStandalonePages
-  | ContextSectionRideDetails;
+  | ContextSectionRideDetails
+  | ContextSectionStayPage;
 
 interface ContextState {
   context: ContextSectionState;
@@ -23,7 +28,9 @@ interface ContextState {
 
 const useContextSectionStore = create<ContextState>()(
   devtools((set) => ({
-    context: null,
+    context: {
+      type: "itinerary",
+    },
     setContext: (context: ContextSectionState) => set({ context }),
   }))
 );

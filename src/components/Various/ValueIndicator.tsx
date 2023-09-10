@@ -1,4 +1,3 @@
-import { round } from "@/lib/utils/number";
 import React from "react";
 
 function ValueIndicator({
@@ -21,18 +20,7 @@ function ValueIndicator({
   postfix?: string;
 }) {
   return (
-    <div className="relative my-3">
-      <div className="flex justify-between items-center text-zinc-500 text-sm font-bold">
-        <div>
-          {steps.low}
-          {postfix}
-        </div>
-        <div>
-          {steps.end}
-          {postfix}
-        </div>
-      </div>
-
+    <div className="relative my-3 w-16">
       <div className="w-full h-2 bg-gray-200 rounded-full flex">
         <div className="w-1/3 bg-green-400 h-full rounded-l-lg" />
         <div className="w-1/3 bg-yellow-400 h-full" />
@@ -65,17 +53,6 @@ function ValueIndicator({
                 left: `${indicatorPosition * 100}%`,
               }}
             />
-
-            <div
-              className="absolute top-0 transform -translate-x-1/2 -translate-y-1/2 text-zinc-500 text-sm font-bold"
-              style={{
-                left: `${indicatorPosition * 100}%`,
-                top: isOdd ? "160%" : undefined,
-              }}
-            >
-              {round(value, 2)}
-              {postfix}
-            </div>
           </>
         );
       })}
