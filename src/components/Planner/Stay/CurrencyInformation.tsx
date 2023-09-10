@@ -19,14 +19,15 @@ function CurrencyInformation({ stay }: { stay: JourneyStay }) {
   return (
     <div className="mt-3">
       <Separator className="my-3" />
-      <div className="">
-        <p className="dark:text-zinc-400 text-zinc-600 text-sm">
-          The currency in {country?.name} is{" "}
-          <span className="font-bold">
-            {currency.currencyName} ({currency.currencyCode})
-          </span>
-          . Be sure to change your money or pay with card.
-        </p>
+
+      <div className="flex items-center justify-between">
+        <h3 className="dark:text-zinc-200 text-zinc-600 font-bold">Currency</h3>
+        <div className="flex items-center gap-3">
+          <p className="text-sm">
+            <span className="font-bold">{currency.currencyName}</span> (
+            {currency.currencyCode})
+          </p>
+        </div>
       </div>
     </div>
   );

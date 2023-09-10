@@ -66,7 +66,7 @@ function LanguageAssistance({ stay }: { stay: JourneyStay }) {
 
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="brand" size="sm">
+              <Button variant="brand" size="sm" className="text-xs">
                 Common phrases
               </Button>
             </DialogTrigger>
