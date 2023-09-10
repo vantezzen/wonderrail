@@ -4,15 +4,12 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { Map, MapLib } from "react-map-gl";
 import maplibregl from "maplibre-gl";
 import {
-  InterrailLocation,
   InvalidRide,
   JourneyRide,
   JourneyStay,
 } from "@/lib/types";
 import DeckGL from "@deck.gl/react/typed";
 import { ArcLayer, IconLayer } from "@deck.gl/layers/typed";
-import { getDistanceFromLatLonInKm } from "@/lib/utils/coordinates";
-import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 import usePlannerStore from "./plannerStore";
 import { hexToRgbColor } from "@/lib/utils/string";
 
@@ -70,23 +67,10 @@ function PlannerMap() {
     stay,
   }));
 
-  const isReadOnly = useIsReadOnly();
-
   const firstStay = (planner.journey.steps[0] as JourneyStay)?.location || {
     lat: 48,
     lng: 2,
   };
-  const lastStay = planner.journey.steps[
-    planner.journey.steps.length - 1
-  ] as JourneyStay;
-
-  const [selectedLocation, setSelectedLocation] =
-    React.useState<InterrailLocation | null>(null);
-  useEffect(() => {
-    if (!lastStay) return;
-    setSelectedLocation(lastStay.location);
-  }, [lastStay]);
-  const [isHoveringCity, setIsHoveringCity] = React.useState(false);
 
   const [viewState, setViewState] = React.useState<Record<string, any>>({
     latitude: firstStay?.coordinates?.lat || 48,
@@ -125,97 +109,42 @@ function PlannerMap() {
             height: "100%",
             borderRadius: "1rem",
           }}
-          layers={[
-            // Chosen rides
-            new ArcLayer({
-              id: "journey-lines",
-              data: lines,
-              pickable: false,
-              getWidth: 6,
-              getHeight: 0.5,
-              getSourcePosition: (d) => d.from.coordinates,
-              getTargetPosition: (d) => d.to.coordinates,
-              getSourceColor: (d) =>
-                d.isInvalid ? [230, 100, 100] : lineColor,
-              getTargetColor: (d) =>
-                d.isInvalid ? [230, 100, 100] : lineColor,
-            }),
-
-            // Markers
-            new IconLayer({
-              id: "marker-layer",
-              data: stays,
-              iconAtlas: "/assets/markers.png",
-              iconMapping: ICON_MAPPING,
-              getIcon: () => "marker",
-
-              sizeScale: 15,
-              getPosition: (d) => d.coordinates,
-              getSize: (d) => 2,
-              getColor: (d) => {
-                const color = planner.getStepColor(d.stay);
-                return hexToRgbColor(color);
-              },
-            }),
-          ]}
-          getTooltip={({ object }) => {
-            if (!object) return;
-
-            if (object.from) {
-              return `${object.from?.name} to ${object.to?.name}`;
-            }
-            if (object.name && object.duration)
-              return `${object.name} (${object.duration})`;
-            if (object.points) return object.points[0]?.source.name;
-          }}
-          onHover={({ object }) => {
-            if (!object) {
-              setIsHoveringCity(false);
-              return;
-            }
-            if (object.points) {
-              setIsHoveringCity(true);
-            }
-          }}
-          getCursor={({ isDragging }) => {
-            if (isDragging) return "grabbing";
-            if (isHoveringCity) return "pointer";
-            return "grab";
-          }}
-          onClick={async ({ object }) => {
-            if (isReadOnly) return;
-            if (!object) {
-              setSelectedLocation(null);
-              return;
-            }
-            if (object.points) {
-              const location = object.points[0].source as InterrailLocation;
-              setSelectedLocation(location);
-              if (
-                selectedLocation &&
-                (!lastStay ||
-                  getDistanceFromLatLonInKm(
-                    selectedLocation.coordinates,
-                    lastStay.location.coordinates
-                  ) < 50)
-              ) {
-                try {
-                  if (!lastStay) {
-                    // Add first location to allow starting the journey
-                    await planner.addLocation(selectedLocation);
-                  }
-
-                  await planner.addLocation(location);
-                } catch (e) {
-                  console.log(e);
-                }
-              }
-            }
-          }}
         >
           <Map
             mapLib={maplibregl as MapLib<any>}
             mapStyle={`https://api.maptiler.com/maps/dataviz-light/style.json?key=${process.env.NEXT_PUBLIC_MAPTILER_KEY}`}
+          />
+
+          {/* @ts-ignore */}
+          <IconLayer
+            id="marker-layer"
+            data={stays}
+            iconAtlas="/assets/markers.png" // Absolute URL
+            iconMapping={ICON_MAPPING}
+            getIcon={() => "marker"}
+            sizeScale={15}
+            getPosition={(d: any) => d.coordinates}
+            getSize={() => 2}
+            getColor={(d: any) => {
+              const color = planner.getStepColor(d.stay);
+              return hexToRgbColor(color);
+            }}
+          />
+
+          {/* @ts-ignore */}
+          <ArcLayer
+            id="journey-lines"
+            data={lines}
+            getWidth={6}
+            getHeight={0.5}
+            getSourcePosition={(d: any) => d.from.coordinates}
+            getTargetPosition={(d: any) => d.to.coordinates}
+            getSourceColor={(d: any) =>
+              d.isInvalid ? [230, 100, 100] : lineColor
+            }
+            getTargetColor={(d: any) =>
+              d.isInvalid ? [230, 100, 100] : lineColor
+            }
           />
         </DeckGL>
       </div>

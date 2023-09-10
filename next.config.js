@@ -9,7 +9,11 @@ const nextConfig = {
     esmExternals: "loose",
   },
   images: {
-    domains: ["images.unsplash.com", "source.unsplash.com"],
+    domains: [
+      "images.unsplash.com",
+      "source.unsplash.com",
+      process.env.NODE_ENV === "development" ? "localhost" : "wonderrail.com",
+    ],
   },
 };
 

@@ -1,8 +1,8 @@
-import { Separator } from "@/components/ui/separator";
 import React from "react";
 import currencyData from "@/data/currencyData";
 import { JourneyStay } from "@/lib/types";
 import euroCountries from "@/data/euroCountries";
+import StaySectionItem from "./StaySectionItem";
 
 function CurrencyInformation({ stay }: { stay: JourneyStay }) {
   const currency =
@@ -17,19 +17,12 @@ function CurrencyInformation({ stay }: { stay: JourneyStay }) {
   );
 
   return (
-    <div className="mt-3">
-      <Separator className="my-3" />
-
-      <div className="flex items-center justify-between">
-        <h3 className="dark:text-zinc-200 text-zinc-600 font-bold">Currency</h3>
-        <div className="flex items-center gap-3">
-          <p className="text-sm">
-            <span className="font-bold">{currency.currencyName}</span> (
-            {currency.currencyCode})
-          </p>
-        </div>
-      </div>
-    </div>
+    <StaySectionItem title="Currency">
+      <p className="text-sm">
+        <span className="font-bold">{currency.currencyName}</span> (
+        {currency.currencyCode})
+      </p>
+    </StaySectionItem>
   );
 }
 

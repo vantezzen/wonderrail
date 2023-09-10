@@ -2,7 +2,7 @@ import React from "react";
 import useContextSectionStore, {
   ContextSectionStandalonePages,
 } from "./ContextSection/contextState";
-import { Cog, MenuSquare, Ticket } from "lucide-react";
+import { Cog, MenuSquare, Plus, Ticket } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logo from "@/app/icon.png";
 import Link from "next/link";
@@ -13,6 +13,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../ui/tooltip";
+import usePlannerStore from "./plannerStore";
 
 const ITEMS: {
   type: ContextSectionStandalonePages["type"];
@@ -39,6 +40,8 @@ const ITEMS: {
 function ContextSidebar() {
   const context = useContextSectionStore((store) => store.context);
   const setContext = useContextSectionStore((store) => store.setContext);
+
+  const updatePopupState = usePlannerStore((state) => state.setPopupState);
 
   return (
     <TooltipProvider delayDuration={100}>
@@ -74,6 +77,25 @@ function ContextSidebar() {
             </Tooltip>
           );
         })}
+
+        <Tooltip>
+          <TooltipContent side="right">
+            Add new city to your itinerary
+          </TooltipContent>
+
+          <TooltipTrigger asChild>
+            <button
+              className={cn(
+                "p-3 rounded-lg cursor-pointer text-zinc-500 bg-zinc-200 mt-auto"
+              )}
+              onClick={() => {
+                updatePopupState("addLocation", true);
+              }}
+            >
+              <Plus className="w-5 h-5" />
+            </button>
+          </TooltipTrigger>
+        </Tooltip>
       </div>
     </TooltipProvider>
   );

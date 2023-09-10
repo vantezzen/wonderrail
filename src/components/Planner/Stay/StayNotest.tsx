@@ -10,9 +10,9 @@ function StayNotes({ stay }: { stay: JourneyStay }) {
   const isReadOnly = useIsReadOnly();
 
   return (
-    <div className="mt-3">
+    <div className="pt-3">
       <Separator className="my-3" />
-      <div className="">
+      <div className="pt-3">
         <h3 className="dark:text-zinc-200 text-zinc-600 font-bold">Notes</h3>
 
         <Textarea

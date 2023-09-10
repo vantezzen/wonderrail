@@ -23,9 +23,9 @@ function AlternativeRideSelector({ ride }: { ride: JourneyRide }) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="secondary" size="sm" className="w-full md:w-auto">
+        <Button variant="secondary" size="sm" className="w-full">
           <Replace size={16} />
-          <div className="md:hidden ml-2">Choose an alternative ride</div>
+          <div className="ml-2">Choose an alternative ride</div>
         </Button>
       </DialogTrigger>
       <DialogContent className="min-w-[80vw]">

@@ -14,7 +14,7 @@ export function uppercaseFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-export function hexToRgbColor(hex: string) {
+export function hexToRgbColor(hex: string): [number, number, number] {
   const bigint = parseInt(hex.replace("#", ""), 16);
   const r = (bigint >> 16) & 255;
   const g = (bigint >> 8) & 255;

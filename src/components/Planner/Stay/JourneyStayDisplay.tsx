@@ -7,6 +7,7 @@ import useContextSectionStore from "../ContextSection/contextState";
 import StepProgressIndicator from "../Steps/StepProgressIndicator";
 import { Button } from "@/components/ui/button";
 import usePlannerStore from "../plannerStore";
+import Image from "next/image";
 
 function JourneyStayDisplay({ stay }: { stay: JourneyStay }) {
   const context = useContextSectionStore((state) => state.context);
@@ -35,11 +36,14 @@ function JourneyStayDisplay({ stay }: { stay: JourneyStay }) {
           background: `linear-gradient(90deg, ${color}00 40%, ${color})`,
         }}
       >
-        {/* Image */}
-        <img
-          src={`/api/splash/${encodeURIComponent(
+        <Image
+          src={`${
+            process.env.NEXT_PUBLIC_APP_URL
+          }/api/splash/${encodeURIComponent(
             stay.locationName ?? stay.location.name
           )}`}
+          width={48}
+          height={48}
           className="rounded-xl w-12 h-12 object-cover"
           alt={stay.locationName ?? stay.location.name}
         />
