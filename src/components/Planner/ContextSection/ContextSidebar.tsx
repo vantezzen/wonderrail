@@ -3,6 +3,7 @@ import useContextSectionStore, {
   ContextSectionStandalonePages,
 } from "./contextState";
 import {
+  Bug,
   CalendarRange,
   CheckCheck,
   Cog,
@@ -26,6 +27,7 @@ const ITEMS: {
   type: ContextSectionStandalonePages["type"];
   icon: React.FC<React.SVGProps<SVGSVGElement>>;
   title: string;
+  id?: string;
 }[] = [
   {
     type: "itinerary",
@@ -36,11 +38,13 @@ const ITEMS: {
     type: "generalSettings",
     icon: Cog,
     title: "Settings",
+    id: "planner-general-settings-item",
   },
   {
     type: "passEditor",
     icon: Ticket,
     title: "Interrail Pass",
+    id: "planner-pass-editor-item",
   },
   {
     type: "calendar",
@@ -51,6 +55,11 @@ const ITEMS: {
     type: "todo",
     icon: CheckCheck,
     title: "Todo List",
+  },
+  {
+    type: "logs",
+    icon: Bug,
+    title: "Logs",
   },
 ];
 
@@ -87,6 +96,7 @@ function ContextSidebar() {
                       type: item.type,
                     } as ContextSectionStandalonePages)
                   }
+                  id={item.id}
                 >
                   <Icon className="w-5 h-5" />
                 </button>
@@ -108,6 +118,7 @@ function ContextSidebar() {
               onClick={() => {
                 updatePopupState("addLocation", true);
               }}
+              id="planner-add-item"
             >
               <Plus className="w-5 h-5" />
             </button>

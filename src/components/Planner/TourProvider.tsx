@@ -50,6 +50,17 @@ const steps: ShepherdOptionsWithType[] = [
     ],
   },
   {
+    id: "sidebar",
+    title: "Sidebar",
+    text: `
+    <p>
+    This is the sidebar. Here you can open different tools to help you plan your journey.
+    </p>
+    `,
+    attachTo: { element: "#planner-context-sidebar", on: "right" },
+    buttons: backForwardButtons,
+  },
+  {
     id: "general-settings",
     title: "General settings",
     text: `
@@ -62,7 +73,7 @@ const steps: ShepherdOptionsWithType[] = [
       Remember to set your preferred departure time so we can plan your train rides to fit your schedule!
     </p>
     `,
-    attachTo: { element: "#planner-general-settings", on: "left" },
+    attachTo: { element: "#planner-general-settings-item", on: "left" },
     buttons: backForwardButtons,
   },
   {
@@ -74,7 +85,7 @@ const steps: ShepherdOptionsWithType[] = [
     to work, you need to tell us what kind of pass you have here.
     </p>
     `,
-    attachTo: { element: "#planner-pass-editor", on: "left" },
+    attachTo: { element: "#planner-pass-editor-item", on: "left" },
     buttons: backForwardButtons,
   },
   {
@@ -90,17 +101,6 @@ const steps: ShepherdOptionsWithType[] = [
     buttons: backForwardButtons,
   },
   {
-    id: "menubar",
-    title: "The menubar",
-    text: `
-    <p>
-    The menubar holds tons of useful tools for planning your journey: You can reorder locations, get a todo list, calendar view of your journey, can customize the planner layout and more!
-    </p>
-    `,
-    attachTo: { element: "#planner-menubar", on: "bottom" },
-    buttons: backForwardButtons,
-  },
-  {
     id: "add-location",
     title: "Add a location",
     text: `
@@ -108,7 +108,7 @@ const steps: ShepherdOptionsWithType[] = [
     Now all that's left to do is plan your journey! Start by adding the location you want to start from and add as many locations as you want.
     </p>
     `,
-    attachTo: { element: "#planner-menubar-itinerary", on: "bottom" },
+    attachTo: { element: "#planner-add-item", on: "bottom" },
     buttons: backForwardButtons,
   },
 ];

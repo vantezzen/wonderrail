@@ -2,7 +2,13 @@ import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
 export type ContextSectionStandalonePages = {
-  type: "generalSettings" | "passEditor" | "itinerary" | "calendar" | "todo";
+  type:
+    | "generalSettings"
+    | "passEditor"
+    | "itinerary"
+    | "calendar"
+    | "todo"
+    | "logs";
 };
 
 type ContextSectionRideDetails = {

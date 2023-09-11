@@ -17,11 +17,14 @@ export default class MigrationManager {
 
   async migrate(planner: Planner) {
     console.log("Running migrations");
+    planner.logging.log("Running migrations");
     for (const migration of MigrationManager.migrations) {
       if (await migration.hasToRun(planner)) {
         console.log(`Running migration ${migration.name}`);
+        planner.logging.log(`Running migration ${migration.name}`);
         await planner.withLoading(() => migration.run(planner));
         planner.emit("change");
+        planner.logging.log(`Migration ${migration.name} done`);
       }
     }
   }

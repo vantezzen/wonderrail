@@ -59,7 +59,7 @@ function PlannerComponent({ journey }: { journey: Journey }) {
         <AiPopup />
 
         <div className="flex w-screen h-screen">
-          <div id="planner-context-selectors">
+          <div id="planner-context-sidebar">
             <ContextSidebar />
           </div>
 

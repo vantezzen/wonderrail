@@ -19,19 +19,14 @@ import { useRouter } from "next/navigation";
 import Storage from "@/lib/Journey/Storage";
 import ShortcutManager from "@/lib/Journey/ShortcutManager";
 import {
-  Calendar,
-  ClipboardList,
   DownloadCloud,
   Home,
   IterationCcw,
-  Moon,
   PanelBottomInactive,
   PanelBottomOpen,
   Plus,
   Save,
   Share,
-  Shuffle,
-  Sun,
 } from "lucide-react";
 import { getFileContents } from "@/lib/utils/file";
 import { useToast } from "@/components/ui/use-toast";
@@ -275,17 +270,9 @@ function MenuBar() {
               <Plus size={12} className="mr-2" />
               New stop <MenubarShortcut>⌘K</MenubarShortcut>
             </MenubarItem>
-            <MenubarItem onClick={actions.itinerary.showReorderStays}>
-              <Shuffle size={12} className="mr-2" />
-              Reorder locations
-            </MenubarItem>
             <MenubarItem onClick={actions.itinerary.updateAllHostelPrices}>
               <IterationCcw size={12} className="mr-2" />
               Update all hostel prices
-            </MenubarItem>
-            <MenubarItem onClick={actions.itinerary.showTodo}>
-              <ClipboardList size={12} className="mr-2" />
-              Show Todo-list
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
@@ -304,10 +291,6 @@ function MenuBar() {
               )}
               Show status bar <MenubarShortcut>⌘⇧G</MenubarShortcut>
             </MenubarItem>
-            <MenubarItem onClick={actions.view.showCalendar}>
-              <Calendar size={12} className="mr-2" />
-              Show calendar
-            </MenubarItem>
             <MenubarItem
               onClick={actions.view.showMapModal}
               className="md:hidden"
@@ -319,22 +302,6 @@ function MenuBar() {
               className="md:hidden"
             >
               Show status
-            </MenubarItem>
-            <MenubarItem
-              onClick={actions.view.toggleDarkMode}
-              className="hidden md:flex"
-            >
-              {isDarkMode ? (
-                <>
-                  <Sun size={12} className="mr-2" />
-                  Switch to light mode
-                </>
-              ) : (
-                <>
-                  <Moon size={12} className="mr-2" />
-                  Switch to dark mode
-                </>
-              )}
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>

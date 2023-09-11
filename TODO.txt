@@ -1,6 +1,5 @@
 New Design:
 - "Add stop" button doesn't work when not on itiniery
-- Reorder locations (inline wiggle?)
 - Test readonly mode
 - Introduction
 - Home Page

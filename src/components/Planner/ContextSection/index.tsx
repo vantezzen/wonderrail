@@ -8,6 +8,7 @@ import MenuBar from "../MenuBar";
 import Itiniary from "../Contexts/Itiniary/Itiniary";
 import CalendarView from "../Contexts/CalendarView";
 import TodoList from "../Contexts/TodoList";
+import Logs from "../Contexts/Logs";
 
 function ContextSection() {
   const context = useContextSectionStore((state) => state.context);
@@ -27,6 +28,7 @@ function ContextSection() {
       )}
       {context.type === "calendar" && <CalendarView />}
       {context.type === "todo" && <TodoList />}
+      {context.type === "logs" && <Logs />}
     </div>
   );
 }

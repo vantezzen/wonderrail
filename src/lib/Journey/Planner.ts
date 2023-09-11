@@ -30,6 +30,7 @@ import { trackEvent } from "../analytics";
 import MigrationManager from "./MigrationManager";
 import Todo from "./Todo";
 import Autosaver from "./Autosaver";
+import Logging from "./Logging";
 
 export default class Planner extends EventEmitter {
   public interrail = new Interrail();
@@ -40,6 +41,7 @@ export default class Planner extends EventEmitter {
   public api = new BackendApi();
   public weather = new Weather();
   public todo = new Todo(this);
+  public logging = new Logging(this);
 
   private migrations = new MigrationManager();
   private autosaver = new Autosaver(this);
@@ -49,6 +51,7 @@ export default class Planner extends EventEmitter {
 
   constructor(public journey: Journey) {
     super();
+    this.logging.log("Creating planner instance");
 
     this.migrations.migrate(this);
     this.stepPlanner.on("loadingState", () => {
@@ -88,6 +91,9 @@ export default class Planner extends EventEmitter {
 
     const stay = stays[fromStayIndex];
     trackEvent("planner_move_stay");
+    this.logging.log(
+      `Moving stay ${stay.locationName} from ${fromStayIndex} to ${toStayIndex}`
+    );
 
     // Orient the stay relative to the stay before to avoid having to deal with
     // the complexity of moving it in the opposite direction
@@ -118,10 +124,14 @@ export default class Planner extends EventEmitter {
 
   private async recalculateJourneySteps(newJourneySteps: JourneyStep[]) {
     trackEvent("planner_recalculate_journey_steps");
+    this.logging.log("Recalculating journey steps");
+    const start = performance.now();
     this.journey.steps = await this.stepPlanner.recalculateJourneySteps(
       newJourneySteps,
       this.journey
     );
+    const end = performance.now();
+    this.logging.log(`Recalculated journey steps in ${end - start}ms`);
     await Promise.all([this.findHostels(), this.getWeather()]);
   }
 
@@ -165,6 +175,7 @@ export default class Planner extends EventEmitter {
     beforeLocation?: JourneyStay | null
   ) {
     trackEvent("planner_add_location");
+    this.logging.log(`Adding location ${location.name}`);
     let travelEndTime = this.journey.startDate;
     if (!beforeLocation) {
       // Dont add if last step is this location to avoid duplicates
@@ -227,6 +238,7 @@ export default class Planner extends EventEmitter {
    */
   async removeStep(step: JourneyStay) {
     trackEvent("planner_remove_step");
+    this.logging.log(`Removing step ${step.locationName}`);
     const newJourney = this.journey.steps.filter(
       (journeyStep) => "id" in journeyStep && journeyStep.id !== step.id
     );
@@ -238,6 +250,9 @@ export default class Planner extends EventEmitter {
 
   async changeStayDuration(stay: JourneyStay, changedDays: number) {
     trackEvent("planner_change_stay_duration");
+    this.logging.log(
+      `Changing stay duration of ${stay.locationName} to ${changedDays} days`
+    );
     stay.timerange.end = new Date(
       stay.timerange.start.getTime() + changedDays * 1000 * 60 * 60 * 24
     );
@@ -248,6 +263,7 @@ export default class Planner extends EventEmitter {
 
   async setStartDate(startDate?: Date) {
     trackEvent("planner_set_start_date");
+    this.logging.log(`Setting start date to ${startDate}`);
     if (!startDate) {
       return;
     }
@@ -272,6 +288,9 @@ export default class Planner extends EventEmitter {
     trackEvent("planner_set_preferred_departure_time");
     trackEvent(
       `planner_set_preferred_departure_time_${preferredDepartureTime}`
+    );
+    this.logging.log(
+      `Setting preferred departure time to ${preferredDepartureTime}`
     );
     this.journey.preferredDepartureTime = preferredDepartureTime;
     await this.recalculateJourneySteps(this.journey.steps);
@@ -300,6 +319,9 @@ export default class Planner extends EventEmitter {
     alternativeRide: InterrailTimetableEntry
   ) {
     trackEvent("planner_choose_alternative_ride");
+    this.logging.log(
+      `Choosing alternative ride ${alternativeRide.departure} - ${alternativeRide.arrival}`
+    );
     this.journey.steps = this.stepPlanner.chooseAlternativeRide(
       ride,
       alternativeRide,
@@ -313,6 +335,7 @@ export default class Planner extends EventEmitter {
     const stays = this.journey.steps.filter(
       (step) => step.type === "stay"
     ) as JourneyStay[];
+    this.logging.log(`Finding hostels for ${stays.length} stays`);
 
     for (const stay of stays) {
       const hasHostelsForCurrentTimeRange =
@@ -355,6 +378,7 @@ export default class Planner extends EventEmitter {
     const stays = this.journey.steps.filter(
       (step) => step.type === "stay"
     ) as JourneyStay[];
+    this.logging.log(`Getting weather for ${stays.length} stays`);
 
     for (const stay of stays) {
       if (
