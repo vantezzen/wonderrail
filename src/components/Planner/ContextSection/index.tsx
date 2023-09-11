@@ -5,7 +5,7 @@ import GeneralJourneySettings from "../Contexts/GeneralSettings/GeneralJourneySe
 import PassEditor from "../Contexts/Pass/PassEditor";
 import JourneyRideDetails from "../Contexts/JourneyRideDetails";
 import MenuBar from "../MenuBar";
-import Itiniary from "../Contexts/Itiniary";
+import Itiniary from "../Contexts/Itiniary/Itiniary";
 import CalendarView from "../Contexts/CalendarView";
 import TodoList from "../Contexts/TodoList";
 

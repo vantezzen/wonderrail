@@ -21,7 +21,6 @@ interface PlannerState {
     showStatusBar: boolean;
     showMapModal: boolean;
     showMobileStatus: boolean;
-    showReorderStays: boolean;
   };
   setView: (view: keyof PlannerState["view"], state: boolean) => void;
 }

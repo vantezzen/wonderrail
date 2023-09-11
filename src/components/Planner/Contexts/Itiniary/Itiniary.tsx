@@ -1,18 +1,24 @@
 import React from "react";
-import JourneySteps from "../Steps/JourneySteps";
-import usePlannerStore from "../plannerStore";
-import { Alert, AlertDescription, AlertTitle } from "../../ui/alert";
+import JourneySteps from "../../Steps/JourneySteps";
+import usePlannerStore from "../../plannerStore";
+import { Alert, AlertDescription, AlertTitle } from "../../../ui/alert";
 import { Loader2 } from "lucide-react";
-import AddLocationModal from "../Modals/AddLocationModal";
+import AddLocationModal from "../../Modals/AddLocationModal";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
+import { Button } from "@/components/ui/button";
+import ReorderStaysList from "./ReorderStays/ReorderStaysList";
 
 function Itiniary() {
   const planner = usePlannerStore((store) => store.planner);
   const isReadOnly = useIsReadOnly();
 
+  const [isReordering, setIsReordering] = React.useState(false);
+
   return (
     <div className="px-6">
-      <JourneySteps />
+      <Button onClick={() => setIsReordering(!isReordering)}>Reorder</Button>
+
+      {isReordering ? <ReorderStaysList /> : <JourneySteps />}
 
       {planner.isLoading && (
         <Alert className="mt-3">

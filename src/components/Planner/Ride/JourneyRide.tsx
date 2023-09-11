@@ -1,7 +1,7 @@
 import { JourneyRide } from "@/lib/types";
-import { durationBetween, formatDateTime, formatTime } from "@/lib/utils/date";
+import { formatDateTime, formatTime } from "@/lib/utils/date";
 import { ChevronRight, Plus, Train } from "lucide-react";
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -9,7 +9,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
-import usePlannerStore from "../plannerStore";
 import JourneyRideBadges from "./JourneyRideBadges";
 import { trackEvent } from "@/lib/analytics";
 import useContextSectionStore from "../ContextSection/contextState";
@@ -22,16 +21,11 @@ function JourneyRide({
   ride: JourneyRide;
   addLocationBeforeThisRide?: () => void;
 }) {
-  const planner = usePlannerStore((state) => state.planner);
-  const duration = durationBetween(ride.timerange.start, ride.timerange.end);
-
   const isStartEndDateEqual =
     ride.timerange.start.toLocaleDateString() ===
     ride.timerange.end.toLocaleDateString();
 
   const isReadonly = useIsReadOnly();
-
-  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
   const setContext = useContextSectionStore((state) => state.setContext);
 
@@ -83,10 +77,7 @@ function JourneyRide({
           </span>
         </div>
 
-        <div
-          className="flex gap-1 flex-wrap justify-end"
-          onClick={() => setIsDetailsOpen(true)}
-        >
+        <div className="flex gap-1 flex-wrap justify-end">
           <JourneyRideBadges ride={ride} />
         </div>
       </div>

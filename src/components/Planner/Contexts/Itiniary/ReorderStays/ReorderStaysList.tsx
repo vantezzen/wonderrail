@@ -1,6 +1,6 @@
 import React from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import usePlannerStore from "../../plannerStore";
+import usePlannerStore from "../../../plannerStore";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 import ReorderableJourneyStep from "./ReorderableJourneyStep";
 import { JourneyStay } from "@/lib/types";
@@ -45,16 +45,14 @@ function ReorderStaysList() {
           type="COLUMN"
           droppableId="journey-steps"
           renderClone={(provided, snapshot, rubric) => (
-            <div
-              {...provided.draggableProps}
-              {...provided.dragHandleProps}
-              ref={provided.innerRef}
-            >
-              <div className="transform translate-y-1/2">
+            <div {...provided.draggableProps} ref={provided.innerRef}>
+              <div
+                className="transform translate-y-1/2"
+                {...provided.dragHandleProps}
+              >
                 <ReorderableJourneyStep
                   step={stays[rubric.source.index]}
                   planner={planner}
-                  dragHandleProps={provided.dragHandleProps!}
                 />
               </div>
             </div>
@@ -76,11 +74,12 @@ function ReorderStaysList() {
                         {...provided.draggableProps}
                         className="mt-6 left-auto top-auto"
                       >
-                        <ReorderableJourneyStep
-                          step={step}
-                          planner={planner}
-                          dragHandleProps={provided.dragHandleProps!}
-                        />
+                        <div {...provided.dragHandleProps}>
+                          <ReorderableJourneyStep
+                            step={step}
+                            planner={planner}
+                          />
+                        </div>
                       </div>
                     );
                   }}
