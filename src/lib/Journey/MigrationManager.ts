@@ -1,6 +1,7 @@
 import CityCenterCoordinateMigration from "./Migrations/CityCenterCoordinateMigration";
 import CountryCodeMigration from "./Migrations/CountryCodeMigration";
 import HostelWeatherDataMigration from "./Migrations/HostelWeatherDataMigration";
+import RemoveDuplicateIdsMigration from "./Migrations/RemoveDuplicateIdsMigration";
 import Planner from "./Planner";
 
 /**
@@ -8,6 +9,7 @@ import Planner from "./Planner";
  */
 export default class MigrationManager {
   static migrations = [
+    new RemoveDuplicateIdsMigration(),
     new HostelWeatherDataMigration(),
     new CountryCodeMigration(),
     new CityCenterCoordinateMigration(),

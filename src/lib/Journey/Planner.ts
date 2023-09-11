@@ -71,18 +71,45 @@ export default class Planner extends EventEmitter {
     return fn().finally(() => this.updateLoading(-1));
   }
 
-  async moveStayPosition(fromIndex: number, toIndex: number) {
-    const stay = this.journey.steps.splice(fromIndex, 1)[0];
+  /**
+   * Move the position of a stay in the journey
+   * The indexes should be those of only the stays, ignoring rides
+   *
+   * @param fromStayIndex
+   * @param toStayIndex
+   */
+  async moveStayPosition(fromStayIndex: number, toStayIndex: number) {
+    const stays = this.journey.steps.filter(
+      (step) => step.type === "stay"
+    ) as JourneyStay[];
+    const otherStops = this.journey.steps.filter(
+      (step) => step.type !== "stay"
+    );
+
+    const stay = stays[fromStayIndex];
     trackEvent("planner_move_stay");
 
-    if (stay.type !== "stay") {
-      throw new Error("Can only move stays");
-    }
+    // Orient the stay relative to the stay before to avoid having to deal with
+    // the complexity of moving it in the opposite direction
+    const stayBefore = stays[toStayIndex - 1] ?? null;
+    const newJourneyStays = stays.filter(
+      (journeyStep) => journeyStep.id !== stay.id
+    );
+    const newStayIndex = stayBefore
+      ? newJourneyStays.findIndex(
+          (journeyStep) => journeyStep.id === stayBefore?.id
+        ) + 1
+      : 0;
 
     let newJourney = [
-      ...this.journey.steps.slice(0, toIndex),
+      ...newJourneyStays.slice(0, newStayIndex),
       stay,
-      ...this.journey.steps.slice(toIndex),
+      ...newJourneyStays.slice(newStayIndex),
+
+      // Put other stops at the end of the list.
+      // This way, the step planner can reuse existing rides but we don't have
+      // to worry about them being in the way of reordering.
+      ...otherStops,
     ];
 
     await this.recalculateJourneySteps(newJourney);

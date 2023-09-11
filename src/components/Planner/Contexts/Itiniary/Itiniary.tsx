@@ -2,11 +2,13 @@ import React from "react";
 import JourneySteps from "../../Steps/JourneySteps";
 import usePlannerStore from "../../plannerStore";
 import { Alert, AlertDescription, AlertTitle } from "../../../ui/alert";
-import { Loader2 } from "lucide-react";
+import { Loader2, Shuffle } from "lucide-react";
 import AddLocationModal from "../../Modals/AddLocationModal";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 import { Button } from "@/components/ui/button";
 import ReorderStaysList from "./ReorderStays/ReorderStaysList";
+import WithTooltip from "@/components/Various/WithTooltip";
+import { cn } from "@/lib/utils";
 
 function Itiniary() {
   const planner = usePlannerStore((store) => store.planner);
@@ -16,14 +18,25 @@ function Itiniary() {
 
   return (
     <div className="px-6">
-      <Button onClick={() => setIsReordering(!isReordering)}>Reorder</Button>
+      <div className="flex justify-end">
+        <WithTooltip text="Reorder your stops">
+          <Button
+            onClick={() => setIsReordering(!isReordering)}
+            size="sm"
+            variant="ghost"
+            className={cn("mt-3", isReordering && "bg-zinc-200")}
+          >
+            <Shuffle size={16} />
+          </Button>
+        </WithTooltip>
+      </div>
 
       {isReordering ? <ReorderStaysList /> : <JourneySteps />}
 
       {planner.isLoading && (
         <Alert className="mt-3">
           <Loader2 className="mr-2 animate-spin" size={16} />
-          <AlertTitle>Your journey being planned</AlertTitle>
+          <AlertTitle>Your journey is being planned</AlertTitle>
           <AlertDescription>
             We are currently planning your journey in the background. During
             this, information shown might be inaccurate. You can still continue
@@ -42,7 +55,7 @@ function Itiniary() {
         </div>
       )}
 
-      {!isReadOnly && <AddLocationModal />}
+      {!isReadOnly && !isReordering && <AddLocationModal />}
     </div>
   );
 }

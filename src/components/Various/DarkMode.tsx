@@ -29,6 +29,7 @@ const useDarkModeStore = (selector: (state: DarkModeState) => any) => {
 export default useDarkModeStore;
 
 export const useIsDarkMode = () => {
+  return false;
   const pathname = usePathname();
   const isPlanner =
     pathname.startsWith("/journeys/") || pathname.startsWith("/app");

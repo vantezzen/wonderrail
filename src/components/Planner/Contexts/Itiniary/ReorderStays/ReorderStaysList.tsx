@@ -32,11 +32,8 @@ function ReorderStaysList() {
           setIsDragging(false);
           if (!result.destination) return;
 
-          const stayIndex = planner.journey.steps.findIndex(
-            (step) => step.id === result.draggableId
-          );
-          // Destination index includes journeys and stays
-          const destinationIndex = result.destination.index * 2 - 1;
+          const stayIndex = result.source.index;
+          const destinationIndex = result.destination.index;
 
           planner.moveStayPosition(stayIndex, destinationIndex);
         }}
