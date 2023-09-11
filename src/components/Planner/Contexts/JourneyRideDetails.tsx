@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { JourneyRide } from "@/lib/types";
 import { ChevronLeft, ExternalLink } from "lucide-react";
 import React from "react";
-import JourneyRideLeg from "./JourneyRideLeg";
+import JourneyRideLeg from "../Ride/JourneyRideLeg";
 
 import usePlannerStore from "../plannerStore";
 import { trackEvent } from "@/lib/analytics";

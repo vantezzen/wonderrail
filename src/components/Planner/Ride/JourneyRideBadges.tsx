@@ -6,22 +6,14 @@ import {
 } from "@/components/ui/tooltip";
 import { JourneyRide } from "@/lib/types";
 import JourneyRideBadge from "./JourneyRideBadge";
-import { FileCheck, Receipt, ReplaceAll, Ticket } from "lucide-react";
+import { FileCheck, Receipt, ReplaceAll } from "lucide-react";
 import JourneyRideLayoversCheck from "./JourneyRideLayoversCheck";
 import JourneyRideStationDistanceCheck from "./JourneyRideStationDistanceCheck";
 
 function JourneyRideBadges({ ride }: { ride: JourneyRide }) {
   return (
     <>
-      {ride.needsReservation ? (
-        <Tooltip>
-          <TooltipTrigger>
-            <JourneyRideBadge icon={<Ticket className="" size={16} />} />
-          </TooltipTrigger>
-
-          <TooltipContent>This ride requires a reservation</TooltipContent>
-        </Tooltip>
-      ) : (
+      {!ride.needsReservation && !(ride.price && ride.price > 0) && (
         <Tooltip>
           <TooltipTrigger>
             <JourneyRideBadge icon={<FileCheck className="" size={16} />} />

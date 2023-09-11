@@ -1,8 +1,8 @@
 import React from "react";
-import { Card, CardContent } from "../../ui/card";
-import { DatePicker } from "../../ui/date-picker";
-import { Label } from "../../ui/label";
-import VerticalInputContainer from "../../ui/vertical-input-container";
+import { Card, CardContent } from "../../../ui/card";
+import { DatePicker } from "../../../ui/date-picker";
+import { Label } from "../../../ui/label";
+import VerticalInputContainer from "../../../ui/vertical-input-container";
 import {
   Select,
   SelectContent,
@@ -10,12 +10,12 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../ui/select";
+} from "../../../ui/select";
 import { padLeft } from "@/lib/utils/number";
-import { Input } from "../../ui/input";
-import { Checkbox } from "../../ui/checkbox";
+import { Input } from "../../../ui/input";
+import { Checkbox } from "../../../ui/checkbox";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
-import usePlannerStore from "../plannerStore";
+import usePlannerStore from "../../plannerStore";
 import { trackEvent } from "@/lib/analytics";
 
 function GeneralJourneySettings() {

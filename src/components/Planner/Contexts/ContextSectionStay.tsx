@@ -10,15 +10,15 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import HostelInformation from "./HostelInformation";
-import WeatherInformation from "./WeatherInformation";
-import PassInvalidInfos from "./PassInvalidInfos";
-import LanguageAssistance from "./LanguageAssistance";
-import CurrencyInformation from "./CurrencyInformation";
-import StayNotes from "./StayNotest";
+import HostelInformation from "../Stay/HostelInformation";
+import WeatherInformation from "../Stay/WeatherInformation";
+import PassInvalidInfos from "../Stay/PassInvalidInfos";
+import LanguageAssistance from "../Stay/LanguageAssistance";
+import CurrencyInformation from "../Stay/CurrencyInformation";
+import StayNotes from "../Stay/StayNotest";
 import usePlannerStore from "../plannerStore";
 import useContextSectionStore from "../ContextSection/contextState";
-import StayDuration from "./StayDuration";
+import StayDuration from "../Stay/StayDuration";
 import Image from "next/image";
 
 function ContextSectionStay({ stayId }: { stayId: string }) {

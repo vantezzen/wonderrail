@@ -1,11 +1,13 @@
 import React from "react";
 import useContextSectionStore from "./contextState";
-import ContextSectionStay from "../Stay/ContextSectionStay";
-import GeneralJourneySettings from "../GeneralSettings/GeneralJourneySettings";
-import PassEditor from "../Pass/PassEditor";
-import JourneyRideDetails from "../Ride/JourneyRideDetails";
+import ContextSectionStay from "../Contexts/ContextSectionStay";
+import GeneralJourneySettings from "../Contexts/GeneralSettings/GeneralJourneySettings";
+import PassEditor from "../Contexts/Pass/PassEditor";
+import JourneyRideDetails from "../Contexts/JourneyRideDetails";
 import MenuBar from "../MenuBar";
-import Itiniary from "../Itiniary";
+import Itiniary from "../Contexts/Itiniary";
+import CalendarView from "../Contexts/CalendarView";
+import TodoList from "../Contexts/TodoList";
 
 function ContextSection() {
   const context = useContextSectionStore((state) => state.context);
@@ -23,6 +25,8 @@ function ContextSection() {
       {context.type === "rideDetails" && (
         <JourneyRideDetails rideId={context.rideId} />
       )}
+      {context.type === "calendar" && <CalendarView />}
+      {context.type === "todo" && <TodoList />}
     </div>
   );
 }

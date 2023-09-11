@@ -19,10 +19,8 @@ interface PlannerState {
 
   view: {
     showStatusBar: boolean;
-    showCalendar: boolean;
     showMapModal: boolean;
     showMobileStatus: boolean;
-    showTodoList: boolean;
     showReorderStays: boolean;
   };
   setView: (view: keyof PlannerState["view"], state: boolean) => void;

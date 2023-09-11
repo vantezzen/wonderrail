@@ -1,8 +1,15 @@
 import React from "react";
 import useContextSectionStore, {
   ContextSectionStandalonePages,
-} from "./ContextSection/contextState";
-import { Cog, MenuSquare, Plus, Ticket } from "lucide-react";
+} from "./contextState";
+import {
+  CalendarRange,
+  CheckCheck,
+  Cog,
+  MenuSquare,
+  Plus,
+  Ticket,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import logo from "@/app/icon.png";
 import Link from "next/link";
@@ -12,8 +19,8 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "../ui/tooltip";
-import usePlannerStore from "./plannerStore";
+} from "../../ui/tooltip";
+import usePlannerStore from "../plannerStore";
 
 const ITEMS: {
   type: ContextSectionStandalonePages["type"];
@@ -34,6 +41,16 @@ const ITEMS: {
     type: "passEditor",
     icon: Ticket,
     title: "Interrail Pass",
+  },
+  {
+    type: "calendar",
+    icon: CalendarRange,
+    title: "Calendar",
+  },
+  {
+    type: "todo",
+    icon: CheckCheck,
+    title: "Todo List",
   },
 ];
 

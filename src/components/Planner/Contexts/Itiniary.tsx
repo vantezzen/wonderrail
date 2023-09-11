@@ -1,9 +1,9 @@
 import React from "react";
-import JourneySteps from "./Steps/JourneySteps";
-import usePlannerStore from "./plannerStore";
-import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import JourneySteps from "../Steps/JourneySteps";
+import usePlannerStore from "../plannerStore";
+import { Alert, AlertDescription, AlertTitle } from "../../ui/alert";
 import { Loader2 } from "lucide-react";
-import AddLocationModal from "./Modals/AddLocationModal";
+import AddLocationModal from "../Modals/AddLocationModal";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 
 function Itiniary() {

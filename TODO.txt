@@ -1,10 +1,10 @@
 New Design:
-- Calendar View
-- Todo List
 - "Add stop" button doesn't work when not on itiniery
 - Reorder locations (inline wiggle?)
 - Test readonly mode
 - Introduction
+- Home Page
+- Mobile view
 
 Next: 
 => TODO List

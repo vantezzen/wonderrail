@@ -13,7 +13,7 @@ import LoadingScreen from "../Various/LoadingScreen";
 import TourProvider from "./TourProvider";
 import ContextSection from "./ContextSection";
 import useContextSectionStore from "./ContextSection/contextState";
-import ContextSidebar from "./ContextSidebar";
+import ContextSidebar from "./ContextSection/ContextSidebar";
 
 function PlannerComponent({ journey }: { journey: Journey }) {
   const plannerStore = usePlannerStore();

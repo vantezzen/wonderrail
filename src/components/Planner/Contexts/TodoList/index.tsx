@@ -1,33 +1,17 @@
 import React from "react";
 import usePlannerStore from "../../plannerStore";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { Alert } from "@/components/ui/alert";
 import { CheckSquare, Square } from "lucide-react";
 import TodoDetails from "./TodoDetails";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Card, CardContent } from "@/components/ui/card";
 
 function TodoList() {
-  const show = usePlannerStore((state) => state.view.showTodoList);
-  const updateView = usePlannerStore((state) => state.setView);
-  const setShow = (showCalendar: boolean) => {
-    updateView("showTodoList", showCalendar);
-  };
-
   const planner = usePlannerStore((store) => store.planner);
 
   return (
-    <Dialog open={show} onOpenChange={setShow}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Todo List</DialogTitle>
-        </DialogHeader>
-
-        <ScrollArea className="h-[500px]">
+    <div className="p-3">
+      <Card>
+        <CardContent className="flex flex-col gap-4 pt-6">
           <div className="grid gap-3 mr-4">
             {planner.todo.getTodoItems().map((todo) => {
               return (
@@ -44,9 +28,9 @@ function TodoList() {
               );
             })}
           </div>
-        </ScrollArea>
-      </DialogContent>
-    </Dialog>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
 
