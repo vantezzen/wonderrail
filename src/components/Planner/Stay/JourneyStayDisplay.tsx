@@ -47,7 +47,7 @@ function JourneyStayDisplay({
     >
       <Card
         className={cn(
-          "flex items-center p-4 gap-3 border-none rounded-xl",
+          "flex items-center p-4 gap-3 border-none rounded-xl flex-col lg:flex-row",
           reordering && "animate-wiggle"
         )}
         style={{
@@ -55,30 +55,32 @@ function JourneyStayDisplay({
           ...(reordering && animationData),
         }}
       >
-        <Image
-          src={`${
-            process.env.NEXT_PUBLIC_APP_URL
-          }/api/splash/${encodeURIComponent(
-            stay.locationName ?? stay.location.name
-          )}`}
-          width={48}
-          height={48}
-          className="rounded-xl w-12 h-12 object-cover"
-          alt={stay.locationName ?? stay.location.name}
-        />
+        <div className="flex items-center gap-3 w-full">
+          <Image
+            src={`${
+              process.env.NEXT_PUBLIC_APP_URL
+            }/api/splash/${encodeURIComponent(
+              stay.locationName ?? stay.location.name
+            )}`}
+            width={48}
+            height={48}
+            className="rounded-xl w-12 h-12 object-cover"
+            alt={stay.locationName ?? stay.location.name}
+          />
 
-        <div className="flex flex-col text-zinc-600 w-full">
-          <CardTitle className="text-zinc-700 font-bold text-lg text-left">
-            {stay.locationName ?? stay.location.name}
+          <div className="flex flex-col text-zinc-600 w-full">
+            <CardTitle className="text-zinc-700 font-bold text-lg text-left">
+              {stay.locationName ?? stay.location.name}
 
-            <PassInvalidWarning stay={stay} />
-          </CardTitle>
+              <PassInvalidWarning stay={stay} />
+            </CardTitle>
 
-          {/* Badges */}
+            {/* Badges */}
+          </div>
         </div>
 
         {!reordering && (
-          <>
+          <div className="flex items-center justify-end gap-3 w-full">
             <div className="bg-zinc-100 bg-opacity-20 rounded-lg p-2 flex items-center gap-3">
               <span
                 className="font-bold text-zinc-700 text-xs text-right whitespace-nowrap"
@@ -99,7 +101,7 @@ function JourneyStayDisplay({
             <div className="relative">
               <StepProgressIndicator step={stay} />
             </div>
-          </>
+          </div>
         )}
       </Card>
     </Container>

@@ -26,11 +26,11 @@ function StatusBar() {
   return (
     <div
       className="
-        w-[calc(100%-4rem)] h-16 
+        w-[calc(100%-4rem)]
         bg-zinc-100 rounded-lg p-3 shadow-lg
         relative bottom-12 left-[2rem] right-[2rem]
-        flex gap-3 items-center justify-between
-        px-6
+        flex gap-3 items-center justify-between flex-wrap
+        px-6 mb-16 lg:mb-0
       "
       id="planner-status-bar"
     >

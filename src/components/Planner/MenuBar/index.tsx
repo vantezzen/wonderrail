@@ -155,14 +155,6 @@ function MenuBar() {
             !plannerStore.view.showStatusBar
           );
         },
-        showMapModal: () => {
-          trackEvent("menubar_show_map_modal");
-          plannerStore.setView("showMapModal", true);
-        },
-        showStatusModal: () => {
-          trackEvent("menubar_show_status_modal");
-          plannerStore.setView("showMobileStatus", true);
-        },
         toggleDarkMode: () => {
           trackEvent("menubar_toggle_dark_mode");
           setDarkMode(!isDarkMode);
@@ -268,28 +260,13 @@ function MenuBar() {
         <MenubarMenu>
           <MenubarTrigger>View</MenubarTrigger>
           <MenubarContent>
-            <MenubarItem
-              onClick={actions.view.toggleStatusBar}
-              className="hidden md:flex"
-            >
+            <MenubarItem onClick={actions.view.toggleStatusBar}>
               {plannerStore.view.showStatusBar ? (
                 <PanelBottomOpen size={12} className="mr-2" />
               ) : (
                 <PanelBottomInactive size={12} className="mr-2" />
               )}
               Show status bar <MenubarShortcut>⌘⇧G</MenubarShortcut>
-            </MenubarItem>
-            <MenubarItem
-              onClick={actions.view.showMapModal}
-              className="md:hidden"
-            >
-              Show map
-            </MenubarItem>
-            <MenubarItem
-              onClick={actions.view.showStatusModal}
-              className="md:hidden"
-            >
-              Show status
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>

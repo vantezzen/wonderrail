@@ -61,7 +61,7 @@ function JourneyRide({
       </div>
 
       <div className="mr-auto p-2 flex gap-3 items-center">
-        <div className="font-bold text-xs">
+        <div className="font-bold text-xs hidden lg:block">
           <span suppressHydrationWarning>
             {isStartEndDateEqual ? (
               <>
@@ -77,12 +77,12 @@ function JourneyRide({
           </span>
         </div>
 
-        <div className="flex gap-1 flex-wrap justify-end">
+        <div className="flex gap-1 flex-wrap lg:justify-end">
           <JourneyRideBadges ride={ride} />
         </div>
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex gap-2 flex-col lg:flex-row p-3 items-end">
         <Tooltip>
           <TooltipTrigger>
             <Button

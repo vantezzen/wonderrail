@@ -71,8 +71,18 @@ function ContextSidebar() {
 
   return (
     <TooltipProvider delayDuration={100}>
-      <div className="h-full px-3 py-5 bg-zinc-100 flex flex-col gap-3 items-center border-r-2 border-zinc-200">
-        <Link href="/app" className="mb-3">
+      <div
+        className="
+        lg:h-full w-full lg:w-auto
+        px-3 py-5 
+        bg-zinc-100 
+        flex lg:flex-col gap-3 items-center z-20
+        border-r-2 border-zinc-200
+
+        fixed lg:static bottom-0 left-0 lg:z-auto
+      "
+      >
+        <Link href="/app" className="mb-3 hidden lg:block">
           <Image src={logo} alt="WonderRail" width={30} height={30} />
         </Link>
 
@@ -117,6 +127,9 @@ function ContextSidebar() {
               )}
               onClick={() => {
                 updatePopupState("addLocation", true);
+                setContext({
+                  type: "itinerary",
+                });
               }}
               id="planner-add-item"
             >

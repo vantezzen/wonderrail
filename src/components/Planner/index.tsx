@@ -58,7 +58,7 @@ function PlannerComponent({ journey }: { journey: Journey }) {
         <WelcomePopup />
         <AiPopup />
 
-        <div className="flex w-screen h-screen">
+        <div className="flex flex-col lg:flex-row w-screen h-screen">
           <div id="planner-context-sidebar">
             <ContextSidebar />
           </div>
@@ -66,7 +66,7 @@ function PlannerComponent({ journey }: { journey: Journey }) {
           <div
             suppressHydrationWarning
             id="planner-left-side"
-            className="flex-1 h-full overflow-scroll"
+            className="lg:flex-1 lg:h-full lg:overflow-scroll"
           >
             <ContextSection />
           </div>

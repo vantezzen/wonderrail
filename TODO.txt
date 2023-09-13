@@ -1,9 +1,7 @@
 New Design:
-- "Add stop" button doesn't work when not on itiniery
 - Test readonly mode
 - Introduction
 - Home Page
-- Mobile view
 
 Next: 
 => TODO List
