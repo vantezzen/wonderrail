@@ -23,10 +23,14 @@ function Itiniary() {
           <Button
             onClick={() => setIsReordering(!isReordering)}
             size="sm"
-            variant="ghost"
+            variant="brand"
             className={cn("mt-3", isReordering && "bg-zinc-200")}
           >
-            <Shuffle size={16} />
+            <Shuffle
+              size={16}
+              className={cn(isReordering && "text-brand-600")}
+            />
+            <span className="ml-2">Reorder</span>
           </Button>
         </WithTooltip>
       </div>

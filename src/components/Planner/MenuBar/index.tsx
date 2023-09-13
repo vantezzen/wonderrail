@@ -146,14 +146,6 @@ function MenuBar() {
             plannerStore.planner.updateHostelData(stay);
           }
         },
-        showTodo: () => {
-          trackEvent("menubar_show_todo");
-          plannerStore.setView("showTodoList", true);
-        },
-        showReorderStays: () => {
-          trackEvent("menubar_show_reorder_stays");
-          plannerStore.setView("showReorderStays", true);
-        },
       },
       view: {
         toggleStatusBar: () => {
@@ -162,10 +154,6 @@ function MenuBar() {
             "showStatusBar",
             !plannerStore.view.showStatusBar
           );
-        },
-        showCalendar: () => {
-          trackEvent("menubar_show_calendar");
-          plannerStore.setView("showCalendar", true);
         },
         showMapModal: () => {
           trackEvent("menubar_show_map_modal");

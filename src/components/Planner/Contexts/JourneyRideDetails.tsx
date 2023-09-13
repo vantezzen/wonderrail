@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { JourneyRide } from "@/lib/types";
-import { ChevronLeft, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import React from "react";
 import JourneyRideLeg from "../Ride/JourneyRideLeg";
 
@@ -14,8 +14,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import useContextSectionStore from "../ContextSection/contextState";
 import AlternativeRideSelector from "../AlternativeRideSelector";
+import BackToItiniaryButton from "./BackToItiniaryButton";
 
 function JourneyRideDetails({ rideId }: { rideId: string }) {
   const planner = usePlannerStore((state) => state.planner);
@@ -27,14 +27,9 @@ function JourneyRideDetails({ rideId }: { rideId: string }) {
   const alerts = layoverChecker.checkRide(ride);
   let currentTime = new Date(ride.timerange.start);
 
-  const setContext = useContextSectionStore((state) => state.setContext);
-
   return (
     <div className="p-3">
-      <Button onClick={() => setContext({ type: "itinerary" })} size="sm">
-        <ChevronLeft className="inline-block mr-2" size={14} />
-        Back to itinerary
-      </Button>
+      <BackToItiniaryButton />
       <Card className="mt-3">
         <CardHeader>
           <CardTitle className="text-lg font-bold">{ride.name}</CardTitle>

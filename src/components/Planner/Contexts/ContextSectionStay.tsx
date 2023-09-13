@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardHeader, CardTitle } from "../../ui/card";
-import { ChevronLeft, Trash } from "lucide-react";
+import { Trash } from "lucide-react";
 import { Button } from "../../ui/button";
 import { JourneyStay } from "@/lib/types";
 import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
@@ -17,9 +17,9 @@ import LanguageAssistance from "../Stay/LanguageAssistance";
 import CurrencyInformation from "../Stay/CurrencyInformation";
 import StayNotes from "../Stay/StayNotest";
 import usePlannerStore from "../plannerStore";
-import useContextSectionStore from "../ContextSection/contextState";
 import StayDuration from "../Stay/StayDuration";
 import Image from "next/image";
+import BackToItiniaryButton from "./BackToItiniaryButton";
 
 function ContextSectionStay({ stayId }: { stayId: string }) {
   const planner = usePlannerStore((state) => state.planner);
@@ -28,14 +28,10 @@ function ContextSectionStay({ stayId }: { stayId: string }) {
   ) as JourneyStay;
 
   const isReadOnly = useIsReadOnly();
-  const setContext = useContextSectionStore((state) => state.setContext);
 
   return (
     <div className="p-3">
-      <Button onClick={() => setContext({ type: "itinerary" })} size="sm">
-        <ChevronLeft className="inline-block mr-2" size={14} />
-        Back to itinerary
-      </Button>
+      <BackToItiniaryButton />
 
       <Card className="p-1 mt-3">
         <div className="flex items-center text-zinc-600 w-full">
