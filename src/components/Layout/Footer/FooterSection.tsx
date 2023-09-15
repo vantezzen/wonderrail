@@ -9,7 +9,7 @@ function FooterSection({
 }) {
   return (
     <div>
-      <h3 className="text-sm font-bold tracking-widest text-zinc-100 font-pj">
+      <h3 className="text-sm font-bold tracking-widest text-zinc-900 font-pj">
         {title}
       </h3>
       <ul className="mt-8 space-y-5">{children}</ul>

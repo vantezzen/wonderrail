@@ -1,78 +1,61 @@
-"use client";
 import Link from "next/link";
 import React from "react";
-
-import Image from "next/image";
-import Balancer from "react-wrap-balancer";
 import { Button } from "../ui/button";
-import interfaceImage from "@/assets/landing/interface.png";
-import style from "./Hero.module.css";
-import { cn } from "@/lib/utils";
-import { ChevronRight, Train } from "lucide-react";
-import { trackEvent } from "@/lib/analytics";
+import Image from "next/image";
+import waterImage from "@/assets/landing/water.png";
+import plannerImage from "@/assets/landing/planner.png";
 
 function Hero() {
   return (
-    <section className="relative py-6 lg:pb-36 lg:pt-36">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col gap-y-8">
-          <div className="text-center flex items-center flex-col">
-            <div className="max-w-sm mx-auto sm:max-w-5xl text-center">
-              <h1 className="text-5xl font-bold leading-tight sm:leading-tight lg:text-6xl lg:leading-tight font-pj bg-clip-text text-transparent bg-gradient-to-b from-purple-100 to-purple-300">
-                <Balancer>Discover the smartest way to Interrail</Balancer>
-              </h1>
-              <p className="mt-5 text-base text-zinc-400 sm:mt-8 sm:text-xl lg:text-lg xl:text-xl">
-                <Balancer>
-                  Say goodbye to complicated planning and overwhelming choices.
-                  <br />
-                  WonderRail guides you through the maze of options, ensuring a
-                  stress-free tour planning experience. With WonderRail, all
-                  that's left is the thrill of the journey.
-                </Balancer>
-              </p>
-            </div>
+    <div className="pt-32 max-w-6xl mx-auto p-12">
+      <h1 className="text-6xl font-extrabold max-w-2xl">
+        Discover the smartest way to{" "}
+        <span
+          style={{
+            background: "linear-gradient(132deg, #30A76D 0%, #295F45 100%)",
+            backgroundClip: "text",
+            // @ts-ignore
+            "-webkit-background-clip": "text",
+            // @ts-ignore
+            "-webkit-text-fill-color": "transparent",
+          }}
+        >
+          Interrail
+        </span>
+      </h1>
 
-            <div className="flex items-center gap-6 mt-12">
-              <Link
-                href="/journeys/new"
-                onClick={() => {
-                  trackEvent("landing_hero_plan_journey");
-                }}
-              >
-                <Button>
-                  Plan your journey now
-                  <Train size={16} className="ml-2" />
-                </Button>
-              </Link>
-              <Link
-                href="/journeys/0LBSAcyZgIQgVdasJ2L1o1jJ1MC2/5a9bd144-0865-49de-b444-ddda6e319bfc"
-                onClick={() => {
-                  trackEvent("landing_hero_example_journey");
-                }}
-              >
-                <Button variant="secondary">
-                  See an example <ChevronRight size={16} className="ml-2" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-          <div>
-            <Image
-              className={cn(
-                "max-w-5xl w-5/6 mx-auto rounded-[2rem]",
-                style.heroImage
-              )}
-              src={interfaceImage}
-              alt=""
-              priority
-              placeholder="blur"
-              width={1920}
-              height={1080}
-            />
-          </div>
-        </div>
+      <p className="text-xl mt-8 text-zinc-600">
+        WonderRail helps you through the maze of options when planning your
+        Interrail journey, ensuring a stress-free tour planning experience. With
+        WonderRail, all that's left is the thrill of the journey.
+      </p>
+
+      <div className="mt-8 flex gap-6">
+        <Link href="/app">
+          <Button size="lg">Start planning</Button>
+        </Link>
+        <Link href="/journeys/0LBSAcyZgIQgVdasJ2L1o1jJ1MC2/5a9bd144-0865-49de-b444-ddda6e319bfc">
+          <Button variant="secondary" size="lg">
+            See an example
+          </Button>
+        </Link>
       </div>
-    </section>
+
+      <div className="mt-16 w-full h-[80vh] relative rounded-xl overflow-hidden">
+        <Image
+          src={waterImage}
+          alt="Water"
+          fill
+          className="object-cover w-full h-full rounded-xl blur-3xl"
+        />
+
+        <Image
+          src={plannerImage}
+          alt="Planner"
+          className="absolute w-3/4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-8 border-zinc-100 rounded-xl"
+        />
+      </div>
+    </div>
   );
 }
 

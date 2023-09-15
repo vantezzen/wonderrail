@@ -16,7 +16,7 @@ function FooterLink(
   return (
     <li>
       <a
-        className="inline-flex text-sm font-normal cursor-pointer text-zinc-200 transition-all duration-300 transform font-pj hover:text-zinc-300 hover:translate-x-1"
+        className="inline-flex text-sm font-normal cursor-pointer transition-all duration-300 transform font-pj hover:text-zinc-800 hover:translate-x-1"
         ref={ref}
         {...props}
       >
