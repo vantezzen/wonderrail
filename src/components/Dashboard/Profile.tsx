@@ -15,51 +15,53 @@ function Profile() {
   console.log(user);
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex justify-between items-center">
-          My profile
-          <Avatar>
-            <AvatarImage src={user?.photoURL as string} />
-            <AvatarFallback>
-              {user?.displayName?.charAt(0).toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="grid gap-3 mb-6">
-          <Label>
-            Name
-            <Input
-              value={user?.displayName as string}
-              disabled
-              className="mt-2"
-            />
-          </Label>
-          <Label>
-            Email
-            <Input value={user?.email as string} disabled className="mt-2" />
-          </Label>
+    <div>
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex justify-between items-center">
+            My profile
+            <Avatar>
+              <AvatarImage src={user?.photoURL as string} />
+              <AvatarFallback>
+                {user?.displayName?.charAt(0).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-3 mb-6">
+            <Label>
+              Name
+              <Input
+                value={user?.displayName as string}
+                disabled
+                className="mt-2"
+              />
+            </Label>
+            <Label>
+              Email
+              <Input value={user?.email as string} disabled className="mt-2" />
+            </Label>
 
-          <InputDescription>
-            Your account data is fetched from your connected account that you
-            used to log in.
-          </InputDescription>
-        </div>
+            <InputDescription>
+              Your account data is fetched from your connected account that you
+              used to log in.
+            </InputDescription>
+          </div>
 
-        <Link
-          href="/auth/logout"
-          onClick={() => {
-            trackEvent("profile_logout_click");
-          }}
-        >
-          <Button variant="destructive" className="w-full">
-            Logout
-          </Button>
-        </Link>
-      </CardContent>
-    </Card>
+          <Link
+            href="/auth/logout"
+            onClick={() => {
+              trackEvent("profile_logout_click");
+            }}
+          >
+            <Button variant="destructive" className="w-full">
+              Logout
+            </Button>
+          </Link>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
 

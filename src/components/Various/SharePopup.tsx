@@ -31,7 +31,7 @@ function SharePopup({
     <AlertDialog>
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
 
-      <AlertDialogContent className="text-zinc-200">
+      <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Share your journey</AlertDialogTitle>
 
@@ -43,8 +43,8 @@ function SharePopup({
           </AlertDialogDescription>
 
           {!isPublic && (
-            <Alert className="text-zinc-300">
-              <AlertTriangle className="text-zinc-200" size={16} />
+            <Alert>
+              <AlertTriangle size={16} />
 
               <AlertTitle>
                 Your journey is not public. Only you can see it.
@@ -73,7 +73,7 @@ function SharePopup({
               }, 1000);
             }}
           >
-            <Copy size={16} className="text-zinc-200" />
+            <Copy size={16} />
           </Button>
         </div>
         <AlertDialogCancel>Close</AlertDialogCancel>
