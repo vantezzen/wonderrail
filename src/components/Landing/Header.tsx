@@ -6,14 +6,16 @@ import Link from "next/link";
 
 function Header() {
   return (
-    <div className="flex gap-3 justify-between p-3 border-b border-zinc-300">
-      <Image
-        src={lightLogo}
-        alt="logo"
-        className="object-contain"
-        width={100}
-        height={100}
-      />
+    <div className="flex gap-3 justify-between items-center p-3 border-b border-zinc-300">
+      <Link href="/" className="flex items-center">
+        <Image
+          src={lightLogo}
+          alt="logo"
+          className="object-contain"
+          width={100}
+          height={100}
+        />
+      </Link>
 
       <div className="flex items-center gap-3">
         <Link href="/app">
