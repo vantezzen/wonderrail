@@ -1,8 +1,3 @@
-New Design:
-- Test readonly mode
-- Introduction
-- Home Page
-
 Next: 
 => TODO List
   - Allow checking off things you booked (trips, reservations, etc)

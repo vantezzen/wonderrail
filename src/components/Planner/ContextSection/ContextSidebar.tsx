@@ -22,6 +22,7 @@ import {
   TooltipTrigger,
 } from "../../ui/tooltip";
 import usePlannerStore from "../plannerStore";
+import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 
 const ITEMS: {
   type: ContextSectionStandalonePages["type"];
@@ -66,6 +67,7 @@ const ITEMS: {
 function ContextSidebar() {
   const context = useContextSectionStore((store) => store.context);
   const setContext = useContextSectionStore((store) => store.setContext);
+  const isReadOnly = useIsReadOnly();
 
   const updatePopupState = usePlannerStore((state) => state.setPopupState);
 
@@ -115,28 +117,30 @@ function ContextSidebar() {
           );
         })}
 
-        <Tooltip>
-          <TooltipContent side="right">
-            Add new city to your itinerary
-          </TooltipContent>
+        {!isReadOnly && (
+          <Tooltip>
+            <TooltipContent side="right">
+              Add new city to your itinerary
+            </TooltipContent>
 
-          <TooltipTrigger asChild>
-            <button
-              className={cn(
-                "p-3 rounded-lg cursor-pointer text-zinc-500 bg-zinc-200 mt-auto"
-              )}
-              onClick={() => {
-                updatePopupState("addLocation", true);
-                setContext({
-                  type: "itinerary",
-                });
-              }}
-              id="planner-add-item"
-            >
-              <Plus className="w-5 h-5" />
-            </button>
-          </TooltipTrigger>
-        </Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                className={cn(
+                  "p-3 rounded-lg cursor-pointer text-zinc-500 bg-zinc-200 mt-auto"
+                )}
+                onClick={() => {
+                  updatePopupState("addLocation", true);
+                  setContext({
+                    type: "itinerary",
+                  });
+                }}
+                id="planner-add-item"
+              >
+                <Plus className="w-5 h-5" />
+              </button>
+            </TooltipTrigger>
+          </Tooltip>
+        )}
       </div>
     </TooltipProvider>
   );

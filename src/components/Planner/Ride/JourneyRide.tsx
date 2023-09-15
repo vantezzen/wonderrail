@@ -83,28 +83,30 @@ function JourneyRide({
       </div>
 
       <div className="flex gap-2 flex-col lg:flex-row p-3 items-end">
-        <Tooltip>
-          <TooltipTrigger>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="w-fit bg-zinc-200 hover:bg-zinc-300 text-xs"
-              disabled={isReadonly}
-              onClick={() => {
-                addLocationBeforeThisRide?.();
-                trackEvent("planner_add_location_between");
-              }}
-            >
-              <Plus size={16} />
+        {!isReadonly && (
+          <Tooltip>
+            <TooltipTrigger>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="w-fit bg-zinc-200 hover:bg-zinc-300 text-xs"
+                disabled={isReadonly}
+                onClick={() => {
+                  addLocationBeforeThisRide?.();
+                  trackEvent("planner_add_location_between");
+                }}
+              >
+                <Plus size={16} />
 
-              <div className="ml-2">Add city between</div>
-            </Button>
-          </TooltipTrigger>
+                <div className="ml-2">Add city between</div>
+              </Button>
+            </TooltipTrigger>
 
-          <TooltipContent>
-            Add another location between these locations
-          </TooltipContent>
-        </Tooltip>
+            <TooltipContent>
+              Add another location between these locations
+            </TooltipContent>
+          </Tooltip>
+        )}
 
         <Tooltip>
           <TooltipTrigger asChild>

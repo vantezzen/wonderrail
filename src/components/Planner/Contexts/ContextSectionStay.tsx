@@ -52,21 +52,23 @@ function ContextSectionStay({ stayId }: { stayId: string }) {
                 {stay.locationName ?? stay.location.name}
               </CardTitle>
 
-              <div className="flex gap-2 ml-auto">
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Button
-                      onClick={() => planner.removeStep(stay)}
-                      variant="brand"
-                      size="sm"
-                      disabled={isReadOnly}
-                    >
-                      <Trash className="" size={16} />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>Remove</TooltipContent>
-                </Tooltip>
-              </div>
+              {!isReadOnly && (
+                <div className="flex gap-2 ml-auto">
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Button
+                        onClick={() => planner.removeStep(stay)}
+                        variant="brand"
+                        size="sm"
+                        disabled={isReadOnly}
+                      >
+                        <Trash className="" size={16} />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>Remove</TooltipContent>
+                  </Tooltip>
+                </div>
+              )}
             </div>
 
             <StayDuration stay={stay} />

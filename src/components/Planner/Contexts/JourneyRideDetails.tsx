@@ -16,9 +16,11 @@ import {
 } from "@/components/ui/card";
 import AlternativeRideSelector from "../AlternativeRideSelector";
 import BackToItiniaryButton from "./BackToItiniaryButton";
+import { useIsReadOnly } from "@/lib/hooks/useSaveActionStatus";
 
 function JourneyRideDetails({ rideId }: { rideId: string }) {
   const planner = usePlannerStore((state) => state.planner);
+  const isReadOnly = useIsReadOnly();
   const ride = planner.journey.steps.find(
     (step) => step.id === rideId
   ) as JourneyRide;
@@ -49,7 +51,7 @@ function JourneyRideDetails({ rideId }: { rideId: string }) {
               Book this ride
             </a>
           </Button>
-          <AlternativeRideSelector ride={ride} />
+          {!isReadOnly && <AlternativeRideSelector ride={ride} />}
         </CardDescription>
 
         <CardContent>

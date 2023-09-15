@@ -18,22 +18,24 @@ function Itiniary() {
 
   return (
     <div className="px-6">
-      <div className="flex justify-end">
-        <WithTooltip text="Reorder your stops">
-          <Button
-            onClick={() => setIsReordering(!isReordering)}
-            size="sm"
-            variant="brand"
-            className={cn("mt-3", isReordering && "bg-zinc-200")}
-          >
-            <Shuffle
-              size={16}
-              className={cn(isReordering && "text-brand-600")}
-            />
-            <span className="ml-2">Reorder</span>
-          </Button>
-        </WithTooltip>
-      </div>
+      {!isReadOnly && (
+        <div className="flex justify-end">
+          <WithTooltip text="Reorder your stops">
+            <Button
+              onClick={() => setIsReordering(!isReordering)}
+              size="sm"
+              variant="brand"
+              className={cn("mt-3", isReordering && "bg-zinc-200")}
+            >
+              <Shuffle
+                size={16}
+                className={cn(isReordering && "text-brand-600")}
+              />
+              <span className="ml-2">Reorder</span>
+            </Button>
+          </WithTooltip>
+        </div>
+      )}
 
       {isReordering ? <ReorderStaysList /> : <JourneySteps />}
 

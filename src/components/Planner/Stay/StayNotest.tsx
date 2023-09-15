@@ -22,7 +22,11 @@ function StayNotes({ stay }: { stay: JourneyStay }) {
             planner.emit("change");
           }}
           className="mt-3 dark:text-zinc-200 text-zinc-700 placeholder:text-zinc-500"
-          placeholder="Add any notes you want to add to this location here."
+          placeholder={
+            !isReadOnly
+              ? "Add any notes you want to add to this location here."
+              : "No notes added."
+          }
           readOnly={isReadOnly}
         />
       </div>
