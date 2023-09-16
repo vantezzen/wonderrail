@@ -49,11 +49,8 @@ const usePlannerStore = create<PlannerState>()(
 
       view: {
         showStatusBar: true,
-        showCalendar: false,
         showMapModal: false,
         showMobileStatus: false,
-        showTodoList: false,
-        showReorderStays: false,
       },
       setView: (view, newState) =>
         set((state) => ({
