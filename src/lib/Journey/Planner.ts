@@ -242,6 +242,7 @@ export default class Planner extends EventEmitter {
     const newJourney = this.journey.steps.filter(
       (journeyStep) => "id" in journeyStep && journeyStep.id !== step.id
     );
+    console.log("Updated journey", newJourney);
     this.journey.steps = newJourney; // Allow immediately updating the UI
     this.emit("change");
     await this.recalculateJourneySteps(newJourney);

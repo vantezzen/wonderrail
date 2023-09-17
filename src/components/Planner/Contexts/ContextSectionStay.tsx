@@ -20,14 +20,23 @@ import usePlannerStore from "../plannerStore";
 import StayDuration from "../Stay/StayDuration";
 import Image from "next/image";
 import BackToItiniaryButton from "./BackToItiniaryButton";
+import useContextSectionStore from "../ContextSection/contextState";
 
 function ContextSectionStay({ stayId }: { stayId: string }) {
   const planner = usePlannerStore((state) => state.planner);
   const stay = planner.journey.steps.find(
     (step) => step.id === stayId
   ) as JourneyStay;
-
+  const setContext = useContextSectionStore((store) => store.setContext);
   const isReadOnly = useIsReadOnly();
+
+  if (!stay) {
+    // When we remove a step handle it by going back to the itiniary
+    setContext({
+      type: "itinerary",
+    });
+    return null;
+  }
 
   return (
     <div className="p-3">
