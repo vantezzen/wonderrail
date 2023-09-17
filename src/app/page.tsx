@@ -4,6 +4,7 @@ import Header from "@/components/Landing/Header";
 import Hero from "@/components/Landing/Hero";
 import Hussle from "@/components/Landing/Hussle";
 import Limits from "@/components/Landing/Limits";
+import Others from "@/components/Landing/Others";
 import Footer from "@/components/Layout/Footer/Footer";
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
       <Hussle />
       <Limits />
       <Free />
+      <Others />
       <FinalCta />
       <Footer />
     </div>

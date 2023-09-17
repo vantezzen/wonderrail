@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import ReorderStaysList from "./ReorderStays/ReorderStaysList";
 import WithTooltip from "@/components/Various/WithTooltip";
 import { cn } from "@/lib/utils";
+import OfflineInfo from "../../Utils/OfflineInfo";
 
 function Itiniary() {
   const planner = usePlannerStore((store) => store.planner);
@@ -19,7 +20,9 @@ function Itiniary() {
   return (
     <div className="px-6">
       {!isReadOnly && (
-        <div className="flex justify-end">
+        <div className="flex justify-between">
+          <OfflineInfo />
+
           <WithTooltip text="Reorder your stops">
             <Button
               onClick={() => setIsReordering(!isReordering)}
