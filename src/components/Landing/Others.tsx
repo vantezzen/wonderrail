@@ -6,7 +6,7 @@ function Others() {
     <div className="pt-32 max-w-6xl mx-auto p-12">
       <h2 className="text-5xl text-center font-bold">And so much more...</h2>
 
-      <div className="grid grid-cols-3 gap-4 mt-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
         <OthersItem
           title="Full offline support"
           description="WonderRail will save your journeys locally in the background so you
