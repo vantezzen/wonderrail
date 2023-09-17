@@ -1,0 +1,20 @@
+.firebaseui-container,
+.firebaseui-idp-button {
+  max-width: none !important;
+}
+
+.firebaseui-card-content {
+  padding: 0 !important;
+}
+
+#firebaseui_container {
+  width: 100%;
+}
+
+.firebaseui-list-item > .firebaseui-idp-button {
+  box-shadow: none;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
